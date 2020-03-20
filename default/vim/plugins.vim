@@ -12,9 +12,12 @@ call plug#begin('~/.vim/plugged')
         Plug 'tommcdo/vim-lion'
         " }}}
         " {{{ Navigation
-        Plug 'easymotion/vim-easymotion'
+        " Plug 'easymotion/vim-easymotion'
         Plug 'baspar/vim-cartographe'
         Plug 'scrooloose/nerdtree'
+        Plug 'terryma/vim-multiple-cursors'
+        Plug 'junegunn/vim-peekaboo'
+        Plug 'mhinz/vim-startify'
 	" }}}
 	" }}}
 	" {{{ LSP
@@ -32,9 +35,9 @@ call plug#begin('~/.vim/plugged')
         Plug 'pangloss/vim-javascript'
         Plug 'leafgarland/typescript-vim'
         Plug 'MaxMEllon/vim-jsx-pretty', {'for': ['typescript', 'javascript', 'typescriptreact', 'javascriptreact']}
-        " }}}
-        " {{{ Javascript/React.JS
         Plug 'jparise/vim-graphql'
+        Plug 'sheerun/vim-polyglot'
+        " }}}
     " {{{ Utils
         " {{{ Undo
         Plug 'mbbill/undotree'
