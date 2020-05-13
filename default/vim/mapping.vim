@@ -24,28 +24,28 @@ map <C-a> <esc>ggVG<CR>
 " Search under cursor
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " {{{ vim-easymotion
-  " let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_do_mapping = 0
   " nmap s <Plug>(easymotion-overwin-f)
-  " " or
-  " " `s{char}{char}{label}`
-  " " Need one more keystroke, but on average, it may be more comfortable.
+  " or
+  " `s{char}{char}{label}`
+  " Need one more keystroke, but on average, it may be more comfortable.
   " nmap s <Plug>(easymotion-overwin-f2)
-  "
-  " " Turn on case-insensitive feature
-  " let g:EasyMotion_smartcase = 1
-  " " Move to line
-  " map <Leader>L <Plug>(easymotion-bd-jk)
-  " nmap <Leader>L <Plug>(easymotion-overwin-line)
-  "
-  " " Move to word
-  " map  <Leader>w <Plug>(easymotion-bd-w)
-  " nmap <Leader>w <Plug>(easymotion-overwin-w)
-  " " hjkl
-  " map <Leader>l <Plug>(easymotion-lineforward)
-  " map <Leader>j <Plug>(easymotion-j)
-  " map <Leader>k <Plug>(easymotion-k)
-  " map <Leader>h <Plug>(easymotion-linebackward)
-  " let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+  " Turn on case-insensitive feature
+  let g:EasyMotion_smartcase = 1
+  " Move to line
+  map <Leader>L <Plug>(easymotion-bd-jk)
+  nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+  " Move to word
+  map  <Leader>w <Plug>(easymotion-bd-w)
+  nmap <Leader>w <Plug>(easymotion-overwin-w)
+  " hjkl
+  map <Leader>l <Plug>(easymotion-lineforward)
+  map <Leader>j <Plug>(easymotion-j)
+  map <Leader>k <Plug>(easymotion-k)
+  map <Leader>h <Plug>(easymotion-linebackward)
+  let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 " }}}
 " Remap for format selected region
 xmap <leader>ff  <Plug>(coc-format-selected)
@@ -54,3 +54,4 @@ vmap <leader>ff  <Plug>(coc-format-selected)
 xmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
 vmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
 
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>

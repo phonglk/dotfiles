@@ -1,0 +1,109 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd ~/project/rsa-mlisa-notification/src/routes/notify
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +7 ~/project/rsa-mlisa-notification/src/routes/index.ts
+badd +18 ~/project/rsa-mlisa-notification/test/routes/preferences.spec.ts
+badd +64 processIncident.ts
+badd +16 index.ts
+badd +25 ~/project/rsa-mlisa-notification/package.json
+badd +12 ~/project/rsa-mlisa-notification/docker/Dockerfile
+badd +54 ~/project/rsa-mlisa-notification/shared/js/utils/mlisa/networkPath.js
+badd +19 ~/project/rsa-mlisa-notification/src/connectors/psql.ts
+badd +12 ~/project/rsa-mlisa-notification/jest.config.js
+badd +17 ~/project/rsa-mlisa-notification/test/routes/index.spec.ts
+badd +12 ~/project/rsa-mlisa-notification/src/utils/internalCheckMdw.ts
+badd +1 ~/project/rsa-mlisa-notification/test/routes/newFile.ts
+badd +35 ~/project/rsa-mlisa-notification/test/utils.ts
+badd +8 ~/project/rsa-mlisa-notification/src/utils/logger.ts
+badd +1 ~/project/rsa-mlisa-notification/test/utils/index.spec.ts
+badd +26 getIncidentInfo.ts
+argglobal
+%argdel
+edit getIncidentInfo.ts
+set splitbelow splitright
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 19 + 23) / 47)
+exe '2resize ' . ((&lines * 24 + 23) / 47)
+exe '3resize ' . ((&lines * 1 + 23) / 47)
+exe 'vert 3resize ' . ((&columns * 43 + 64) / 128)
+argglobal
+enew
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+wincmd w
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+7
+normal! zo
+21
+normal! zo
+26
+normal! zo
+28
+normal! zo
+let s:l = 26 - ((16 * winheight(0) + 12) / 24)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+26
+normal! 055|
+wincmd w
+argglobal
+enew
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+wincmd w
+2wincmd w
+exe '1resize ' . ((&lines * 19 + 23) / 47)
+exe '2resize ' . ((&lines * 24 + 23) / 47)
+exe '3resize ' . ((&lines * 1 + 23) / 47)
+exe 'vert 3resize ' . ((&columns * 43 + 64) / 128)
+tabnext 1
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToOFc
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

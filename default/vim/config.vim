@@ -32,10 +32,25 @@ let g:startify_session_dir = '~/.vim/session'
 set relativenumber
 let g:fzf_preview_window = 'down:40%'
 let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.9} }
-" command! -bang -nargs=* Rg call fzf#vim#grep(
-"   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-"   \   fzf#vim#with_preview({'window': {'width': 0.9, 'height': 0.9}}, 'down:40%'), <bang>0)
-" To have local bookmarks for NERDTree
+
 if isdirectory(expand(".git"))
   let g:NERDTreeBookmarksFile = '.git/.nerdtree-bookmarks'
 endif
+
+" :BD to clear buffers
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))

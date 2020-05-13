@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'tommcdo/vim-lion'
         " }}}
         " {{{ Navigation
-        " Plug 'easymotion/vim-easymotion'
+        Plug 'easymotion/vim-easymotion'
         Plug 'baspar/vim-cartographe'
         Plug 'scrooloose/nerdtree'
         Plug 'terryma/vim-multiple-cursors'
