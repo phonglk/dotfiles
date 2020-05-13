@@ -19,3 +19,8 @@ cp -r ~/.vim/*.vim ./$PROFILE/vim/
 cp -r ~/.vim/autoload ./$PROFILE/vim/
 cp -r ~/.vim/colors ./$PROFILE/vim/
 cp -r ~/.vim/session ./$PROFILE/vim/
+
+mkdir -p ./$PROFILE/config/fish
+cp -r ~/.config/fish/config.fish ./$PROFILE/config/fish/
+cp -r ~/.config/fish/functions ./$PROFILE/config/fish/
+
