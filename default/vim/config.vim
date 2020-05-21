@@ -9,6 +9,8 @@ set nowrap
 set breakindent
 set breakindentopt=sbr
 set nofixendofline
+set noswapfile
+set encoding=UTF-8
 " I use a unicode curly array with a <backslash><space>
 set showbreak=↪>\
 
@@ -54,3 +56,13 @@ command! BD call fzf#run(fzf#wrap({
   \ 'sink*': { lines -> s:delete_buffers(lines) },
   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
 \ }))
+
+
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_startify = 1
+
+" Plug quick-scope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']

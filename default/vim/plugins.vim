@@ -18,6 +18,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'terryma/vim-multiple-cursors'
         Plug 'junegunn/vim-peekaboo'
         Plug 'mhinz/vim-startify'
+        Plug 'unblevable/quick-scope'
 	" }}}
 	" }}}
 	" {{{ LSP
@@ -27,6 +28,7 @@ call plug#begin('~/.vim/plugged')
         " Plug 'prabirshrestha/vim-lsp'
         " Plug 'prabirshrestha/asyncomplete-lsp.vim'
         " Plug 'dense-analysis/ale'
+        Plug 'tmux-plugins/vim-tmux'
         " }}}
     " }}}
 
@@ -78,6 +80,9 @@ call plug#begin('~/.vim/plugged')
         " }}}
     " }}}
     Plug 'Raimondi/delimitMate'
+
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'vwxyutarooo/nerdtree-devicons-syntax'
 call plug#end()
 
 " vim: foldmethod=marker:foldlevel=1

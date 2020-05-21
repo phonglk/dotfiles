@@ -2,6 +2,7 @@ vnoremap > >gv
 vnoremap < <gv
 
 let mapleader = "\<Space>"
+let maplocalleader = ','
 map <C-j> <C-W>j
 map <C-h> <C-W>h
 map <C-k> <C-W>k
@@ -55,3 +56,8 @@ xmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
 vmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
 
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+" Explorer
+nmap <space>e :CocCommand explorer<CR>
+nmap <space>f :CocCommand explorer --preset floating<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
