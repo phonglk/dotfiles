@@ -7,7 +7,7 @@ then
   exit
 fi
 
-rootFiles=(vimrc bashrc bash_profile profile tmux.conf)
+rootFiles=(vimrc bashrc bash_profile profile tmux.conf gitconfig yabairc skhdrc)
 mkdir -p $PROFILE
 
 echo "Sync to profile $PROFILE"
