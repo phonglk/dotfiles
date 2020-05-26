@@ -37,6 +37,8 @@ let g:startify_session_dir = '~/.vim/session'
 let g:fzf_preview_window = 'down:40%'
 let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.9} }
 
+let g:python_host_prog = '/usr/local/Cellar/python/3.7.7/bin/python3'
+let g:python3_host_prog = '/usr/local/Cellar/python/3.7.7/bin/python3'
 if isdirectory(expand(".git"))
   let g:NERDTreeBookmarksFile = '.git/.nerdtree-bookmarks'
 endif
@@ -71,3 +73,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " exclude octal
 set nrformats-=octal
+
+let g:coc_node_path = '~/.nvm/versions/node/v14.3.0/bin/node'
+
+source ~/.vim/nerdtree.vim

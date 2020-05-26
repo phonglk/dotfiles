@@ -6,6 +6,10 @@ if status --is-interactive
   alias cwd "pwd > /tmp/cwd"
   alias pcwd "cat /tmp/cwd"
   alias gwd "cd (pcwd)"
+  alias python "/usr/local/Cellar/python/3.7.7/bin/python3"
+  alias .. "cd ../"
+  alias ... "cd ../../"
+  alias .... "cd ../../../"
 
   set -gx EDITOR nvim
   set -gx PAGER most

@@ -7,5 +7,5 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-echo "Test"
 EDITOR=nvim
+alias python='/usr/local/Cellar/python/3.7.7/bin/python3'

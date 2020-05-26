@@ -14,7 +14,7 @@ if ! [ -x "$(command -v stow)" ]; then
 fi
 
 echo Linking
-stow $PKG
+stow -R --ignore="(pre|post)-install" $PKG
 
 if test -f "./$PKG/post-install"; then
   echo "Running post-install script"

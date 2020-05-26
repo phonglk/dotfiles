@@ -22,7 +22,7 @@ call plug#begin('~/.vim/plugged')
 	" }}}
 	" }}}
 	" {{{ LSP
-        Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
+        Plug 'neoclide/coc.nvim', { 'branch': 'release' }
         " Plug 'prabirshrestha/asyncomplete.vim'
         " Plug 'prabirshrestha/async.vim'
         " Plug 'prabirshrestha/vim-lsp'
@@ -82,7 +82,7 @@ call plug#begin('~/.vim/plugged')
         " }}}
     " }}}
     Plug 'Raimondi/delimitMate'
-
+    " devicons
     Plug 'ryanoasis/vim-devicons'
     Plug 'vwxyutarooo/nerdtree-devicons-syntax'
 call plug#end()
