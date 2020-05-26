@@ -71,6 +71,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'AlessandroYorba/alduin'
         Plug 'morhetz/gruvbox'
         Plug 'arzg/vim-substrata'
+        Plug 'crusoexia/vim-monokai'
         " }}}
         " {{{ Airline
         Plug 'itchyny/lightline.vim'
