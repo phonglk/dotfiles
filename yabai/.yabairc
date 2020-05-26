@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+
+# global settings
+yabai -m config mouse_follows_focus          on
+yabai -m config focus_follows_mouse          on
+# yabai -m config focus_follows_mouse          autoraise
+yabai -m config window_placement             second_child
+yabai -m config window_topmost               off
+yabai -m config window_opacity               on
+yabai -m config window_opacity_duration      0.0
+yabai -m config window_shadow                on
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.95
+yabai -m config split_ratio                  0.50
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               fn
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+
+# general space settings
+yabai -m config layout                       bsp
+yabai -m config top_padding                  20
+yabai -m config bottom_padding               0
+yabai -m config left_padding                 0
+yabai -m config right_padding                0
+yabai -m config window_gap                   5
+
+# Space labels
+yabai -m space 1 --label "Primary"
+yabai -m space 2 --label "Float"
+yabai -m space 3 --label "GitK"
+yabai -m space 4 --label "MLSA"
+
+# Default space 2 for floating
+yabai -m config --space 2 layout float
+yabai -m rule --add app="Slack"                             space=2
+yabai -m rule --add app="Stickies"                          space=2
+yabai -m rule --add app="Microsoft Outlook"                 space=2
+yabai -m rule --add app="Finder"                            space=2
+yabai -m rule --add app="Activity Monitor"                  space=2
+yabai -m rule --add app="GitKraken"                         space=3
+
+# niba integration
+# single display
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+yabai -m signal --add event=window_moved \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+yabai -m signal --add event=window_resized \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+# dual display
+# yabai -m signal --add event=space_changed \
+#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+# yabai -m signal --add event=display_changed \
+#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+#
+# yabai -m signal --add event=space_changed \
+#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+# yabai -m signal --add event=display_changed \
+#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+
+# tell limelight to refresh when the focused application changes (see issue #3)
+yabai -m signal --add event=application_activated action="pkill -SIGUSR1 limelight &> /dev/null"
+
+# kill any existing limelight process if one exists, before we launch a new one
+killall limelight &> /dev/null
+/usr/local/bin/limelight &> /dev/null &
+
+echo "yabai configuration loaded.."

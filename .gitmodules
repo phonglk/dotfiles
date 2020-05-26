@@ -1,0 +1,6 @@
+[submodule "ubersicht/.config/ubersicht/nibar"]
+	path = ubersicht/.config/ubersicht/nibar
+	url = https://github.com/phonglk/nibar.git
+[submodule "tmux/.tmux/plugins/tpm"]
+	path = tmux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
