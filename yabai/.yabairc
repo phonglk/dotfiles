@@ -36,7 +36,6 @@ yabai -m config --space 2 layout float
 yabai -m rule --add app="Slack"                             space=2
 yabai -m rule --add app="Stickies"                          space=2
 yabai -m rule --add app="Microsoft Outlook"                 space=2
-yabai -m rule --add app="Finder"                            space=2
 yabai -m rule --add app="Activity Monitor"                  space=2
 yabai -m rule --add app="GitKraken"                         space=3
 
