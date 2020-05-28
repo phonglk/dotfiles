@@ -17,8 +17,6 @@ set encoding=UTF-8
 " I use a unicode curly array with a <backslash><space>
 set showbreak=↪>\
 
-source ~/.vim/coc_config.vim
-
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -74,6 +72,5 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " exclude octal
 set nrformats-=octal
 
-let g:coc_node_path = '~/.nvm/versions/node/v14.3.0/bin/node'
-
 source ~/.vim/nerdtree.vim
+source ~/.vim/lsp.vim

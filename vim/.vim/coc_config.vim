@@ -125,3 +125,7 @@ nnoremap <silent> ,j  :<C-u>CocNext<CR>
 nnoremap <silent> ,k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> ,p  :<C-u>CocListResume<CR>
+
+let $NVIM_COC_LOG_LEVEL = 'debug'
+let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+

@@ -4,3 +4,9 @@
 [submodule "tmux/.tmux/plugins/tpm"]
 	path = tmux/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "vim/.vim/lsp-servers/typescript-language-server"]
+	path = vim/.vim/lsp-servers/typescript-language-server
+	url = https://github.com/theia-ide/typescript-language-server.git
+[submodule "vim/.vim/lsp-servers/eslint-language-server"]
+	path = vim/.vim/lsp-servers/eslint-language-server
+	url = https://github.com/microsoft/vscode-eslint
