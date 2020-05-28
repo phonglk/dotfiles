@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+DIR=$(cd $(dirname $0); pwd)
+function cd_and_install_lsp {
+  LSP_DIR="$DIR/.vim/lsp-servers/$1"
+  echo "Yarn install $LSP_DIR"
+  cd $LSP_DIR
+  yarn
+}
+
+cd_and_install_lsp eslint-language-server
+yarn compile:server
+
+cd_and_install_lsp typescript-language-server
+yarn compile
