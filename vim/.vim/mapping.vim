@@ -63,6 +63,7 @@ vmap <leader>ff  <Plug>(coc-format-selected)
 " autofix eslint
 xmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
 vmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
+nmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
 
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 

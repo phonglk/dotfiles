@@ -1,6 +1,4 @@
 call plug#begin('~/.vim/plugged')
-
-
     " {{{ Assist
         " {{{ Autoclosing
         Plug 'ntpeters/vim-better-whitespace'
@@ -19,16 +17,19 @@ call plug#begin('~/.vim/plugged')
         Plug 'junegunn/vim-peekaboo'
         Plug 'mhinz/vim-startify'
         Plug 'unblevable/quick-scope'
-	" }}}
+	" }}
 	" }}}
 	" {{{ LSP
-        Plug 'prabirshrestha/async.vim'
-        Plug 'prabirshrestha/vim-lsp'
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        " Plug 'prabirshrestha/async.vim'
+        " Plug 'prabirshrestha/vim-lsp'
         " Plug 'mattn/vim-lsp-settings'
-        Plug 'prabirshrestha/asyncomplete.vim'
-        Plug 'prabirshrestha/asyncomplete-lsp.vim'
+        " Plug 'prabirshrestha/asyncomplete.vim'
+        " Plug 'prabirshrestha/asyncomplete-lsp.vim'
+        " Plug 'prabirshrestha/asyncomplete-buffer.vim'
+        " Plug 'prabirshrestha/asyncomplete-file.vim'
         " Plug 'dense-analysis/ale'
-        Plug 'tmux-plugins/vim-tmux'
+        " Plug 'tmux-plugins/vim-tmux'
         " }}}
     " }}}
 
@@ -72,6 +73,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'morhetz/gruvbox'
         Plug 'arzg/vim-substrata'
         Plug 'crusoexia/vim-monokai'
+        Plug 'patstockwell/vim-monokai-tasty'
         " }}}
         " {{{ Airline
         Plug 'itchyny/lightline.vim'

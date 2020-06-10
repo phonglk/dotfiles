@@ -14,6 +14,8 @@ set breakindentopt=sbr
 set nofixendofline
 set noswapfile
 set encoding=UTF-8
+set hidden
+set updatetime=300
 " I use a unicode curly array with a <backslash><space>
 set showbreak=↪>\
 
@@ -24,7 +26,13 @@ if exists('+termguicolors')
 endif
 set t_Co=256
 syntax enable
-colorscheme monokai
+
+let g:vim_monokai_tasty_italic = 1
+colorscheme vim-monokai-tasty
+let g:lightline = {
+      \ 'colorscheme': 'monokai_tasty',
+      \ }
+
 augroup SyntaxSettings
     autocmd!
     autocmd BufNewFile,BufRead *.tsx set filetype=typescript
@@ -73,4 +81,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 set nrformats-=octal
 
 source ~/.vim/nerdtree.vim
-source ~/.vim/lsp.vim
+" source ~/.vim/lsp.vim
+source ~/.vim/coc_config.vim
+
