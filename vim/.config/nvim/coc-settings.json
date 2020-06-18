@@ -36,6 +36,8 @@
   "tsserver.log": "verbose",
   "tsserver.trace.server": "verbose",
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript"],
-  "prettier.formatterPriority": -1,
+  "prettier.singleQuote": true,
+  "prettier.bracketSpacing": true,
+  "prettier.formatterPriority": 1,
   "prettier.eslintIntegration": true
 }

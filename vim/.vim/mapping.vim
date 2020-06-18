@@ -32,6 +32,9 @@ nnoremap <leader>u :UndotreeToggle<CR>
 " map <C-A> <esc>ggVG<CR>
 
 " Search under cursor
+vnoremap /R y:%s/<C-R>=escape(@",'/\')<CR>//g<left><left>
+vnoremap /r y:s/<C-R>=escape(@",'/\')<CR>//g<left><left>
+" Search under cursor
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " {{{ vim-easymotion
   let g:EasyMotion_do_mapping = 0
@@ -70,3 +73,6 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 " configuration for text-object-quote
 xmap q iq
 omap q iq
+
+" toggle wrap
+nmap <M-w> :set wrap!<CR>
