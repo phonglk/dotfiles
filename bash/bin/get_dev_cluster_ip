@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+[ "$FZF_TMUX_HEIGHT" ] || {
+  FZF_TMUX_HEIGHT=40%
+}
+export FZF_DEFAULT_OPTS="--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_R_OPTS --layout=reverse +m"
+
+PROJECT_HINT=${GCLOUD_PROJECT:-a-dev}
+CLUSTER_HINT=${GCLOUD_CLUSTER:-d-p-}
+ZONE=${GCLOUD_ZONE:-us-central1-a}
+
+PROJECT=$(gcloud projects list | grep a-dev | cut -d" " -f1)
+echo "Project:$PROJECT"
+CLUSTERS=$(gcloud container clusters list --project "$PROJECT" | grep $CLUSTER_HINT)
+CLUSTER_COUNT=$(echo "$CLUSTERS" | wc -l | awk '{print $1}')
+if [ "$CLUSTERS" == "" ]; then
+  echo "Cannot find any cluster"
+  exit
+fi
+if [ "$CLUSTER_COUNT" != "1" ]; then
+  CLUSTER=$(echo "$CLUSTERS" | fzf --prompt="Select project>" | cut -d" " -f1)
+else
+  CLUSTER=$(echo "$CLUSTERS" | cut -d" " -f1)
+fi
+echo "Cluster:$CLUSTER"
+gcloud container clusters get-credentials $CLUSTER --zone $ZONE --project $PROJECT
+IP=$(kubectl -n mlisa-core get ingress | grep "*" | sed "s/ \{1,\}/|/g" | cut -d\| -f3)
+export DEV_CLUSTER_IP=$IP
+echo "IP:$IP"

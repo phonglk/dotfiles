@@ -7,6 +7,13 @@ map <C-j> <C-W>j
 map <C-h> <C-W>h
 map <C-k> <C-W>k
 map <C-l> <C-W>l
+"
+" display line vs real line
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
+
 noremap <C-y> "+y
 noremap <C-p> "+p
 tnoremap <Esc> <C-\><C-n>
@@ -76,3 +83,8 @@ omap q iq
 
 " toggle wrap
 nmap <M-w> :set wrap!<CR>
+
+" edit relative files
+nnoremap <leader>o :e %:h
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+

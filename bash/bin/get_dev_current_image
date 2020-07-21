@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+DEPLOYMENT=$1
+[ "$FZF_TMUX_HEIGHT" ] || {
+  FZF_TMUX_HEIGHT=40%
+}
+export FZF_DEFAULT_OPTS="--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_R_OPTS --layout=reverse --header-lines=1 +m"
+
+NAMESPACE=${GCLOUD_NAMESPACE:-mlisa-core}
+if [ "$DEPLOYMENT" == "" ]; then
+  DEPLOYMENT=$(kubectl get deployments --namespace $NAMESPACE | fzf --prompt='Select deployment>' | cut -d" " -f1)
+fi
+kubectl get deployment $DEPLOYMENT --namespace mlisa-core -o yaml | grep "name: $DEPLOYMENT-config" -A1 | grep image | cut -d: -f3

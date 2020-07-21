@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+IMAGE=$1
+DEPLOYMENT=$2
+[ "$FZF_TMUX_HEIGHT" ] || {
+  FZF_TMUX_HEIGHT=40%
+}
+export FZF_DEFAULT_OPTS="--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_R_OPTS --layout=reverse --header-lines=1 +m"
+
+NAMESPACE=${GCLOUD_NAMESPACE:-mlisa-core}
+if [ "$DEPLOYMENT" == "" ]; then
+  DEPLOYMENT=$(kubectl get deployments --namespace $NAMESPACE | fzf --prompt='Select deployment>' | cut -d" " -f1)
+fi
+YML=$(kubectl get deployment $DEPLOYMENT --namespace mlisa-core -o yaml)
+CURR_IMAGE=$(echo "$YML" | grep "name: $DEPLOYMENT-config" -A1 | grep image | cut -d: -f3)
+UPDATED_YML=$(echo "$YML" | sed "s/$CURR_IMAGE/$IMAGE/")
+echo "$UPDATED_YML" > ~/$DEPLOYMENT.yml.tmp
+kubectl apply -f ~/$DEPLOYMENT.yml.tmp

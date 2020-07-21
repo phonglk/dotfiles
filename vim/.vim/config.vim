@@ -16,6 +16,8 @@ set noswapfile
 set encoding=UTF-8
 set hidden
 set updatetime=300
+set history=200
+set wildmode=longest,list
 " I use a unicode curly array with a <backslash><space>
 set showbreak=↪>\
 

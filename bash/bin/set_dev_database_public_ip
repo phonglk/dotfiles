@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+[ "$FZF_TMUX_HEIGHT" ] || {
+  FZF_TMUX_HEIGHT=40%
+}
+export FZF_DEFAULT_OPTS="--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_R_OPTS --layout=reverse --header-lines=1 +m"
+
+INSTANCE=$(gcloud sql instances list | fzf --prompt='Select instance>' | cut -d" " -f1)
+gcloud sql instances patch $INSTANCE --assign-ip
+MY_IP=$(curl ifconfig.me/ip)
+gcloud sql instances patch $INSTANCE --authorized-networks=$MY_IP -q
+DB_IP=$(gcloud sql instances describe $INSTANCE | grep PRIMARY -B1 | head -n1 | cut -d" " -f3)
+echo $DB_IP

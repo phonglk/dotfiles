@@ -1,5 +1,5 @@
 if status --is-interactive
-  set -g fish_user_paths "/usr/local/opt/protobuf@3.1/bin" $fish_user_paths
+  set -g fish_user_paths "/usr/local/opt/protobuf@3.1/bin" "$HOME/bin" $fish_user_paths
   alias dotfiles '/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
   rvm default
 
