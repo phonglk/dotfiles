@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# set up env
+[ "$FZF_TMUX_HEIGHT" ] || {
+  FZF_TMUX_HEIGHT=60%
+}
+export FZF_DEFAULT_OPTS="--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_R_OPTS --layout=reverse --header-lines=1 +m"
+
+# predefined var
+NAMESPACE=${KUBE_NAMESPACE:-"mlisa-core"}
+HELM_DIR=${MLSA_HELM_DIR:-"~/project/rsa-mlisa-helm"}
+DEPLOYMENT_TYPE=${DEPLOYMENT_TYPE:-sa}
+
+CHOICES=("patch" "view log" "ssh")
+
+function kill_bottom_pane_if_exist() {
+  if [ "$(tmux list-pane | wc -l | tr -ds ' ' '')" != "1" ]; then
+    tmux kill-pane -t {bottom}
+  fi
+}
+
+function if_empty_then_exit() {
+  if [ "$1" == "" ]; then
+    kill_bottom_pane_if_exist
+    exit
+  fi
+}
+
+function get_pod_repo_name () {
+  kubectl -n $NAMESPACE describe pod $1 | grep component | cut -d = -f2
+}
+
+# clear view
+tput smcup
+
+# main
+function main() {
+  clear
+  kubectl cluster-info
+  echo "KUBE_NAMESPACE: $NAMESPACE"
+  echo "MLSA_HELM_DIR: $HELM_DIR"
+  echo "DEPLOYMENT_TYPE: $DEPLOYMENT_TYPE"
+  echo "LAST COMMAND: $CMD"
+
+  POD=$(kubectl get pods --namespace $NAMESPACE | fzf --prompt='Select pods>' | cut -d" " -f1)
+  if_empty_then_exit $POD
+  CHOICE=$(printf '%s\n' "${CHOICES[@]}" | fzf --prompt='Select action>' --header-lines=0)
+  if_empty_then_exit $CHOICE
+  case "$CHOICE" in
+    "patch")
+      REPO=$(get_pod_repo_name $POD)
+      CMD="cd $HELM_DIR;echo $REPO;./dev/patch.sh $DEPLOYMENT_TYPE $REPO;sleep 10"
+      echo $CMD
+      ;;
+    "view log")
+      CMD="kubectl logs -n $NAMESPACE $POD -f --all-containers=true --max-log-requests=100; sleep 20"
+      ;;
+    "ssh")
+      CMD="kubectl exec -n $NAMESPACE -it $POD -- bash"
+      ;;
+    *)
+      echo "Invalid choice";
+      exit 1
+  esac
+
+  # tmux set-window-option remain-on-exit on
+  kill_bottom_pane_if_exist
+  tmux split-window "$CMD"
+  if [ "$CHOICE" != "ssh" ]; then
+    tmux last-pane
+  fi
+}
+
+# program loop
+while true
+do
+  if ! main; then
+    exit;
+  fi
+done
+
+# restore view
+tput rmcup
