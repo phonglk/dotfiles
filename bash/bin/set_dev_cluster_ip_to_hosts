@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-get_dev_cluster_ip
-cat /etc/hosts | sed "s/.*staging\.mlisa\.io.*/$DEV_CLUSTER_IP staging.mlisa.io/" | sudo tee ~/hosts.edit
+IP=$(get_dev_cluster_ip | grep IP | cut -d : -f2)
+cat /etc/hosts | sed "s/.*staging\.mlisa\.io.*/$IP staging.mlisa.io/" | sudo tee ~/hosts.edit
 sudo mv ~/hosts.edit /etc/hosts

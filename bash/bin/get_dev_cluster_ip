@@ -6,7 +6,7 @@
 export FZF_DEFAULT_OPTS="--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_R_OPTS --layout=reverse +m"
 
 PROJECT_HINT=${GCLOUD_PROJECT:-a-dev}
-CLUSTER_HINT=${GCLOUD_CLUSTER:-d-p-}
+CLUSTER_HINT=${GCLOUD_CLUSTER:-p-}
 ZONE=${GCLOUD_ZONE:-us-central1-a}
 
 PROJECT=$(gcloud projects list | grep a-dev | cut -d" " -f1)
