@@ -88,3 +88,4 @@ nmap <M-w> :set wrap!<CR>
 nnoremap <leader>o :e %:h
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+set pastetoggle=<F3>
