@@ -53,7 +53,7 @@ alt - f: yabai -m window --toggle float; \
 shift + alt - r : rename_workspace
 
 # new workspace
-shift + cmd - n : yabai -m space --create;\
+shift + cmd + alt + ctrl - n : yabai -m space --create;\
                   id="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')";\
                   yabai -m window --space $id;\
                   yabai -m space --focus $id

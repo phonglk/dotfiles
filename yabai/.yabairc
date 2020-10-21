@@ -19,11 +19,11 @@ yabai -m config mouse_action2                resize
 
 # general space settings
 yabai -m config layout                       bsp
-yabai -m config top_padding                  30
-yabai -m config bottom_padding               10
-yabai -m config left_padding                 10
-yabai -m config right_padding                10
-yabai -m config window_gap                   10
+yabai -m config top_padding                  21
+yabai -m config bottom_padding               1
+yabai -m config left_padding                 1
+yabai -m config right_padding                1
+yabai -m config window_gap                   1
 
 # Space labels
 yabai -m space 1 --label "Primary"

@@ -1,3 +1,5 @@
+set shell=bash\ -i
+
 if has('nvim')
 	source ~/.vim/nvim.vim
 endif

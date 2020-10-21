@@ -10,6 +10,7 @@ if status --is-interactive
   alias .. "cd ../"
   alias ... "cd ../../"
   alias .... "cd ../../../"
+  alias jsb "~/.nvm/versions/node/v14.3.0/bin/js-beautify"
 
   set -gx EDITOR nvim
   set -gx PAGER most
