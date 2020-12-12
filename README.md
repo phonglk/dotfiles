@@ -1,10 +1,15 @@
 # dotfiles
-dotfiles for my env
+dotfiles for my Arch/MacOS env
 
 # Prerequisite
-## Install brew
-## Install stow
-## Install fish
+
+- stow
+- fish
+- nodejs
+
+# Tools
+
+- fzf, ripgrep, the_silver_searcher
 
 # Install specific package
 

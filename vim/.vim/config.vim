@@ -40,7 +40,6 @@ augroup SyntaxSettings
     autocmd BufNewFile,BufRead *.tsx set filetype=typescript
 augroup END
 
-let g:polyglot_disabled = ['javascript', 'typescript', 'jsx', 'graphql']
 let g:startify_session_dir = '~/.vim/session'
 let g:fzf_preview_window = 'down:40%'
 let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.9} }

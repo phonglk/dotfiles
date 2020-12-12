@@ -1,7 +1,9 @@
 if status --is-interactive
   set -g fish_user_paths "/usr/local/opt/protobuf@3.1/bin" "$HOME/bin" $fish_user_paths
   alias dotfiles '/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-  rvm default
+  if type -q $rvm
+  	rvm default
+  end
 
   alias cwd "pwd > /tmp/cwd"
   alias pcwd "cat /tmp/cwd"
@@ -16,10 +18,19 @@ if status --is-interactive
   set -gx PAGER most
 
   # uses dircolors template
-  eval (gdircolors ~/.dircolors/nord | sed 's/=/ /; s/\'/"/g; s/;\n//g' | awk '{print "set -x " $0}' | head -n 1)
+  switch (uname)
+    case Darwin
+      eval (gdircolors ~/.dircolors/nord | sed 's/=/ /; s/\'/"/g; s/;\n//g' | awk '{print "set -x " $0}' | head -n 1)
+    case Linux
+      eval (dircolors ~/.dircolors/nord | sed 's/=/ /; s/\'/"/g; s/;\n//g' | awk '{print "set -x " $0}' | head -n 1)
+  end
 
   # Aliases
-  alias ls='gls --color=auto'
+  if type -q $gls
+    alias ls='gls --color=auto'
+  else
+    alias ls='ls --color=auto'
+  end
   alias ll='ls -lah'
 
   # Auto start tmux

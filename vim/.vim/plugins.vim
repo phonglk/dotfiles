@@ -39,6 +39,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'leafgarland/typescript-vim'
         Plug 'MaxMEllon/vim-jsx-pretty', {'for': ['typescript', 'javascript', 'typescriptreact', 'javascriptreact']}
         Plug 'jparise/vim-graphql'
+        let g:polyglot_disabled = ['javascript', 'typescript', 'jsx', 'graphql']
         Plug 'sheerun/vim-polyglot'
         " }}}
     " {{{ Utils
