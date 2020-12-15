@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/.config/i3
+mkdir -p ~/.config/i3blocks

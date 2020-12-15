@@ -1,0 +1,10 @@
+default xkb_keycodes "k4" {
+    minimum= 8;
+    maximum= 255;
+
+    include "evdev+aliases(qwerty)"
+
+    <TLDE> = 9;
+     <ESC> = 66;
+    <CAPS> = 49;
+};

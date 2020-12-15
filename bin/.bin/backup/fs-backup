@@ -1,0 +1,40 @@
+#!/bin/bash
+# https://wiki.archlinux.org/index.php/Full_system_backup_with_tar
+# full system backup
+# to restore tar --acls --xattrs -xpf $backupfile
+
+# Backup destination
+backdest=/opt/backups
+
+# Labels for backup name
+#PC=${HOSTNAME}
+pc=phong
+distro=arch
+type=full
+date=$(date "+%F")
+backupfile="$backdest/$distro-$type-$date.tar.gz"
+
+# Exclude file location
+prog=${0##*/} # Program name from filename
+excdir="/home/phong/.bin/backup"
+exclude_file="$excdir/exclude.txt"
+
+# Check if chrooted prompt.
+echo -n "First chroot from a LiveCD.  Are you ready to backup? (y/n): "
+read executeback
+
+# Check if exclude file exists
+if [ ! -f $exclude_file ]; then
+  echo -n "No exclude file exists, continue? (y/n): "
+  read continue
+  if [ $continue == "n" ]; then exit; fi
+fi
+
+if [ $executeback = "y" ]; then
+  # -p, --acls and --xattrs store all permissions, ACLs and extended attributes. 
+  # Without both of these, many programs will stop working!
+  # It is safe to remove the verbose (-v) flag. If you are using a 
+  # slow terminal, this can greatly speed up the backup process.
+  tar --exclude-from=$exclude_file --acls --xattrs -cpvf $backupfile -I pbzip2 /
+  tar --acls --xattrs -cpvf $backdest/$distro-boot-$date.tar.gz -I pbzip2 /boot
+fi

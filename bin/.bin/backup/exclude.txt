@@ -1,0 +1,34 @@
+# Not old backups                                                               
+/opt/backups                                                                   
+                                                                                
+# Not temporary files                                                           
+/tmp/*
+/var/tmp/*
+/home/phong/tmp/*
+
+# Not the cache for pacman
+/var/cache/pacman/pkg/
+
+# System
+/dev/*
+/proc/*
+/sys/*
+/run/*
+/mnt/*
+/media/*
+lost+found
+/boot
+
+# Application
+/*.pyc
+/*.pyo
+.git/*
+
+*.old
+
+/home/phong/.local/share/Trash/*
+/home/phong/.cache/*
+/home/phong/Downloads/*
+/home/phong/source/*
+
+
