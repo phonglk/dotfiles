@@ -29,7 +29,12 @@ if status --is-interactive
   if type -q $gls
     alias ls='gls --color=auto'
   else
-    alias ls='ls --color=auto'
+    switch (uname)
+      case Darwin
+        alias ls='ls -G'
+      case Linux
+        alias ls='ls --color=auto'
+    end
   end
   alias ll='ls -lah'
 

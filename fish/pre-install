@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/.config/fish/functions
+mkdir -p ~/.config/fish/conf.d
+mkdir -p ~/.config/fish/completions
