@@ -49,6 +49,7 @@ let g:python3_host_prog = '/usr/local/Cellar/python/3.7.7/bin/python3'
 if isdirectory(expand(".git"))
   let g:NERDTreeBookmarksFile = '.git/.nerdtree-bookmarks'
 endif
+let NERDTreeIgnore=['\.git$', '\.idea$', '\.vscode$', '\.history$']
 
 " :BD to clear buffers
 function! s:list_buffers()
@@ -80,6 +81,9 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " exclude octal
 set nrformats-=octal
+
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 source ~/.vim/nerdtree.vim
 " source ~/.vim/lsp.vim

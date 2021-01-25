@@ -89,3 +89,6 @@ nnoremap <leader>o :e %:h
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 set pastetoggle=<F3>
+
+" delete current buffer
+nmap <silent> <leader>db :bd<CR>

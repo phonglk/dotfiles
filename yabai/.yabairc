@@ -44,15 +44,20 @@ yabai -m signal --add event=window_moved \
 yabai -m signal --add event=window_resized \
     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
 # dual display
-# yabai -m signal --add event=space_changed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
-# yabai -m signal --add event=display_changed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
-#
-# yabai -m signal --add event=space_changed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
-# yabai -m signal --add event=display_changed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-tertiary-jsx\"'"
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-tertiary-jsx\"'"
 
 # tell limelight to refresh when the focused application changes (see issue #3)
 yabai -m signal --add event=application_activated action="pkill -SIGUSR1 limelight &> /dev/null"

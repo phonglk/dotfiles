@@ -36,7 +36,9 @@ call plug#begin('~/.vim/plugged')
     " {{{ Languages
         " {{{ Syntax
         Plug 'pangloss/vim-javascript'
+        let g:typescript_indent_disable = 1
         Plug 'leafgarland/typescript-vim'
+        Plug 'peitalin/vim-jsx-typescript'
         Plug 'MaxMEllon/vim-jsx-pretty', {'for': ['typescript', 'javascript', 'typescriptreact', 'javascriptreact']}
         Plug 'jparise/vim-graphql'
         let g:polyglot_disabled = ['javascript', 'typescript', 'jsx', 'graphql']

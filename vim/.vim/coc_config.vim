@@ -3,7 +3,6 @@ let g:coc_global_extensions = [
       \'coc-eslint',
       \'coc-vetur',
       \'coc-tsserver',
-      \'coc-tslint',
       \'coc-json'
       \]
 " TextEdit might fail if hidden is not set.
@@ -63,7 +62,9 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gdd <Plug>(coc-definition)
+nmap <silent> gds :sp<CR><Plug>(coc-definition)
+nmap <silent> gdv :vsp<CR><Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
