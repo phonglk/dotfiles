@@ -44,6 +44,9 @@ call plug#begin('~/.vim/plugged')
         let g:polyglot_disabled = ['javascript', 'typescript', 'jsx', 'graphql']
         Plug 'sheerun/vim-polyglot'
         " }}}
+        Plug 'prettier/vim-prettier', {
+          \ 'do': 'yarn install',
+          \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
     " {{{ Utils
         " {{{ Undo
         Plug 'mbbill/undotree'

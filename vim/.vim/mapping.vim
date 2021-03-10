@@ -33,7 +33,7 @@ nnoremap <silent> <leader>b :call FZFOpen(':Buffers')<CR>
 nnoremap <silent> <leader>l :call FZFOpen(':BLines')<CR>
 nnoremap <silent> <leader>i :call FZFOpen(':Files')<CR>
 nnoremap <silent> <leader>? :call FZFOpen(':History')<CR>
-nnoremap <silent> <leader>s :call FZFOpen(':Rg')<CR>
+nnoremap <silent> <leader>s :call FZFOpen(':Find')<CR>
 nnoremap <silent> <leader>c :CocCommand<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 " map <C-A> <esc>ggVG<CR>

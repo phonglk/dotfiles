@@ -42,9 +42,9 @@ cmd - 8 : yabai -m space --focus 8
 cmd - 9 : yabai -m space --focus 9
 
 # focus display
-ctrl + alt - 1  : yabai -m display --focus 1
-ctrl + alt - 2  : yabai -m display --focus 2
-ctrl + alt - 3  : yabai -m display --focus 3
+cmd + ctrl - 1  : yabai -m display --focus 1
+cmd + ctrl - 2  : yabai -m display --focus 2
+cmd + ctrl - 3  : yabai -m display --focus 3
 
 # toggle window fullscreen
 alt - s : yabai -m window --toggle zoom-fullscreen
@@ -55,7 +55,7 @@ alt - f: yabai -m window --toggle float; \
          yabai -m window --toggle topmost;
 
 # rename current workspace
-shift + alt - r : rename_workspace
+shift + alt - r : fish -c "rename_workspace"
 
 # new workspace
 shift + cmd + alt + ctrl - n : yabai -m space --create;\

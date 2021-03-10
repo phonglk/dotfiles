@@ -1,7 +1,10 @@
 ﻿let NERDTreeShowHidden=1
-let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+" let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+set grepprg=rg\ --vimgrep
 set cmdheight=2
 set foldmethod=indent
+set foldlevel=10
 set tabstop=2 shiftwidth=2 expandtab
 set mouse=a
 set number

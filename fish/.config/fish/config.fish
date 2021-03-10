@@ -38,6 +38,9 @@ if status --is-interactive
   end
   alias ll='ls -lah'
 
+  abbr -a -g gpsuo git push --set-upstream origin
+  abbr -a -g gco git checkout
+
   # Auto start tmux
   # if status is-interactive 
   # and not set -q TMUX
@@ -46,3 +49,5 @@ if status --is-interactive
   # clear
 end
 
+set -g -x FISH_HELPER_PATH '/Users/phonglk/source/shopee/dl-helper/jira-helper'
+fish_helper

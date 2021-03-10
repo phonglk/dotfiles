@@ -33,12 +33,13 @@
   "diagnostic.errorSign": "✘",
   "diagnostic.infoSign": "⚑",
   "diagnostic.hintSign": "💡",
-  "tsserver.log": "verbose",
-  "tsserver.trace.server": "verbose",
+  "tsserver.log": "off",
+  "tsserver.trace.server": "off",
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "eslint.alwaysShowStatus": true,
   "prettier.singleQuote": true,
   "prettier.bracketSpacing": true,
   "prettier.formatterPriority": 1,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "list.source.symbols.excludes": ["*/node_modules/*"]
 }
