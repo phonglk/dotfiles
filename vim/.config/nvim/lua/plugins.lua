@@ -16,12 +16,14 @@ return require('packer').startup(function()
   use {'wbthomason/packer.nvim', opt = true}
 
   -- Color scheme
-  use { 'sainnhe/gruvbox-material' }
-  use { 'Th3Whit3Wolf/one-nvim' }
-  use { 'patstockwell/vim-monokai-tasty' }
-  use { 'Iron-E/nvim-highlite'}
-  use { 'sainnhe/sonokai'}
-  use { 'crusoexia/vim-monokai'}
+  use  'sainnhe/gruvbox-material' 
+  use  'Th3Whit3Wolf/one-nvim' 
+  use  'patstockwell/vim-monokai-tasty' 
+  use  'Iron-E/nvim-highlite'
+  use  'sainnhe/sonokai'
+  use  'crusoexia/vim-monokai'
+  use 'morhetz/gruvbox'
+  use 'tomasr/molokai'
 
   -- Fuzzy finder
   use {
@@ -105,6 +107,9 @@ return require('packer').startup(function()
   use { 'tomtom/tcomment_vim' }
   use { 'tommcdo/vim-lion' }
 
+  -- Improve qf window
+  -- use 'kevinhwang91/nvim-bqf'
+
   -- Navigation
   use { 'easymotion/vim-easymotion' }
   use { 'unblevable/quick-scope'}
@@ -119,6 +124,9 @@ return require('packer').startup(function()
   use { 'kana/vim-textobj-entire' }
   use { 'beloglazov/vim-textobj-quotes' }
   use {'mbbill/undotree'}
+
+  -- repl
+  use 'metakirby5/codi.vim'
 
 
   -- Debug

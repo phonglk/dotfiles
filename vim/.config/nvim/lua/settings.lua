@@ -31,7 +31,6 @@ vim.cmd [[
 let maplocalleader = ','
 syntax enable
 filetype plugin indent on
-hi CursorLineNR cterm=bold ctermbg=NONE ctermfg=red
 set nowrap
 set breakindent
 set breakindentopt=sbr
@@ -40,12 +39,6 @@ set noswapfile
 set encoding=UTF-8
 set updatetime=300
 set history=200
-
-let g:vim_monokai_tasty_italic = 1
-try
-  colorscheme vim-monokai-tasty
-catch
-endtry
 
 autocmd BufNewFile,BufRead *.ts set filetype=typescript
 autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact

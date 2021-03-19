@@ -8,6 +8,9 @@ require('plugins')
 -- Key mappings
 require('keymappings')
 
+-- Theming
+require('theme')
+
 -- configs
 require('config.lsp')
 require('config.git')
