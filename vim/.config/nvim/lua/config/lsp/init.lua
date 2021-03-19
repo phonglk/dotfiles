@@ -7,22 +7,47 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gD', ':Lspsaga lsp_finder<CR>', opts)
+  -- buf_set_keymap('n', 'gd', ':Telescope lsp_definitions<CR>', opts)
+  buf_set_keymap('n', 'gd', ':Lspsaga preview_definition<CR>', opts)
+  -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gr', ':Telescope lsp_references<CR>', opts)
+  -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'rn', ':Lspsaga rename<CR>', opts)
+  -- buf_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'ga', ':Lspsaga code_action<CR>', opts)
+  buf_set_keymap('v', 'ga', ':<C-U>Lspsaga range_code_action<CR>', opts)
+  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('v', 'gs', ':Lspsaga signature_help<CR>', opts)
+  -- buf_set_keymap('n', 'sl', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', 'sl', ':Lspsaga show_line_diagnostics<CR>', opts)
+  buf_set_keymap('n', 'sd', ':Telescope lsp_document_diagnostics<CR>', opts)
+  -- buf_set_keymap('n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', 'g[', ':Lspsaga diagnostic_jump_prev<CR>', opts)
+  -- buf_set_keymap('n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', 'g]', ':Lspsaga diagnostic_jump_next<CR>', opts)
+  -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'K', ':Lspsaga hover_doc<CR>', opts)
 
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  --- scroll down hover doc or scroll in definition preview
+  buf_set_keymap('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
+  -- scroll up hover doc
+  buf_set_keymap('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
+
+  -- buf_set_keymap('n', 'gt', ':Lspsaga open_floaterm<CR>', opts)
+  -- buf_set_keymap('t', 'gt', [[<C-\><C-n>:Lspsaga close_floaterm<CR>]], opts)
+
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  buf_set_keymap('n', 'gs', ':Telescope lsp_document_symbols<CR>', opts)
+  buf_set_keymap('n', '<leader>ws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -32,18 +57,18 @@ local on_attach = function(client, bufnr)
   end
 
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]], false)
-  end
+  -- if client.resolved_capabilities.document_highlight then
+  --   vim.api.nvim_exec([[
+  --     hi LspReferenceRead cterm=bold ctermbg=red guibg=#4e4e4e
+  --     hi LspReferenceText cterm=bold ctermbg=red guibg=#4e4e4e
+  --     hi LspReferenceWrite cterm=bold ctermbg=red guibg=#4e4e4e
+  --     augroup lsp_document_highlight
+  --       autocmd! * <buffer>
+  --       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  --       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  --     augroup END
+  --   ]], false)
+  -- end
 end
 
 -- Use a loop to conveniently both setup defined servers
@@ -79,3 +104,64 @@ require('lspkind').init({
     --   Struct = ''
     -- },
 })
+
+-- for nvim-lsputils
+-- vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+-- vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+-- vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+-- vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+-- vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+-- vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+-- vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+-- vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+
+-- lspsaga
+local saga = require 'lspsaga'
+saga.init_lsp_saga{
+  max_preview_lines = 10,
+  code_action_keys = {
+    quit = '<Esc>',exec = '<CR>'
+  },
+  rename_action_keys = {
+    quit = '<Esc>',exec = '<CR>'  -- quit can be a table
+  },
+}
+
+-- linter
+nvim_lsp.diagnosticls.setup {
+    filetypes = {"javascript", "typescript"},
+    init_options = {
+        linters = {
+            eslint = {
+                command = "./node_modules/.bin/eslint",
+                rootPatterns = {".git"},
+                debounce = 100,
+                args = {
+                    "--stdin",
+                    "--stdin-filename",
+                    "%filepath",
+                    "--format",
+                    "json"
+                },
+                sourceName = "eslint",
+                parseJson = {
+                    errorsRoot = "[0].messages",
+                    line = "line",
+                    column = "column",
+                    endLine = "endLine",
+                    endColumn = "endColumn",
+                    message = "${message} [${ruleId}]",
+                    security = "severity"
+                },
+                securities = {
+                    [2] = "error",
+                    [1] = "warning"
+                }
+            },
+        filetypes = {
+            javascript = "eslint",
+            typescript = "eslint"
+        }
+    }
+}
+}

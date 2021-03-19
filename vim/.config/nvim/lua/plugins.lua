@@ -1,3 +1,15 @@
+local fn = vim.fn
+local execute = vim.api.nvim_command
+
+-- Auto install packer.nvim if not exists
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+end
+
+vim.cmd 'packadd packer.nvim'
+vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
+
 return require('packer').startup(function()
 
   -- Packer can manage itself as an optional plugin
@@ -8,19 +20,37 @@ return require('packer').startup(function()
   use { 'Th3Whit3Wolf/one-nvim' }
   use { 'patstockwell/vim-monokai-tasty' }
   use { 'Iron-E/nvim-highlite'}
+  use { 'sainnhe/sonokai'}
+  use { 'crusoexia/vim-monokai'}
 
   -- Fuzzy finder
   use {
       'nvim-telescope/telescope.nvim',
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
+  -- use {
+  --   "nvim-telescope/telescope-frecency.nvim",
+  --   config = function()
+  --     require"telescope".load_extension("frecency")
+  --   end
+  -- }
 
-  -- LSP and completion
+  -- LSP
   use { 'neovim/nvim-lspconfig' }
+  -- show icon for suggestion
   use { 'onsails/lspkind-nvim' }
-  use { 'anott03/nvim-lspinstall' }
-  use { 'nvim-lua/completion-nvim' }
+  -- use { 'anott03/nvim-lspinstall' }
+  -- use {'RishabhRD/popfix' }
+  -- use {'RishabhRD/nvim-lsputils' }
+  -- similar to nvim-lsputils: replace default nvim lsp ui
+  use 'glepnir/lspsaga.nvim'
+
+  -- Completion
+  -- use { 'nvim-lua/completion-nvim' }
   use { 'hrsh7th/nvim-compe' }
+  use { 'hrsh7th/vim-vsnip' }
+  use { 'hrsh7th/vim-vsnip-integ' }
+  use 'honza/vim-snippets'
 
   -- Lua development
   use { 'tjdevries/nlua.nvim' }
@@ -41,6 +71,7 @@ return require('packer').startup(function()
       require('gitsigns').setup()
     end
   }
+  use 'f-person/git-blame.nvim'
 
   -- Status line
   use {
@@ -48,19 +79,23 @@ return require('packer').startup(function()
       branch = 'main',
   }
 
+  -- tree file browser
   use { 'kyazdani42/nvim-tree.lua' }
 
   -- Highlight
   use { 'nvim-treesitter/nvim-treesitter' }
+  use 'nvim-treesitter/nvim-treesitter-refactor'
+  use 'p00f/nvim-ts-rainbow'
 
   -- Icons
+  use { 'kyazdani42/nvim-web-devicons' }
   use { 'ryanoasis/vim-devicons' }
-  use { 'ryanoasis/nvim-web-devicons' }
 
   -- Tab like buffer
-  use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
+  use 'romgrk/barbar.nvim'
+  -- use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
 
-  -- Ediing Helper
+  -- Editing Helper
   use { 'windwp/nvim-autopairs' }
   use { 'norcalli/nvim-colorizer.lua' }
   require('colorizer').setup()

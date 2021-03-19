@@ -19,7 +19,9 @@ utils.opt('o', 'wildmode', 'list:longest')
 utils.opt('w', 'number', true)
 utils.opt('w', 'relativenumber', true)
 utils.opt('w', 'numberwidth', 5)
-utils.opt('o', 'clipboard','unnamed,unnamedplus')
+utils.opt('w', 'foldmethod', 'indent')
+utils.opt('w', 'foldlevel', 10)
+-- utils.opt('o', 'clipboard','unnamed,unnamedplus')
 utils.opt('o', 'cmdheight', 2)
 utils.opt('o', 'mouse','a')
 utils.opt('o', 'showbreak','↪')
@@ -45,8 +47,11 @@ try
 catch
 endtry
 
-autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+
+autocmd BufNewFile,BufRead *.js set filetype=javascript
+autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
 
 set nrformats-=octal
 ]]
@@ -56,4 +61,8 @@ vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'
 
 vim.cmd [[
 let g:closetag_regions = {'typescriptreact': 'jsxRegion,tsxRegion', 'javascriptreact': 'jsxRegion' }
+let g:neoformat_enabled_javascript = ['prettier']
 ]]
+
+-- quick-scope config
+vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }

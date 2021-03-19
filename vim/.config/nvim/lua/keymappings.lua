@@ -1,10 +1,17 @@
 local utils = require('utils')
 local map = utils.map
 
+-- Map leader to space
+vim.g.mapleader = ' '
 vim.g.pastetoggle='<F3>'
 -- indent
 map('v', '>', '>gv')
 map('v', '<', '<gv')
+
+-- copy & paste from clipboard
+map('v', '<C-y>', [["+y]])
+map('n', '<C-p>', [["+p]])
+map('v', '<C-p>', [["+p]])
 
 -- move between panels
 -- map('', '<C-j>', '<C-W>j')
@@ -42,3 +49,26 @@ map ('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 -- edit relative files
 map('n', '<leader>o', ':e %:h')
 map('c', '%%', "getcmdtype() == ':' ? expand('%:h').'/' : '%%'")
+
+-- easymotion
+vim.g.EasyMotion_do_mapping = 0
+vim.g.EasyMotion_smartcase = 1
+
+-- move to line
+map('', '<leader>L', '<Plug>(easymotion-bd-jk)')
+map('n', '<leader>L', '<Plug>(easymotion-overwin-line)')
+
+-- move to word
+map('', '<leader>w', '<Plug>(easymotion-bd-w)')
+map('n', '<leader>w', '<Plug>(easymotion-overwin-w)')
+
+-- hjkl
+map('', '<leader>l', '<Plug>(easymotion-lineforward)')
+map('', '<leader>j', '<Plug>(easymotion-j)')
+map('', '<leader>k', '<Plug>(easymotion-k)')
+map('', '<leader>h', '<Plug>(easymotion-linebackward)')
+
+-- Neoformat
+map('x', '<leader>ff', ':Neoformat<CR>')
+map('v', '<leader>ff', ':Neoformat<CR>')
+map('n', '<leader>ff', ':Neoformat<CR>')

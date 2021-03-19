@@ -25,7 +25,14 @@ ts_config.setup {
         "lua"
     },
     highlight = {
-        enable = true,
-        use_languagetree = true
-      }
+      enable = true,
+      use_languagetree = true
+    },
+    refactor = {
+      highlight_definitions = { enable = true },
+      highlight_current_scope = { enable = true },
+    },
+    rainbow = {
+      enable = true
+    }
   }

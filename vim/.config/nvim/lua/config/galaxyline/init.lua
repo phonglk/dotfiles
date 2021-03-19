@@ -198,20 +198,20 @@ section.left =
 		highlight = {_HEX_COLORS.text, _HEX_COLORS.bar.side, 'bold'}
 	}},
 
-	{GitSeparator = {
-		provider = printer(_SEPARATORS.right),
-		condition = find_git_root,
-		highlight = {_HEX_COLORS.bar.side, _HEX_COLORS.green_dark},
-	}},
-
-	{GitBranch = {
-		provider = 'GitBranch',
-		icon = '   ',
-		condition = find_git_root,
-		highlight = {_HEX_COLORS.bar.side, _HEX_COLORS.green_dark, 'bold'},
-		separator = _SEPARATORS.left,
-		separator_highlight = {_HEX_COLORS.bar.middle, _HEX_COLORS.green_dark},
-	}},
+	-- {GitSeparator = {
+	-- 	provider = printer(_SEPARATORS.right),
+	-- 	condition = find_git_root,
+	-- 	highlight = {_HEX_COLORS.bar.side, _HEX_COLORS.green_dark},
+	-- }},
+  --
+	-- {GitBranch = {
+	-- 	provider = 'GitBranch',
+	-- 	icon = '   ',
+	-- 	condition = find_git_root,
+	-- 	highlight = {_HEX_COLORS.bar.side, _HEX_COLORS.green_dark, 'bold'},
+	-- 	separator = _SEPARATORS.left,
+	-- 	separator_highlight = {_HEX_COLORS.bar.middle, _HEX_COLORS.green_dark},
+	-- }},
 
 	{LeftEnd = {
 		provider = printer(_SEPARATORS.left),

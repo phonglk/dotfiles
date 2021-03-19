@@ -32,9 +32,9 @@ local function try_loadstring(s, component, name)
 end
 
 _G.packer_plugins = {
-  ["completion-nvim"] = {
+  ["barbar.nvim"] = {
     loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/completion-nvim"
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/barbar.nvim"
   },
   ["galaxyline.nvim"] = {
     loaded = true,
@@ -57,6 +57,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
   },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
   neoformat = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/neoformat"
@@ -69,10 +73,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
   },
-  ["nvim-bufferline.lua"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua"
-  },
   ["nvim-colorizer.lua"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
@@ -81,13 +81,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-compe"
   },
+  ["nvim-highlite"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-highlite"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
-  },
-  ["nvim-lspinstall"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -96,6 +96,14 @@ _G.packer_plugins = {
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-treesitter-refactor"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-treesitter-refactor"
+  },
+  ["nvim-ts-rainbow"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -121,6 +129,10 @@ _G.packer_plugins = {
   ["quick-scope"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/quick-scope"
+  },
+  sonokai = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/sonokai"
   },
   ["startuptime.vim"] = {
     loaded = true,
@@ -170,6 +182,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-lion"
   },
+  ["vim-monokai"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-monokai"
+  },
   ["vim-monokai-tasty"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-monokai-tasty"
@@ -181,6 +197,10 @@ _G.packer_plugins = {
   ["vim-sandwich"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-sandwich"
+  },
+  ["vim-snippets"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-snippets"
   },
   ["vim-startify"] = {
     loaded = true,
@@ -197,6 +217,14 @@ _G.packer_plugins = {
   ["vim-textobj-user"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-textobj-user"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-vsnip"
+  },
+  ["vim-vsnip-integ"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
   }
 }
 
