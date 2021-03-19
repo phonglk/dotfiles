@@ -33,10 +33,10 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'K', ':Lspsaga hover_doc<CR>', opts)
 
-  --- scroll down hover doc or scroll in definition preview
-  buf_set_keymap('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
-  -- scroll up hover doc
-  buf_set_keymap('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
+  -- --- scroll down hover doc or scroll in definition preview
+  -- buf_set_keymap('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
+  -- -- scroll up hover doc
+  -- buf_set_keymap('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 
   -- buf_set_keymap('n', 'gt', ':Lspsaga open_floaterm<CR>', opts)
   -- buf_set_keymap('t', 'gt', [[<C-\><C-n>:Lspsaga close_floaterm<CR>]], opts)
@@ -77,6 +77,14 @@ local servers = { "tsserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
+
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics, {
+--     virtual_text = {
+--       severity_limit = "Warning",
+--     },
+--   }
+-- )
 
 -- config for lspkind-nvim plugin
 require('lspkind').init({
@@ -165,3 +173,11 @@ nvim_lsp.diagnosticls.setup {
     }
 }
 }
+-- sign define
+vim.api.nvim_exec([[
+  sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsError linehl= numhl=LspDiagnosticsError
+  sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsVirtualTextWarning linehl= numhl=LspDiagnosticsVirtualTextWarning
+  sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsInformation linehl= numhl=LspDiagnosticsInformation
+  sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsHint linehl= numhl=LspDiagnosticsHint
+]], false)
+

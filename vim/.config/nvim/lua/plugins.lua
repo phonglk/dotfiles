@@ -113,6 +113,8 @@ return require('packer').startup(function()
   -- Navigation
   use { 'easymotion/vim-easymotion' }
   use { 'unblevable/quick-scope'}
+  -- smooth scrolling
+  use 'psliwka/vim-smoothie'
 
   -- Other helps
   use { 'junegunn/vim-peekaboo' }

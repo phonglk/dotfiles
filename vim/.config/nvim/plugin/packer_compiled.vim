@@ -36,6 +36,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/barbar.nvim"
   },
+  ["codi.vim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/codi.vim"
+  },
   ["galaxyline.nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/galaxyline.nvim"
@@ -84,10 +88,6 @@ _G.packer_plugins = {
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
-  },
-  ["nvim-bqf"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-bqf"
   },
   ["nvim-colorizer.lua"] = {
     loaded = true,

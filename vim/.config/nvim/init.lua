@@ -8,9 +8,6 @@ require('plugins')
 -- Key mappings
 require('keymappings')
 
--- Theming
-require('theme')
-
 -- configs
 require('config.lsp')
 require('config.git')
@@ -26,3 +23,7 @@ require('config.nvim-autopairs')
 --require('config.colorscheme')  -- color scheme
 --require('config.completion')   -- completion
 --require('config.fugitive')     -- fugitive
+
+-- Theming
+require('theme')
+
