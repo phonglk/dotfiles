@@ -271,6 +271,21 @@ section.left =
 		separator = ' ',
 		separator_highlight = {_HEX_COLORS.bar.middle, _HEX_COLORS.bar.middle},
 	}},
+
+	{
+        ShowLspClient = {
+            provider = 'GetLspClient',
+            condition = function ()
+              local tbl = {['dashboard'] = true,['']=true}
+              if tbl[vim.bo.filetype] then
+                return false
+              end
+              return true
+            end,
+            icon = ' LSP:',
+						highlight = {_HEX_COLORS.green_light, _HEX_COLORS.bar.middle},
+          }
+    },
 } -- section.left
 
 section.right =

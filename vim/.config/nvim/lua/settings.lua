@@ -54,6 +54,11 @@ vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'
 
 vim.cmd [[
 let g:closetag_regions = {'typescriptreact': 'jsxRegion,tsxRegion', 'javascriptreact': 'jsxRegion' }
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.tsx,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+let g:closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx'
+
 let g:neoformat_enabled_javascript = ['prettier']
 ]]
 

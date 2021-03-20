@@ -46,6 +46,7 @@ return require('packer').startup(function()
   -- use {'RishabhRD/nvim-lsputils' }
   -- similar to nvim-lsputils: replace default nvim lsp ui
   use 'glepnir/lspsaga.nvim'
+  use 'nvim-lua/lsp-status.nvim'
 
   -- Completion
   -- use { 'nvim-lua/completion-nvim' }
@@ -54,6 +55,10 @@ return require('packer').startup(function()
   use { 'hrsh7th/vim-vsnip-integ' }
   use 'honza/vim-snippets'
 
+  -- {{ Language helper
+    use 'sheerun/vim-polyglot'
+    use 'AndrewRadev/tagalong.vim'
+  -- }}
   -- Lua development
   use { 'tjdevries/nlua.nvim' }
 
@@ -90,8 +95,8 @@ return require('packer').startup(function()
   use 'p00f/nvim-ts-rainbow'
 
   -- Icons
-  use { 'kyazdani42/nvim-web-devicons' }
   use { 'ryanoasis/vim-devicons' }
+  use { 'kyazdani42/nvim-web-devicons' }
 
   -- Tab like buffer
   use 'romgrk/barbar.nvim'
@@ -111,7 +116,8 @@ return require('packer').startup(function()
   -- use 'kevinhwang91/nvim-bqf'
 
   -- Navigation
-  use { 'easymotion/vim-easymotion' }
+  -- use { 'easymotion/vim-easymotion' }
+  use 'phaazon/hop.nvim'
   use { 'unblevable/quick-scope'}
   -- smooth scrolling
   use 'psliwka/vim-smoothie'
@@ -126,6 +132,10 @@ return require('packer').startup(function()
   use { 'kana/vim-textobj-entire' }
   use { 'beloglazov/vim-textobj-quotes' }
   use {'mbbill/undotree'}
+  use 'tpope/vim-sleuth' --auto indent detection
+  -- use 'andymass/vim-matchup'
+
+  use {'liuchengxu/vim-which-key'}
 
   -- repl
   use 'metakirby5/codi.vim'

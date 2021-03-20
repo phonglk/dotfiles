@@ -65,6 +65,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/gv.vim"
   },
+  ["hop.nvim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/hop.nvim"
+  },
+  ["lsp-status.nvim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/lsp-status.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
@@ -154,6 +162,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/startuptime.vim"
   },
+  ["tagalong.vim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/tagalong.vim"
+  },
   tcomment_vim = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/tcomment_vim"
@@ -182,10 +194,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-dispatch"
   },
-  ["vim-easymotion"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-easymotion"
-  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-fugitive"
@@ -210,9 +218,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-peekaboo"
   },
+  ["vim-polyglot"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-polyglot"
+  },
   ["vim-sandwich"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-sandwich"
+  },
+  ["vim-sleuth"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-sleuth"
+  },
+  ["vim-smoothie"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-smoothie"
   },
   ["vim-snippets"] = {
     loaded = true,
@@ -241,6 +261,10 @@ _G.packer_plugins = {
   ["vim-vsnip-integ"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
+  },
+  ["vim-which-key"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-which-key"
   }
 }
 

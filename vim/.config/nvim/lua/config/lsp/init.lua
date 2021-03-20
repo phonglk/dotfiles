@@ -1,4 +1,5 @@
 local nvim_lsp = require('lspconfig')
+local lsp_status = require('lsp-status')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -70,6 +71,21 @@ local on_attach = function(client, bufnr)
   --   ]], false)
   -- end
 end
+
+lsp_status.register_progress()
+local kind_labels_mt = {__index = function(_, k) return k end}
+  local kind_labels = {}
+  lsp_status.config({
+    kind_labels = kind_labels,
+    indicator_errors = "?",
+    indicator_warnings = "!",
+    indicator_info = "i",
+    indicator_hint = "?",
+    -- the default is a wide codepoint which breaks absolute and relative
+    -- line counts if placed before airline's Z section
+    status_symbol = "",
+    kind_labels
+  })
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
