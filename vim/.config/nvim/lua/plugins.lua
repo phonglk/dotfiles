@@ -44,6 +44,7 @@ return require('packer').startup(function()
   -- use { 'anott03/nvim-lspinstall' }
   -- use {'RishabhRD/popfix' }
   -- use {'RishabhRD/nvim-lsputils' }
+  use 'kabouzeid/nvim-lspinstall'
   -- similar to nvim-lsputils: replace default nvim lsp ui
   use 'glepnir/lspsaga.nvim'
   use 'nvim-lua/lsp-status.nvim'

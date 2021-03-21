@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+read -p "Enter Pane Name: " pane_name;      
+printf "\033]2;%s\033\\r:r" "${pane_name}"; 
