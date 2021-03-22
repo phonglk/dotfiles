@@ -22,9 +22,10 @@ utils.opt('w', 'numberwidth', 5)
 utils.opt('w', 'foldmethod', 'indent')
 utils.opt('w', 'foldlevel', 10)
 -- utils.opt('o', 'clipboard','unnamed,unnamedplus')
-utils.opt('o', 'cmdheight', 2)
+utils.opt('o', 'cmdheight', 1)
 utils.opt('o', 'mouse','a')
 utils.opt('o', 'showbreak','↪')
+utils.opt('w', 'signcolumn', 'yes')
 
 -- port over old configuration
 vim.cmd [[
@@ -60,6 +61,9 @@ let g:closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx'
 
 let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_lua = ['luaformatter']
+let g:neoformat_enabled_fish = ['fish_indent']
+let g:neoformat_enabled_scss = ['prettier']
 ]]
 
 -- quick-scope config

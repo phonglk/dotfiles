@@ -9,7 +9,8 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { noremap=true, silent=true }
   -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gD', ':Lspsaga lsp_finder<CR>', opts)
+  buf_set_keymap('n', 'gD', ':Telescope lsp_definitions<CR>', opts)
+  buf_set_keymap('n', 'gF', ':Lspsaga lsp_finder<CR>', opts)
   -- buf_set_keymap('n', 'gd', ':Telescope lsp_definitions<CR>', opts)
   buf_set_keymap('n', 'gd', ':Lspsaga preview_definition<CR>', opts)
   -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)

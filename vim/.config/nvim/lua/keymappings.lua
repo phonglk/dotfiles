@@ -3,6 +3,7 @@ local map = utils.map
 
 -- Map leader to space
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
 vim.g.pastetoggle='<F3>'
 -- indent
 map('v', '>', '>gv')
@@ -26,8 +27,8 @@ map('n', 'j', 'gj')
 map('n', 'gj', 'j')
 
 -- text text-object-quote
-map('x', 'q', 'iq')
-map('o', 'q', 'iq')
+map('x', 'q', 'iq', { noremap=false })
+map('o', 'q', 'iq', { noremap=false })
 
 -- esc
 map('t', '<Esc>', [[<C-\><C-n>]])
@@ -56,9 +57,16 @@ map('v', '<leader>ff', ':Neoformat<CR>')
 map('n', '<leader>ff', ':Neoformat<CR>')
 
 -- delete without yanking
-map('n', '<leader>d', '"_d')
-map('v', '<leader>d', '"_d')
+map('n', "<localleader>d", '"_d')
+map('v', "<localleader>d", '"_d')
+map('n', "<localleader>D", '"_D')
+map('v', "<localleader>D", '"_D')
 -- replace currently selected text with default register
-map('n', '<leader>p', '"_dP')
-map('v', '<leader>p', '"_dP')
+map('n', "<localleader>p", '"_dP')
+map('v', "<localleader>p", '"_dP')
+
+map('n', "<localleader>c", '"_dc')
+map('v', "<localleader>c", '"_dc')
+map('n', "<localleader>C", '"_dC')
+map('v', "<localleader>C", '"_dC')
 
