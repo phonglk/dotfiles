@@ -40,11 +40,24 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/codi.vim"
   },
+  ["compe-tabnine"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/compe-tabnine"
+  },
+  ["completion-nvim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/completion-nvim"
+  },
+  fzf = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/fzf"
+  },
   ["galaxyline.nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/galaxyline.nvim"
   },
   ["git-blame.nvim"] = {
+    config = { "\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0" },
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/git-blame.nvim"
   },
@@ -97,6 +110,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
   },
+  ["nvim-bqf"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-bqf"
+  },
   ["nvim-colorizer.lua"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
@@ -113,6 +130,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
   },
+  ["nvim-lspinstall"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
+  },
+  ["nvim-lsputils"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-lsputils"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
@@ -120,10 +145,6 @@ _G.packer_plugins = {
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
-  },
-  ["nvim-treesitter-refactor"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-treesitter-refactor"
   },
   ["nvim-ts-rainbow"] = {
     loaded = true,
@@ -145,6 +166,10 @@ _G.packer_plugins = {
   ["plenary.nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/plenary.nvim"
+  },
+  popfix = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/popfix"
   },
   ["popup.nvim"] = {
     loaded = true,
@@ -171,8 +196,13 @@ _G.packer_plugins = {
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/tcomment_vim"
   },
   ["telescope.nvim"] = {
+    config = { "\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0" },
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+  },
+  ["typescript-vim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/typescript-vim"
   },
   undotree = {
     loaded = true,
@@ -202,9 +232,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-highlightedyank"
   },
+  ["vim-jsx-typescript"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-jsx-typescript"
+  },
   ["vim-lion"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-lion"
+  },
+  ["vim-markbar"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-markbar"
   },
   ["vim-monokai"] = {
     loaded = true,
@@ -268,6 +306,10 @@ _G.packer_plugins = {
   }
 }
 
+-- Config for: telescope.nvim
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
+-- Config for: git-blame.nvim
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
 -- Config for: gitsigns.nvim
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 END

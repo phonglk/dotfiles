@@ -6,8 +6,8 @@ function nice_find_and_set -d "Find the process by name and set nice"
 end
 
 function nice_adjust -d "My preset for adjusting nice"
-  nice_find_and_set falcond -19
-  nice_find_and_set yabai 1
-  nice_find_and_set skhd 1
-  nice_find_and_set limelight -10
+  nice_find_and_set falcond 19
+  nice_find_and_set yabai -5
+  nice_find_and_set skhd -5
+  nice_find_and_set limelight 10
 end

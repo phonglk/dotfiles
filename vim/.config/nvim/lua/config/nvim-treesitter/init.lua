@@ -1,15 +1,7 @@
 local ts_config = require("nvim-treesitter.configs")
 
---[[ Scripts to install manually 
---local langs = {"javascript", "typescript", "tsx", "html", "css", "bash", "regex", "json", "jsdoc", "yaml", "lua" }
-for _, lang in ipairs(langs) do
-  vim.api.nvim_command('TSInstallFromGrammar '..lang)
-end]
---]]
-
 ts_config.setup {
     ensure_installed = {
-        -- https://www.reddit.com/r/neovim/comments/m4f6rv/fix_for_treesitter_abi_version_mismatch_in_neovim/
         "javascript",
         "typescript",
         "tsx",
@@ -31,6 +23,19 @@ ts_config.setup {
     refactor = {
       highlight_definitions = { enable = true },
       highlight_current_scope = { enable = true },
+    },
+    indent = {
+        enable = true
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "tss",
+            node_incremental = "tni",
+            node_decremental = "tnd",
+            scope_incremental = "tsi",
+            scope_current = "tsc",
+        },
     },
     rainbow = {
       enable = true

@@ -8,14 +8,19 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
-  -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gD', ':Telescope lsp_definitions<CR>', opts)
-  buf_set_keymap('n', 'gF', ':Lspsaga lsp_finder<CR>', opts)
-  -- buf_set_keymap('n', 'gd', ':Telescope lsp_definitions<CR>', opts)
-  buf_set_keymap('n', 'gd', ':Lspsaga preview_definition<CR>', opts)
   -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- buf_set_keymap('n', 'gd', ':Telescope lsp_definitions<CR>', opts)
+  --
+  -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', ':Lspsaga lsp_finder<CR>', opts)
+  --
+  buf_set_keymap('n', 'gp', ':Lspsaga preview_definition<CR>', opts)
+  -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  --
   buf_set_keymap('n', 'gr', ':Telescope lsp_references<CR>', opts)
-  -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_set_keymap('n', 'gr', ':lua vim.lsp.buf.references()<CR><C-w>p', opts)
+  -- nnoremap gr :lua vim.lsp.buf.references()<CR>:sleep 500ms<CR>:copen<CR>
+
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   -- buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -174,21 +179,26 @@ require('lspkind').init({
 -- vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
 -- vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
 -- vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
--- vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
--- vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
 -- vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
--- vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
 -- lspsaga
 local saga = require 'lspsaga'
 saga.init_lsp_saga{
-  max_preview_lines = 10,
+  max_preview_lines = 15,
   code_action_keys = {
     quit = '<Esc>',exec = '<CR>'
   },
   rename_action_keys = {
     quit = '<Esc>',exec = '<CR>'  -- quit can be a table
   },
+  finder_action_keys = {
+    quit = '<Esc>',
+    open = '<CR>',
+    vsplit = 'v',split = 's',
+  }
 }
 
 -- linter

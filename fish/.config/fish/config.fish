@@ -13,6 +13,7 @@ if status --is-interactive
   alias ... "cd ../../"
   alias .... "cd ../../../"
   alias jsb "~/.nvm/versions/node/v14.3.0/bin/js-beautify"
+  alias tmux "tmux -2"
 
   set -gx EDITOR nvim
   set -gx PAGER most
@@ -39,7 +40,7 @@ if status --is-interactive
   alias ll='ls -lah'
 
   abbr -a -g gpsuo git push --set-upstream origin
-  abbr -a -g gpsuoc git push --set-upstream origin (git branch --show-current)
+  abbr -a -g gpsuoc "git push --set-upstream origin (git branch --show-current)"
   abbr -a -g gco git checkout
   abbr -a -g gcm git commit -m "
   abbr -a -g gcam git commit -am "

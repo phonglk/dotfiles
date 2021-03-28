@@ -26,6 +26,10 @@ map('n', 'gk', 'k')
 map('n', 'j', 'gj')
 map('n', 'gj', 'j')
 
+-- select scope
+map('n', 'sx', 'tsstsi', { noremap=false })
+map('v', 'sx', 'tsi', { noremap=false })
+
 -- text text-object-quote
 map('x', 'q', 'iq', { noremap=false })
 map('o', 'q', 'iq', { noremap=false })
@@ -70,3 +74,9 @@ map('v', "<localleader>c", '"_dc')
 map('n', "<localleader>C", '"_dC')
 map('v', "<localleader>C", '"_dC')
 
+vim.api.nvim_exec([[
+augroup vimrcQfClose
+    autocmd!
+    autocmd FileType qf if mapcheck('<esc>', 'n') ==# '' | nnoremap <buffer><silent> <esc> :cclose<bar>lclose<CR> | endif
+augroup END
+]], false)

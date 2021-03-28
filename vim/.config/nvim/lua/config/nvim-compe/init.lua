@@ -25,7 +25,8 @@ require "compe".setup {
         spell = true,
         tags = true,
         snippets_nvim = true,
-        treesitter = true
+        -- treesitter = true,
+        tabnine = true
     }
 }
 
@@ -65,8 +66,6 @@ _G.s_tab_complete = function()
     return t "<S-Tab>"
   end
 end
-
-
 
 
 --  mappings

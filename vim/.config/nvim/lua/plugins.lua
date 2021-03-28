@@ -28,7 +28,10 @@ return require('packer').startup(function()
   -- Fuzzy finder
   use {
       'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+      config = function ()
+      	require('config.telescope-nvim')
+      end
   }
   -- use {
   --   "nvim-telescope/telescope-frecency.nvim",
@@ -42,23 +45,29 @@ return require('packer').startup(function()
   -- show icon for suggestion
   use { 'onsails/lspkind-nvim' }
   -- use { 'anott03/nvim-lspinstall' }
-  -- use {'RishabhRD/popfix' }
-  -- use {'RishabhRD/nvim-lsputils' }
+  use {'RishabhRD/popfix' }
+  use {'RishabhRD/nvim-lsputils' }
   use 'kabouzeid/nvim-lspinstall'
   -- similar to nvim-lsputils: replace default nvim lsp ui
   use 'glepnir/lspsaga.nvim'
   use 'nvim-lua/lsp-status.nvim'
 
   -- Completion
-  -- use { 'nvim-lua/completion-nvim' }
+  use { 'nvim-lua/completion-nvim' }
   use { 'hrsh7th/nvim-compe' }
   use { 'hrsh7th/vim-vsnip' }
   use { 'hrsh7th/vim-vsnip-integ' }
+  require('config.nvim-compe')
   use 'honza/vim-snippets'
 
+  use {'tzachar/compe-tabnine' }
+  require('config.nvim-compe.tabnine')
+
   -- {{ Language helper
-    use 'sheerun/vim-polyglot'
-    use 'AndrewRadev/tagalong.vim'
+  use 'sheerun/vim-polyglot'
+  require('config.vim-polyglot')
+
+  use 'AndrewRadev/tagalong.vim'
   -- }}
   -- Lua development
   use { 'tjdevries/nlua.nvim' }
@@ -79,21 +88,30 @@ return require('packer').startup(function()
       require('gitsigns').setup()
     end
   }
-  use 'f-person/git-blame.nvim'
+  use {'f-person/git-blame.nvim', config = function()
+          require('config.git-blame-nvim')
+	end
+      }
 
   -- Status line
   use {
     'glepnir/galaxyline.nvim',
       branch = 'main',
   }
+  require('config.galaxyline')
 
   -- tree file browser
   use { 'kyazdani42/nvim-tree.lua' }
+  require('config.nvim-tree')
 
   -- Highlight
   use { 'nvim-treesitter/nvim-treesitter' }
   use 'nvim-treesitter/nvim-treesitter-refactor'
+  require('config.nvim-treesitter')
   use 'p00f/nvim-ts-rainbow'
+  -- temporary syntax until treesitter works for tsx
+  -- use 'leafgarland/typescript-vim'
+  -- use 'peitalin/vim-jsx-typescript'
 
   -- Icons
   use { 'ryanoasis/vim-devicons' }
@@ -101,10 +119,13 @@ return require('packer').startup(function()
 
   -- Tab like buffer
   use 'romgrk/barbar.nvim'
+  require('config.barbar-nvim')
   -- use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
 
   -- Editing Helper
   use { 'windwp/nvim-autopairs' }
+  require('config.nvim-autopairs')
+
   use { 'norcalli/nvim-colorizer.lua' }
   require('colorizer').setup()
   use { 'sbdchd/neoformat' }
@@ -114,11 +135,16 @@ return require('packer').startup(function()
   use { 'tommcdo/vim-lion' }
 
   -- Improve qf window
-  -- use 'kevinhwang91/nvim-bqf'
+  use 'kevinhwang91/nvim-bqf'
+  -- fzf
+	use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
+	-- use {'junegunn/fzf.vim'}
 
   -- Navigation
   -- use { 'easymotion/vim-easymotion' }
   use 'phaazon/hop.nvim'
+  require('config.hop-nvim')
+
   use { 'unblevable/quick-scope'}
   -- smooth scrolling
   use 'psliwka/vim-smoothie'
@@ -135,8 +161,13 @@ return require('packer').startup(function()
   use {'mbbill/undotree'}
   use 'tpope/vim-sleuth' --auto indent detection
   -- use 'andymass/vim-matchup'
+  -- require('config.vim-matchup')
+
+  -- Mark utils
+  use 'Yilin-Yang/vim-markbar'
 
   use {'liuchengxu/vim-which-key'}
+  require('config.vim-which-key')
 
   -- repl
   use 'metakirby5/codi.vim'
