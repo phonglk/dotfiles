@@ -1,1 +1,0 @@
--- vim.cmd [[let g:compe.source.tabnine = v:true]]

@@ -40,13 +40,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/codi.vim"
   },
-  ["compe-tabnine"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/compe-tabnine"
-  },
   ["completion-nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/completion-nvim"
+  },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/friendly-snippets"
   },
   fzf = {
     loaded = true,
@@ -146,6 +146,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
+  ["nvim-treesitter-refactor"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-treesitter-refactor"
+  },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects"
+  },
   ["nvim-ts-rainbow"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow"
@@ -200,10 +208,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
-  ["typescript-vim"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/typescript-vim"
-  },
   undotree = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/undotree"
@@ -232,10 +236,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-highlightedyank"
   },
-  ["vim-jsx-typescript"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-jsx-typescript"
-  },
   ["vim-lion"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-lion"
@@ -256,10 +256,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-peekaboo"
   },
-  ["vim-polyglot"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-polyglot"
-  },
   ["vim-sandwich"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-sandwich"
@@ -271,10 +267,6 @@ _G.packer_plugins = {
   ["vim-smoothie"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-smoothie"
-  },
-  ["vim-snippets"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-snippets"
   },
   ["vim-startify"] = {
     loaded = true,
@@ -303,15 +295,19 @@ _G.packer_plugins = {
   ["vim-which-key"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-which-key"
+  },
+  ["vista.vim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vista.vim"
   }
 }
 
--- Config for: telescope.nvim
-try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
--- Config for: git-blame.nvim
-try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
 -- Config for: gitsigns.nvim
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+-- Config for: git-blame.nvim
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
+-- Config for: telescope.nvim
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
 END
 
 catch

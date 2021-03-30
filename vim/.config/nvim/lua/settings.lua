@@ -30,6 +30,8 @@ utils.opt('w', 'signcolumn', 'yes')
 
 -- port over old configuration
 vim.cmd [[
+let g:python3_host_prog  = '/usr/local/bin/python3'
+
 let maplocalleader = ','
 syntax enable
 filetype plugin indent on
@@ -62,9 +64,24 @@ let g:closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx'
 
 let g:neoformat_enabled_javascript = ['prettier']
-let g:neoformat_enabled_lua = ['luaformatter']
+let g:neoformat_enabled_lua = ['luaformat']
 let g:neoformat_enabled_fish = ['fish_indent']
 let g:neoformat_enabled_scss = ['prettier']
+
+function! Cmd(cmd)
+  redir => message
+  silent execute a:cmd
+  redir END
+  if empty(message)
+    echoerr "no output"
+  else
+    " use "new" instead of "tabnew" below if you prefer split windows instead of tabs
+    new
+    setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
+    silent put=message
+  endif
+endfunction
+command! -nargs=+ -complete=command Cmd call Cmd(<q-args>)
 ]]
 
 -- quick-scope config
