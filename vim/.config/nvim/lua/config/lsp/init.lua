@@ -1,6 +1,6 @@
 local nvim_lsp = require('lspconfig')
 local lsp_status = require('lsp-status')
-local status = require('config.lsp.status')
+local status = require('config.status')
 
 status.activate()
 

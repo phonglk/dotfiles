@@ -88,5 +88,10 @@
     "prefix": "useRef",
     "body": ["const ${1:refContainer} = useRef(${2:initialValue});"],
     "description": "Creates React useRef hook"
+  },
+  "Import style": {
+    "prefix": "ims",
+    "body": ["import s from './s.module.scss';"],
+    "description": "Create import scss style"
   }
 }

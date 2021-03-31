@@ -4,7 +4,7 @@ local map = utils.map
 -- Map leader to space
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
-vim.g.pastetoggle='<F3>'
+vim.g.pastetoggle = '<F3>'
 -- indent
 map('v', '>', '>gv')
 map('v', '<', '<gv')
@@ -27,12 +27,12 @@ map('n', 'j', 'gj')
 map('n', 'gj', 'j')
 
 -- select scope
-map('n', 'sx', 'tsstsi', { noremap=false })
-map('v', 'sx', 'tsi', { noremap=false })
+map('n', 'sx', 'tsstsi', {noremap = false})
+map('v', 'sx', 'tsi', {noremap = false})
 
 -- text text-object-quote
-map('x', 'q', 'iq', { noremap=false })
-map('o', 'q', 'iq', { noremap=false })
+map('x', 'q', 'iq', {noremap = false})
+map('o', 'q', 'iq', {noremap = false})
 
 -- esc
 map('t', '<Esc>', [[<C-\><C-n>]])
@@ -47,9 +47,9 @@ map('n', '<M-w>', ':set wrap!<CR>')
 map('n', '<leader>db', ':bd<CR>')
 
 -- replace and search under cursor
-map ('v', '/R', [[y:%s/<C-R>=escape(@",'/\')<CR>//g<left><left>]])
-map ('v', '/r', [[y:s/<C-R>=escape(@",'/\')<CR>//g<left><left>]])
-map ('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+map('v', '/R', [[y:%s/<C-R>=escape(@",'/\')<CR>//g<left><left>]])
+map('v', '/r', [[y:s/<C-R>=escape(@",'/\')<CR>//g<left><left>]])
+map('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 
 -- edit relative files
 map('n', '<leader>o', ':e %:h')
@@ -73,6 +73,7 @@ map('n', "<localleader>c", '"_dc')
 map('v', "<localleader>c", '"_dc')
 map('n', "<localleader>C", '"_dC')
 map('v', "<localleader>C", '"_dC')
+map('n', "gV", "`[v`]")
 
 vim.api.nvim_exec([[
 augroup vimrcQfClose
