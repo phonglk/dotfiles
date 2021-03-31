@@ -21,8 +21,8 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     local opts = {noremap = true, silent = true}
-    -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gd', ':Telescope lsp_definitions<CR>', opts)
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    -- buf_set_keymap('n', 'gd', ':Telescope lsp_definitions<CR>', opts)
     --
     -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gD', ':Lspsaga lsp_finder<CR>', opts)
@@ -191,7 +191,7 @@ require('lspkind').init({
 -- for nvim-lsputils
 -- vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
 -- vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
--- vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
 -- vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
 vim.lsp.handlers['textDocument/typeDefinition'] =
     require'lsputil.locations'.typeDefinition_handler

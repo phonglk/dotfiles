@@ -67,22 +67,8 @@ let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_lua = ['luaformat']
 let g:neoformat_enabled_fish = ['fish_indent']
 let g:neoformat_enabled_scss = ['prettier']
-
-function! Cmd(cmd)
-  redir => message
-  silent execute a:cmd
-  redir END
-  if empty(message)
-    echoerr "no output"
-  else
-    " use "new" instead of "tabnew" below if you prefer split windows instead of tabs
-    new
-    setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
-    silent put=message
-  endif
-endfunction
-command! -nargs=+ -complete=command Cmd call Cmd(<q-args>)
 ]]
 
 -- quick-scope config
 vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
+

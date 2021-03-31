@@ -54,9 +54,9 @@ return require('packer').startup(function()
     require('config.vista-vim')
 
     -- Completion
-    use {'nvim-lua/completion-nvim'}
+    -- use {'nvim-lua/completion-nvim'}
     use {'hrsh7th/nvim-compe'}
-    use 'rafamadriz/friendly-snippets'
+    -- use 'rafamadriz/friendly-snippets'
     use {'hrsh7th/vim-vsnip'}
     use {'hrsh7th/vim-vsnip-integ'}
     -- use 'SirVer/ultisnips'
@@ -67,17 +67,12 @@ return require('packer').startup(function()
     -- use {'tzachar/compe-tabnine'}
 
     -- {{ Language helper
-    use {
-        'sheerun/vim-polyglot',
-        ft = { 'log', 'unix' },
-        cmd = 'PolyglotEnable',
-        setup = function() require('config.vim-polyglot') end
-    }
+    require('config.vim-polyglot')
+    use {'sheerun/vim-polyglot', cmd = 'PolyglotEnable'}
 
     use 'AndrewRadev/tagalong.vim'
     -- }}
-    -- Lua development
-    use {'tjdevries/nlua.nvim'}
+    -- Lua developmen    use {'tjdevries/nlua.nvim'}
 
     -- Vim dispatch
     use {'tpope/vim-dispatch'}

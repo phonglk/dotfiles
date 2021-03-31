@@ -37,3 +37,5 @@ let g:vista#renderer#icons = {
 \   "variable": "\uf71b",
 \  }
 ]]
+require('utils.map').nnoremap('<Leader>vv', ':Vista!!<CR>')
+
