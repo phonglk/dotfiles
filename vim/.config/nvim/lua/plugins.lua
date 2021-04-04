@@ -24,9 +24,10 @@ return require('packer').startup(function()
     use 'patstockwell/vim-monokai-tasty'
     use 'Iron-E/nvim-highlite'
     use 'sainnhe/sonokai'
-    use 'crusoexia/vim-monokai'
+    use 'tanvirtin/monokai.nvim'
     use 'morhetz/gruvbox'
     use 'tomasr/molokai'
+    use 'joshdick/onedark.vim'
     -- }}}
 
     -- {{{ Fuzzy finder
@@ -109,6 +110,7 @@ return require('packer').startup(function()
     use {'nvim-treesitter/nvim-treesitter'}
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/playground'
     require('config.nvim-treesitter')
     use 'p00f/nvim-ts-rainbow'
     -- temporary syntax until treesitter works for tsx

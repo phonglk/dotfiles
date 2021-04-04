@@ -90,6 +90,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/molokai"
   },
+  ["monokai.nvim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/monokai.nvim"
+  },
   neoformat = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/neoformat"
@@ -153,6 +157,10 @@ _G.packer_plugins = {
   ["one-nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/one-nvim"
+  },
+  ["onedark.vim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/onedark.vim"
   },
   ["packer.nvim"] = {
     loaded = false,
@@ -232,10 +240,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-markbar"
   },
-  ["vim-monokai"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-monokai"
-  },
   ["vim-monokai-tasty"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/vim-monokai-tasty"
@@ -296,12 +300,12 @@ _G.packer_plugins = {
   }
 }
 
--- Config for: telescope.nvim
-try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
 -- Config for: gitsigns.nvim
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 -- Config for: git-blame.nvim
 try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
+-- Config for: telescope.nvim
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
 
 -- Command lazy-loads
 vim.cmd [[command! -nargs=* -range -bang -complete=file PolyglotEnable lua require("packer.load")({'vim-polyglot'}, { cmd = "PolyglotEnable", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]

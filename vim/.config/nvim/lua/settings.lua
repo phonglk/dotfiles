@@ -31,6 +31,10 @@ utils.opt('w', 'signcolumn', 'yes')
 -- port over old configuration
 vim.cmd [[
 let g:python3_host_prog  = '/usr/local/bin/python3'
+set t_ZH=[3m
+set t_ZR=[23m
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 
 let maplocalleader = ','
 syntax enable

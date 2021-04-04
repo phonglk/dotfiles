@@ -30,8 +30,8 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'gp', ':Lspsaga preview_definition<CR>', opts)
     -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     --
-    buf_set_keymap('n', 'gr', ':Telescope lsp_references<CR>', opts)
-    -- buf_set_keymap('n', 'gr', ':lua vim.lsp.buf.references()<CR><C-w>p', opts)
+    -- buf_set_keymap('n', 'gr', ':Telescope lsp_references<CR>', opts)
+    buf_set_keymap('n', 'gr', ':lua vim.lsp.buf.references()<CR><C-w>p', opts)
     -- nnoremap gr :lua vim.lsp.buf.references()<CR>:sleep 500ms<CR>:copen<CR>
 
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -190,14 +190,14 @@ require('lspkind').init({
 
 -- for nvim-lsputils
 -- vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
--- vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
 vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
 -- vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
 vim.lsp.handlers['textDocument/typeDefinition'] =
     require'lsputil.locations'.typeDefinition_handler
 vim.lsp.handlers['textDocument/implementation'] =
     require'lsputil.locations'.implementation_handler
--- vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 vim.lsp.handlers['workspace/symbol'] =
     require'lsputil.symbols'.workspace_handler
 
