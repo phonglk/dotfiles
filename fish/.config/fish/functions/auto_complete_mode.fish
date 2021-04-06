@@ -43,89 +43,6 @@ function auto_complete_mode
       set QUERY $Q
     end
   end
-
-  ##########
-  # Docker #
-  ##########
-
-  function fzf-docker-images
-    set DATA (docker images)
-    set INDEX 3
-    set IMAGE (fzf_search $DATA $INDEX)
-
-    commandline -i -- "$IMAGE"
-  end
-
-  function fzf-docker-containers
-    set DATA (docker container ls -a)
-    set INDEX 1
-    set CONTAINER (fzf_search $DATA $INDEX)
-
-    commandline -i -- "$CONTAINER"
-  end
-
-  function fzf-docker
-    echo ""
-    echo -e "Docker\nImages\nContainers" \
-      | eval (_fzf) \
-      | read -l MODE; or return
-
-    switch "$MODE"
-      case Images
-        fzf-docker-images
-      case Containers
-        fzf-docker-containers
-    end
-
-    commandline -f repaint
-  end
-
-  #######
-  # K8S #
-  #######
-
-  function fzf-k8s-namespaces
-    set DATA (kubectl get namespace)
-    set INDEX 1
-    set NAMESPACE (fzf_search $DATA $INDEX)
-
-    commandline -i -- "$NAMESPACE"
-  end
-
-  function fzf-k8s-services
-    set DATA (kubectl get svc -A)
-    set INDEX 2
-    set SERVICE (fzf_search $DATA $INDEX)
-
-    commandline -i -- "$SERVICE"
-  end
-
-  function fzf-k8s-pods
-    set DATA (kubectl get pods -A)
-    set INDEX 2
-    set POD (fzf_search $DATA $INDEX)
-
-    commandline -i -- "$POD"
-  end
-
-  function fzf-k8s
-    echo ""
-    echo -e "K8S\nPods\nNamespaces\nServices" \
-      | eval (_fzf) \
-      | read -l MODE; or return
-
-    switch "$MODE"
-      case Pods
-        fzf-k8s-pods
-      case Namespaces
-        fzf-k8s-namespaces
-      case Services
-        fzf-k8s-services
-    end
-
-    commandline -f repaint
-  end
-
   function jira-help
     set OUT (env BUFFER=(commandline) /Users/phonglk/source/shopee/devtool/jira_helper.sh)
 
@@ -135,7 +52,7 @@ function auto_complete_mode
 
   function autocomplete_all
     echo ""
-    echo -e "K8S\nGit Branch\nPlaceholder1\nPlaceholder2" \
+    echo -e "K8S\nGit Branch\nJira Issue\nPlaceholder2" \
       | eval (_fzf) \
       | read -l MODE; or return
 
@@ -146,10 +63,9 @@ function auto_complete_mode
           | sed "s/*//;s/remotes\/origin\///;s/^ *//")
 
         commandline -i -- "$BRANCH"
-      case Namespaces
-        fzf-k8s-namespaces
-      case Services
-        fzf-k8s-services
+      case "Jira Issue"
+        set ISSUE (select_jira_issue)
+        commandline -i -- "$ISSUE"
     end
 
     commandline -f repaint
@@ -159,15 +75,6 @@ function auto_complete_mode
   bind --erase --preset -M insert \cx fish_clipboard_copy
   bind --erase --preset \cx fish_clipboard_copy
   bind --erase --preset -M visual \cx fish_clipboard_copy
-
-  # if bind -M autocomplete > /dev/null 2>&1
-  #   bind \ce -M autocomplete --sets-mode insert edit_command_buffer
-  #   bind \cc -M autocomplete --sets-mode insert force-repaint
-  #   bind \e  -M autocomplete --sets-mode insert force-repaint
-  #   bind d   -M autocomplete --sets-mode insert fzf-docker
-  #   bind k   -M autocomplete --sets-mode insert fzf-k8s
-  #   # bind j   -M autocomplete --sets-mode insert jira-help
-  # end
 
   if bind -M insert > /dev/null 2>&1
     bind -M insert \cx --sets-mode insert autocomplete_all

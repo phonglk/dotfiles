@@ -167,6 +167,10 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/opt/packer.nvim"
   },
+  playground = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/playground"
+  },
   ["plenary.nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/plenary.nvim"

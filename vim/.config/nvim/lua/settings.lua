@@ -68,6 +68,8 @@ let g:closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx'
 
 let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_typescript = ['prettier']
+let g:neoformat_enabled_typescriptreact = ['prettier']
 let g:neoformat_enabled_lua = ['luaformat']
 let g:neoformat_enabled_fish = ['fish_indent']
 let g:neoformat_enabled_scss = ['prettier']

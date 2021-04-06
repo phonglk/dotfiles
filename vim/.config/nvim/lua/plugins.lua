@@ -19,15 +19,13 @@ return require('packer').startup(function()
     use {'wbthomason/packer.nvim', opt = true}
 
     -- {{{ Color scheme
-    use 'sainnhe/gruvbox-material'
     use 'Th3Whit3Wolf/one-nvim'
     use 'patstockwell/vim-monokai-tasty'
     use 'Iron-E/nvim-highlite'
     use 'sainnhe/sonokai'
     use 'tanvirtin/monokai.nvim'
-    use 'morhetz/gruvbox'
-    use 'tomasr/molokai'
-    use 'joshdick/onedark.vim'
+    use 'yonlu/omni.vim'
+    use 'ChristianChiarulli/nvcode-color-schemes.vim'
     -- }}}
 
     -- {{{ Fuzzy finder
