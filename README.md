@@ -1,7 +1,7 @@
 # dotfiles
 dotfiles for my Arch/MacOS env
 
-![image](https://user-images.githubusercontent.com/2889732/111894763-6b746280-8a48-11eb-9eb3-4b14a9cc9ca8.png)
+![image](https://user-images.githubusercontent.com/2889732/113503363-f59dea00-9563-11eb-9c6e-82c7457808d6.png)
 
 # Prerequisite
 
