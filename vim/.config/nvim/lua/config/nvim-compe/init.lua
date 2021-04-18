@@ -24,8 +24,8 @@ require"compe".setup {
     source = {
         vsnip = {priority = 10},
         nvim_lsp = {priority = 9},
-        path = true,
-        buffer = true,
+        path = {priority = 7},
+        buffer = {priority = 5},
         calc = true,
         -- nvim_lua = true,
         -- spell = true,

@@ -84,11 +84,11 @@ return require('packer').startup(function()
     -- {{{ Git
     use {'tpope/vim-fugitive'}
     use {'junegunn/gv.vim'}
-    use {
-        'lewis6991/gitsigns.nvim',
-        requires = {'nvim-lua/plenary.nvim'},
-        config = function() require('gitsigns').setup() end
-    }
+    -- use {
+    --     'lewis6991/gitsigns.nvim',
+    --     requires = {'nvim-lua/plenary.nvim'},
+    --     config = function() require('gitsigns').setup() end
+    -- }
     use {
         'f-person/git-blame.nvim',
         config = function() require('config.git-blame-nvim') end
@@ -165,6 +165,7 @@ return require('packer').startup(function()
     use {'beloglazov/vim-textobj-quotes'}
     use {'mbbill/undotree'}
     use 'tpope/vim-sleuth' -- auto indent detection
+    use 'Konfekt/FastFold' -- must have when use foldmethod=syntax
     -- Mark utils
     use 'Yilin-Yang/vim-markbar'
     use {'liuchengxu/vim-which-key'}

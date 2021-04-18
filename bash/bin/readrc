@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# https://gist.github.com/binaryghost/3078822
+# read from rc files
+while IFS== read var val
+do
+  case $var in
+    \#*) ;;  ## ignore commented lines
+    *) eval "$var=\$val" ;;
+  esac
+done < "$HOME/$1"

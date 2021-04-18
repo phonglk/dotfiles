@@ -1,0 +1,47 @@
+#!/usr/bin/env -S deno run --allow-run --unstable --allow-read --allow-write
+// vim: filetype=typescript
+
+import { existsSync, ensureSymlinkSync, walkSync } from "https://deno.land/std/fs/mod.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
+
+const cmd = Deno.run({
+  cmd: ["git", "worktree", "list"],
+  stdout: "piped",
+  stderr: "piped",
+});
+
+const output = await cmd.output(); // "piped" must be set
+const outStr = new TextDecoder().decode(output);
+const wtlist = outStr
+  .split(/\n/)
+  .map((line) => line.split(/ +/))
+  .filter((line) => line.length === 3)
+  .map((line) => {
+    const [path, commit, branchRaw] = line;
+    const branch = branchRaw.replace(/(^\[|\]$)/g, "");
+    return { path, branch, commit };
+  });
+
+const masterwt = wtlist.find((wt) => wt.branch === "master");
+
+function checkAndLink(target) {
+  if (existsSync(path.join(target, "./package.json"))) {
+    ensureSymlinkSync(
+      path.join(masterwt.path, target, "./node_modules"),
+      path.join(target, "./node_modules")
+    );
+    console.log(`symlinked ${target}`);
+  }
+}
+
+// create symlink for root and any micro packages inside
+checkAndLink(".");
+if (existsSync("./packages")) {
+  for (const entry of Deno.readDirSync('./packages')) {
+    if (entry.isDirectory) {
+      checkAndLink(`./packages/${entry.name}`)
+    }
+  }
+}
+
+cmd.close();

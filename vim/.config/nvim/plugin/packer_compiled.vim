@@ -32,6 +32,10 @@ local function try_loadstring(s, component, name)
 end
 
 _G.packer_plugins = {
+  FastFold = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/FastFold"
+  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/barbar.nvim"
@@ -53,19 +57,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/git-blame.nvim"
   },
-  ["gitsigns.nvim"] = {
-    config = { "\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0" },
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
-  },
-  gruvbox = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/gruvbox"
-  },
-  ["gruvbox-material"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/gruvbox-material"
-  },
   ["gv.vim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/gv.vim"
@@ -86,10 +77,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
-  molokai = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/molokai"
-  },
   ["monokai.nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/monokai.nvim"
@@ -97,6 +84,10 @@ _G.packer_plugins = {
   neoformat = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/neoformat"
+  },
+  ["nvcode-color-schemes.vim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvcode-color-schemes.vim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -154,13 +145,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
+  ["omni.vim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/omni.vim"
+  },
   ["one-nvim"] = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/one-nvim"
-  },
-  ["onedark.vim"] = {
-    loaded = true,
-    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/onedark.vim"
   },
   ["packer.nvim"] = {
     loaded = false,
@@ -304,8 +295,6 @@ _G.packer_plugins = {
   }
 }
 
--- Config for: gitsigns.nvim
-try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 -- Config for: git-blame.nvim
 try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
 -- Config for: telescope.nvim

@@ -7,7 +7,7 @@ function auto_complete_mode
 
   function _fzf
     set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 40%
-    set FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS --layout=reverse --header-lines=1"
+    set FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS --layout=reverse"
     echo "fzf $FZF_DEFAULT_OPTS $argv"
   end
 

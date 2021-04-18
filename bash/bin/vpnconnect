@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# put following to ~/.vpnconnectrc
+# network={network selection, e.g 1}
+# username= {your username}
+# base64pwd={your password but in base65, must put in quote}
+# host={vpn host}
+
+# https://gist.github.com/binaryghost/3078822
+# read from rc files
+while IFS== read var val
+do
+  case $var in
+    \#*) ;;  ## ignore commented lines
+    *) eval "$var=\$val" ;;
+  esac
+done < "$HOME/.vpnconnectrc"
+
+pwd=$(base64 -d <<< $(sed 's/"//g' <<< $base64pwd))
+printf '%s\n%s\n%s\n' $network $username $pwd | /opt/cisco/anyconnect/bin/vpn -s connect $host
+

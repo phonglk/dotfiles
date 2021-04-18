@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+RC=$(node -e 'process.stdout.write(JSON.stringify(require("rc")("wf")))')
+AUTH=$(echo $RC | jq --raw-output '.jira.token')
+HOST=$(echo $RC | jq --raw-output '.jira.host')
+
+# searching for assigned issues
+RESP=$(curl --request GET \
+  --silent \
+  --url "$HOST/rest/api/2/search?jql=resolution%20%3D%20Unresolved%20AND%20assignee%20in%20(currentUser())%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC&fields=summary%2Cstatus%2Cissuetype%2Clabels" \
+  --header "Authorization: Basic $AUTH" \
+  --header 'Content-Type: application/json')
+
+# format from json
+LIST=$(echo $RESP | jq -r '.issues[] | "\(.key) \(.fields.issuetype.name) \(.fields.summary)" ')
+
+# prompt for issue
+ISSUE=$(echo "$LIST" | fzf --height 40% --layout=reverse --prompt="Select issue>")
+KEY=$(echo $ISSUE | cut -d" " -f1)
+echo $KEY
+

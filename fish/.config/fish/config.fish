@@ -5,15 +5,16 @@ if status --is-interactive
   	rvm default
   end
 
-  alias cwd "pwd > /tmp/cwd"
-  alias pcwd "cat /tmp/cwd"
-  alias gwd "cd (pcwd)"
+  # alias cwd "pwd > /tmp/cwd"
+  # alias pcwd "cat /tmp/cwd"
+  # alias gwd "cd (pcwd)"
   alias python "/usr/local/Cellar/python/3.7.7/bin/python3"
   alias .. "cd ../"
   alias ... "cd ../../"
   alias .... "cd ../../../"
-  alias jsb "~/.nvm/versions/node/v14.3.0/bin/js-beautify"
+  # alias jsb "~/.nvm/versions/node/v14.3.0/bin/js-beautify"
   alias tmux "tmux -2"
+  alias gitwtgo 'cd (git worktree list | fzf | cut -d" " -f 1)'
 
   set -gx EDITOR nvim
   set -gx PAGER most
@@ -21,13 +22,13 @@ if status --is-interactive
   # uses dircolors template
   switch (uname)
     case Darwin
-      eval (gdircolors ~/.dircolors/nord | sed 's/=/ /; s/\'/"/g; s/;\n//g' | awk '{print "set -x " $0}' | head -n 1)
+      eval (gdircolors -c ~/.dircolors/dircolors.256dark)
     case Linux
       eval (dircolors ~/.dircolors/nord | sed 's/=/ /; s/\'/"/g; s/;\n//g' | awk '{print "set -x " $0}' | head -n 1)
   end
 
   # Aliases
-  if type -q $gls
+  if type -q gls
     alias ls='gls --color=auto'
   else
     switch (uname)
@@ -45,6 +46,7 @@ if status --is-interactive
   abbr -a -g gcm git commit -m "
   abbr -a -g gcam git commit -am "
 
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
   # Auto start tmux
   # if status is-interactive 
   # and not set -q TMUX
