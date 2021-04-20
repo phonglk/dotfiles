@@ -34,6 +34,7 @@ return require('packer').startup(function()
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
         config = function() require('config.telescope-nvim') end
     }
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     -- use {
     --   "nvim-telescope/telescope-frecency.nvim",
     --   config = function()
@@ -154,7 +155,6 @@ return require('packer').startup(function()
     use 'psliwka/vim-smoothie'
     -- }}}
 
-
     -- {{{ Other helps
     use {'junegunn/vim-peekaboo'}
     use {'mhinz/vim-startify'}
@@ -175,7 +175,6 @@ return require('packer').startup(function()
     -- use 'andymass/vim-matchup'
     -- require('config.vim-matchup')
     -- }}}
-
 
     -- {{{ Debug
     use {'tweekmonster/startuptime.vim'}

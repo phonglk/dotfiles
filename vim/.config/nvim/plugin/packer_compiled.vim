@@ -295,10 +295,10 @@ _G.packer_plugins = {
   }
 }
 
--- Config for: git-blame.nvim
-try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
 -- Config for: telescope.nvim
 try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
+-- Config for: git-blame.nvim
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
 
 -- Command lazy-loads
 vim.cmd [[command! -nargs=* -range -bang -complete=file PolyglotEnable lua require("packer.load")({'vim-polyglot'}, { cmd = "PolyglotEnable", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
