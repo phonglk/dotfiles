@@ -23,6 +23,11 @@
     "body": ["function ${1:name}(${2:params}: ${3:string}) {", "\t$0", "}"],
     "description": "Function Statement"
   },
+  "const declaration": {
+    "prefix": "cd",
+    "body": ["const $0 = $1;"],
+    "description": "const declaration"
+  },
   "const function Statement": {
     "prefix": "const",
     "body": ["const ${1:name} = (${2:params}: ${3:string}) => {", "\t$0", "}"],

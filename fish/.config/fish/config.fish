@@ -5,9 +5,9 @@ if status --is-interactive
   	rvm default
   end
 
-  # alias cwd "pwd > /tmp/cwd"
+  alias wdsave "pwd >> ~/.wdsave && tail -n 5 ~/.wdsave > ~/.wdsavetmp && mv ~/.wdsavetmp ~/.wdsave"
   # alias pcwd "cat /tmp/cwd"
-  # alias gwd "cd (pcwd)"
+  alias wdload "cd (tail -r ~/.wdsave | fzf)"
   alias python "/usr/local/Cellar/python/3.7.7/bin/python3"
   alias .. "cd ../"
   alias ... "cd ../../"
@@ -15,6 +15,7 @@ if status --is-interactive
   # alias jsb "~/.nvm/versions/node/v14.3.0/bin/js-beautify"
   alias tmux "tmux -2"
   alias gitwtgo 'cd (git worktree list | fzf | cut -d" " -f 1)'
+  alias cdb 'cd (cat ~/.bookmarks | fzf)'
 
   set -gx EDITOR nvim
   set -gx PAGER most

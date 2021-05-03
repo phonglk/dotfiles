@@ -42,6 +42,12 @@ return require('packer').startup(function()
     --   end
     -- }
     -- }}}
+    use {
+        'windwp/nvim-spectre',
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+        config = function() require('config.nvim-spectre') end
+    }
+    require('config.nvim-spectre')
 
     -- {{{ LSP
     use {'neovim/nvim-lspconfig'}
@@ -55,7 +61,7 @@ return require('packer').startup(function()
     use 'glepnir/lspsaga.nvim'
     use 'nvim-lua/lsp-status.nvim'
     use 'liuchengxu/vista.vim'
-    require('config.vista-vim')
+    -- require('config.vista-vim')
     -- }}}
 
     -- {{{ Completion
@@ -169,7 +175,7 @@ return require('packer').startup(function()
     -- Mark utils
     use 'Yilin-Yang/vim-markbar'
     use {'liuchengxu/vim-which-key'}
-    require('config.vim-which-key')
+    -- require('config.vim-which-key')
     -- repl
     use 'metakirby5/codi.vim'
     -- use 'andymass/vim-matchup'
