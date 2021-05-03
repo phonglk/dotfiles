@@ -66,7 +66,7 @@ return require('packer').startup(function()
 
     -- {{{ Completion
     -- use {'nvim-lua/completion-nvim'}
-    use {'hrsh7th/nvim-compe'}
+    use {'hrsh7th/nvim-compe', requires = {'windwp/nvim-autopairs'}}
     -- use 'rafamadriz/friendly-snippets'
     use {'hrsh7th/vim-vsnip'}
     use {'hrsh7th/vim-vsnip-integ'}
@@ -135,7 +135,7 @@ return require('packer').startup(function()
     -- }}}
 
     -- {{{ Editing Helper
-    use {'windwp/nvim-autopairs'}
+    -- use {'windwp/nvim-autopairs'}
     require('config.nvim-autopairs')
     use {'norcalli/nvim-colorizer.lua'}
     require('colorizer').setup()
