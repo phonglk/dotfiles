@@ -1,13 +1,6 @@
 #!/usr/bin/env fish
 # Clone from https://github.com/Baspar/dotfiles/blob/master/fish/.config/fish/functions/auto_complete_mode.fish
 function auto_complete_mode
-  function jira-help
-    set OUT (env BUFFER=(commandline) /Users/phonglk/source/shopee/devtool/jira_helper.sh)
-
-    commandline -i -- "$OUT"
-    commandline -f repaint
-  end
-
   function autocomplete_all
     echo ""
     set command "Jira Issue"

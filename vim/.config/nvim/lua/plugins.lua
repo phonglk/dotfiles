@@ -181,6 +181,8 @@ return require('packer').startup(function()
     -- use 'andymass/vim-matchup'
     -- require('config.vim-matchup')
     -- }}}
+    --
+    use { 'sindrets/diffview.nvim'}
 
     -- {{{ Debug
     use {'tweekmonster/startuptime.vim'}
