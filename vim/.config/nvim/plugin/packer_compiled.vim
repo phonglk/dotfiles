@@ -83,6 +83,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/codi.vim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/diffview.nvim"
+  },
   fzf = {
     loaded = true,
     path = "/Users/phonglk/.local/share/nvim/site/pack/packer/start/fzf"
@@ -344,18 +348,18 @@ _G.packer_plugins = {
 }
 
 time("Defining packer_plugins", false)
--- Config for: nvim-spectre
-time("Config for nvim-spectre", true)
-try_loadstring("\27LJ\2\n3\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\24config.nvim-spectre\frequire\0", "config", "nvim-spectre")
-time("Config for nvim-spectre", false)
--- Config for: telescope.nvim
-time("Config for telescope.nvim", true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
-time("Config for telescope.nvim", false)
 -- Config for: git-blame.nvim
 time("Config for git-blame.nvim", true)
 try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.git-blame-nvim\frequire\0", "config", "git-blame.nvim")
 time("Config for git-blame.nvim", false)
+-- Config for: telescope.nvim
+time("Config for telescope.nvim", true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26config.telescope-nvim\frequire\0", "config", "telescope.nvim")
+time("Config for telescope.nvim", false)
+-- Config for: nvim-spectre
+time("Config for nvim-spectre", true)
+try_loadstring("\27LJ\2\n3\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\24config.nvim-spectre\frequire\0", "config", "nvim-spectre")
+time("Config for nvim-spectre", false)
 
 -- Command lazy-loads
 time("Defining lazy-load commands", true)

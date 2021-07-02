@@ -13,4 +13,5 @@ function! Cmd(cmd)
   endif
 endfunction
 command! -nargs=+ -complete=command Cmd call Cmd(<q-args>)
+command! FJson :normal ggVG:!jq<CR>:set filetype=json<CR>:set foldmethod=indent<CR>zM
 ]]
