@@ -8,6 +8,8 @@ set foldlevel=10
 set tabstop=2 shiftwidth=2 expandtab
 set mouse=a
 set number
+set smartcase
+set ignorecase
 set relativenumber
 set numberwidth=5
 hi CursorLineNR cterm=bold ctermbg=NONE ctermfg=red
@@ -88,7 +90,6 @@ set nrformats-=octal
 " set filetypes as typescriptreact
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
-source ~/.vim/nerdtree.vim
-" source ~/.vim/lsp.vim
-source ~/.vim/coc_config.vim
+source ~/.vim/config/nerdtree.vim
+source ~/.vim/config/coc-nvim.vim
 
