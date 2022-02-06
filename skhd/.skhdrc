@@ -57,6 +57,9 @@ alt - f: yabai -m window --toggle float; \
 # rename current workspace
 shift + alt - r : fish -c "rename_workspace"
 
+# rename current workspace
+shift + alt - p : fish -c "change_workspace_padding"
+
 # new workspace
 shift + cmd + alt + ctrl - n : yabai -m space --create;\
                   id="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')";\

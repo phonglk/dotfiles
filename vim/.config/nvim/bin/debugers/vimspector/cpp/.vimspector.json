@@ -1,0 +1,15 @@
+{
+  "configurations": {
+    "Launch": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceFolder}/<name-of-program>",
+        "args": [],
+        "cwd": "${workspaceRoot}",
+        "environment": [],
+        "MIMode": "gdb"
+      }
+    }
+  }
+}
