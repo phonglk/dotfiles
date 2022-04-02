@@ -55,3 +55,4 @@ if status --is-interactive
   # end
   # clear
 end
+export OPEN_WEATHER_API_KEY=***REMOVED***

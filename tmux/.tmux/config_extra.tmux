@@ -21,8 +21,22 @@ set -g @nova-nerdfonts true
 set -g @nova-nerdfonts-left 
 set -g @nova-nerdfonts-right 
 
+set -g "@nova-pane-active-border-style" "#44475a"
+set -g "@nova-pane-border-style" "#282a36"
+set -g "@nova-status-style-bg" "#4c566a"
+set -g "@nova-status-style-fg" "#d8dee9"
+set -g "@nova-status-style-active-bg" "#89c0d0"
+set -g "@nova-status-style-active-fg" "#2e3540"
+set -g "@nova-status-style-double-bg" "#2d3540"
+
 set -g @nova-segment-mode "#{?client_prefix,R,N}"
 set -g @nova-segment-mode-colors "#{?client_prefix,#e6db74,#50fa7b} #282a36"
+
+set -g @nova-segment-sessionname "#S"
+set -g @nova-segment-sessionname-colors "#fd971f #f8f8f2"
+
+set -g @nova-segment-weather "#(weather_single_line)"
+set -g @nova-segment-weather-colors "#fd971f #f8f8f2"
 
 set -g @nova-segment-whoami "#(whoami)@#h"
 set -g @nova-segment-whoami-colors "#50fa7b #282a36"
@@ -68,9 +82,9 @@ set -g @nova-segment-pomodoro-colors "#ff5555 #f8f8f2"
 
 set -g @nova-rows 1
 set -g @nova-segments-0-left "mode"
-set -g @nova-segments-0-right "whoami pomodoro"
+set -g @nova-segments-0-right "sessionname whoami pomodoro"
 set -g @nova-segments-1-left "spotify"
-set -g @nova-segments-1-right "cpu ram net"
+set -g @nova-segments-1-right "weather cpu ram net"
 
 
 # Pomodoro
@@ -86,3 +100,14 @@ set -g @pomodoro_complete " #[fg=$text_green]🍅 "   # The formatted output whe
 
 set -g @pomodoro_notifications 'on'                 # Turn on/off desktop notifications
 set -g @pomodoro_sound 'Pop'                        # Sound for desktop notifications (Run `ls /System/Library/Sounds` for a list of sounds to use)
+
+
+# nhdaly/tmux-better-mouse-mode
+set -g @scroll-down-exit-copy-mode "off"
+set -g @scroll-speed-num-lines-per-scroll "1"
+set -g @scroll-without-changing-pane "on"
+
+# tmux-continuum
+set -g @continuum-restore 'on'
+
+set -g @tmux_window_name_shells "['zsh', 'bash', 'sh', 'fish']"
