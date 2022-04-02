@@ -55,6 +55,3 @@ if status --is-interactive
   # end
   # clear
 end
-
-set -g -x FISH_HELPER_PATH '/Users/phonglk/source/shopee/dl-helper/jira-helper'
-fish_helper

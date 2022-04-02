@@ -3,3 +3,9 @@
 mkdir -p ~/.config/fish/functions
 mkdir -p ~/.config/fish/conf.d
 mkdir -p ~/.config/fish/completions
+
+_dotfiles_utils_check_brew
+if ! command -v fzf &> /dev/null
+then
+    brew install fzf
+fi

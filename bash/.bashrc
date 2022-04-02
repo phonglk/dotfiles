@@ -6,3 +6,4 @@ export PATH="$PATH:$HOME/bin"
 EDITOR=nvim
 alias python='/usr/local/Cellar/python/3.7.7/bin/python3'
 alias jsb='~/.nvm/versions/node/v14.3.0/bin/js-beautify'
+eval "$(fnm env --use-on-cd)"
