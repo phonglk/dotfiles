@@ -41,10 +41,13 @@ set -g @nova-segment-weather-colors "#fd971f #f8f8f2"
 set -g @nova-segment-whoami "#(whoami)@#h"
 set -g @nova-segment-whoami-colors "#50fa7b #282a36"
 
-set -g @nova-pane "#I#{?pane_in_mode,  #{pane_mode},}  #W"
+set -g @nova-pane " #I#{?pane_in_mode,  #{pane_mode},} #W"
 
 set -g @nova-segment-spotify " #(spotifycli --status)"
 set -g @nova-segment-spotify-colors "#282a36 #f8f8f2"
+
+set -g @nova-segment-gitstatus " #(~/.tmux/plugins/tmux-simple-git-status/scripts/git_status.sh)"
+set -g @nova-segment-gitstatus-colors "#282a36 #f8f8f2"
 
 set -g @cpu_percentage_format "%5.1f%%"
 set -g @nova-segment-cpu " #(~/.tmux/plugins/tmux-cpu/scripts/cpu_percentage.sh)"
@@ -83,7 +86,7 @@ set -g @nova-segment-pomodoro-colors "#ff5555 #f8f8f2"
 set -g @nova-rows 1
 set -g @nova-segments-0-left "mode"
 set -g @nova-segments-0-right "sessionname whoami pomodoro"
-set -g @nova-segments-1-left "spotify"
+set -g @nova-segments-1-left "gitstatus"
 set -g @nova-segments-1-right "weather cpu ram net"
 
 
