@@ -21,4 +21,7 @@ source ~/.vim/mapping.vim
 source ~/.vim/command.vim
 
 set exrc
+if filereadable(getcwd()."/.git/vimrc")
+    execute "source" getcwd()."/.git/vimrc"
+endif
 set secure

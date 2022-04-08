@@ -1,5 +1,5 @@
-﻿let NERDTreeShowHidden=1
-" let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+﻿
+" {{{ General options
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 set grepprg=rg\ --vimgrep
 set cmdheight=2
@@ -23,9 +23,12 @@ set hidden
 set updatetime=300
 set history=200
 set wildmode=longest,list
-" I use a unicode curly array with a <backslash><space>
+set wildmenu
 set showbreak=↪>\
+" }}}
+let NERDTreeShowHidden=1
 
+" {{{ Styles
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -33,12 +36,13 @@ if exists('+termguicolors')
 endif
 set t_Co=256
 syntax enable
-
 let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty
 let g:lightline = {
-      \ 'colorscheme': 'monokai_tasty',
-      \ }
+  \ 'colorscheme': 'monokai_tasty',
+  \ }
+" }}}
+
 
 augroup SyntaxSettings
     autocmd!
@@ -92,4 +96,6 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 source ~/.vim/config/nerdtree.vim
 source ~/.vim/config/coc-nvim.vim
+
+" vim: foldmethod=marker:foldlevel=0
 

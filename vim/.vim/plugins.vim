@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
     " {{{ Assist
-        " {{{ Autoclosing
         Plug 'ntpeters/vim-better-whitespace'
+        " {{{ Autoclosing
         Plug 'jiangmiao/auto-pairs'
         Plug 'alvan/vim-closetag'
         " }}}
@@ -11,14 +11,16 @@ call plug#begin('~/.vim/plugged')
         " }}}
         " {{{ Navigation
         Plug 'easymotion/vim-easymotion'
-        Plug 'baspar/vim-cartographe'
         Plug 'scrooloose/nerdtree'
-        Plug 'terryma/vim-multiple-cursors'
+        let NERDTreeMinimalUI = 1
+        " Plug 'terryma/vim-multiple-cursors'
         Plug 'junegunn/vim-peekaboo'
         Plug 'mhinz/vim-startify'
         Plug 'unblevable/quick-scope'
-	" }}
-	" }}}
+        " }}}
+        Plug 'tpope/vim-abolish'
+        Plug 'tpope/vim-speeddating'
+    " }}}
 	" {{{ LSP
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         " Plug 'prabirshrestha/async.vim'

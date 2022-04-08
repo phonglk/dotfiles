@@ -87,7 +87,7 @@ set -g @nova-rows 1
 set -g @nova-segments-0-left "mode"
 set -g @nova-segments-0-right "sessionname whoami pomodoro"
 set -g @nova-segments-1-left "gitstatus"
-set -g @nova-segments-1-right "weather cpu ram net"
+set -g @nova-segments-1-right "cpu ram net"
 
 
 # Pomodoro

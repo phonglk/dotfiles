@@ -41,5 +41,19 @@
   "prettier.bracketSpacing": true,
   "prettier.formatterPriority": 1,
   "prettier.eslintIntegration": true,
-  "list.source.symbols.excludes": ["*/node_modules/*"]
+  "list.source.symbols.excludes": ["*/node_modules/*"],
+  "explorer.width": 30,
+  "explorer.file.showHiddenFiles": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+  "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
+  "explorer.keyMappings.global": {
+    "s": "open:vsplit",
+    "rn": "rename",
+    "md": "delete",
+    "D": "delete",
+    "ma": "addFile",
+    "mA": "addDirectory",
+    "u": "gotoParent"
+  }
 }
