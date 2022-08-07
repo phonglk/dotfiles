@@ -16,6 +16,7 @@ if status --is-interactive
   alias tmux "tmux -2"
   alias gitwtgo 'cd (git worktree list | fzf | cut -d" " -f 1)'
   alias cdb 'cd (cat ~/.bookmarks | fzf)'
+  alias ssh "kitty +kitten ssh"
 
   set -gx EDITOR nvim
   set -gx PAGER most
@@ -55,6 +56,3 @@ if status --is-interactive
   # end
   # clear
 end
-
-set -g -x FISH_HELPER_PATH '/Users/phonglk/source/shopee/dl-helper/jira-helper'
-fish_helper
