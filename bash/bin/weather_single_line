@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl 'wttr.in/Singapore?format=%l:+%c+%t+%f+%w+%h'

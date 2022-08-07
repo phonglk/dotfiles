@@ -7,7 +7,7 @@ map <C-j> <C-W>j
 map <C-h> <C-W>h
 map <C-k> <C-W>k
 map <C-l> <C-W>l
-"
+
 " display line vs real line
 nnoremap k gk
 nnoremap gk k
@@ -38,7 +38,7 @@ nnoremap <silent> <leader>c :CocCommand<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 " map <C-A> <esc>ggVG<CR>
 
-" Search under cursor
+" Replace under cursor
 vnoremap /R y:%s/<C-R>=escape(@",'/\')<CR>//g<left><left>
 vnoremap /r y:s/<C-R>=escape(@",'/\')<CR>//g<left><left>
 " Search under cursor
@@ -92,3 +92,8 @@ set pastetoggle=<F3>
 
 " delete current buffer
 nmap <silent> <leader>db :bd<CR>
+
+" Use preset argument to open it
+nnoremap <leader>et <Cmd>CocCommand explorer<CR>
+nnoremap <leader>ef <Cmd>CocCommand explorer --preset floating<CR>
+nnoremap <leader>er <Cmd>CocCommand explorer --preset floatingRightside<CR>

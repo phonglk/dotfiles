@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+_dotfiles_utils_check_brew
+if ! command -v skhd &> /dev/null
+then
+  brew install koekeishiya/formulae/skhd
+fi

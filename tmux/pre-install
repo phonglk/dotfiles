@@ -3,4 +3,4 @@
 mkdir -p ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Install to term database
-tic -x .tmux/tmux.terminfo
+tic -x ~/.tmux/tmux.terminfo

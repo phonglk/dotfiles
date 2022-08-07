@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+
+brew tap huytd/cask-fonts
+brew install --cask font-haskplex-nerd
