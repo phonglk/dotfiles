@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-cd ~/.config/ubersicht
+cd ~/.config/ubersicht/nibar
 git submodule update --init --recursive
 
