@@ -30,10 +30,10 @@ keymap.set('', 'sj', '<C-w>j')
 keymap.set('', 'sl', '<C-w>l')
 
 -- Resize window
-keymap.set('n', '<C-w><left>', '<C-w><')
-keymap.set('n', '<C-w><right>', '<C-w>>')
-keymap.set('n', '<C-w><up>', '<C-w>+')
-keymap.set('n', '<C-w><down>', '<C-w>-')
+keymap.set('n', '<C-w><left>', '<C-w>5<')
+keymap.set('n', '<C-w><right>', '<C-w>5>')
+keymap.set('n', '<C-w><up>', '<C-w>5+')
+keymap.set('n', '<C-w><down>', '<C-w>5-')
 
 -- Search under cursor
 keymap.set('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])

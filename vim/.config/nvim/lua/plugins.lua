@@ -9,6 +9,7 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'tanvirtin/monokai.nvim'
+  use 'ofirgall/ofirkai.nvim' -- better monokai
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use 'nvim-lua/plenary.nvim' -- Common utilities
   use 'onsails/lspkind-nvim' -- vscode-like pictograms
@@ -27,6 +28,7 @@ packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
+  use 'nvim-treesitter/nvim-treesitter-context'
   use 'kyazdani42/nvim-web-devicons' -- File icons
   use {
     'kyazdani42/nvim-tree.lua',

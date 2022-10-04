@@ -184,6 +184,11 @@ _G.packer_plugins = {
     path = "/Users/phong/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
+  ["ofirkai.nvim"] = {
+    loaded = true,
+    path = "/Users/phong/.local/share/nvim/site/pack/packer/start/ofirkai.nvim",
+    url = "https://github.com/ofirgall/ofirkai.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/phong/.local/share/nvim/site/pack/packer/start/packer.nvim",

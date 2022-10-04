@@ -3,6 +3,7 @@ if (not status) then return end
 local lspkind = require 'lspkind'
 
 cmp.setup({
+  window = require('ofirkai.plugins.nvim-cmp').window,
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)

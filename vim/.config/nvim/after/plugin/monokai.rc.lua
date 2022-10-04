@@ -1,3 +1,3 @@
-local status, monokai = pcall(require, "monokai")
+local status, monokai = pcall(require, "ofirkai")
 if (not status) then return end
-monokai.setup { palette = monokai.pro }
+monokai.setup {}
