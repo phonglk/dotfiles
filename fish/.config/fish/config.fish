@@ -1,4 +1,5 @@
 fish_add_path /opt/homebrew/bin
+set fish_greeting ""
 
 if status --is-interactive
   set -g fish_user_paths "$HOME/bin" $fish_user_paths
@@ -56,6 +57,11 @@ if status --is-interactive
   # and not set -q TMUX
   #   tmux attach -t default || tmux new -s default
   # end
-  # clear
+  # clearyes
+ 
+  if type -q exa
+    alias ll "exa -l -g --icons"
+    alias lla "ll -a"
+  end
 end
 export OPEN_WEATHER_API_KEY=***REMOVED***
