@@ -1,4 +1,5 @@
 local keymap = vim.keymap
+local utils = require('utils')
 
 vim.g.mapleader=' '
 
@@ -9,7 +10,7 @@ keymap.set('n', '+', '<C-a>')
 keymap.set('n', '-', '<C-x>')
 
 -- Delete a word backwards
-keymap.set('n', 'dw', 'vb"_d')
+-- keymap.set('n', 'dw', 'vb"_d')
 
 -- Select all
 keymap.set('n', '<C-a>', 'gg<S-v>G')
@@ -36,4 +37,10 @@ keymap.set('n', '<C-w><up>', '<C-w>5+')
 keymap.set('n', '<C-w><down>', '<C-w>5-')
 
 -- Search under cursor
-keymap.set('v', '//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+utils.vmap('//', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+
+-- indent
+utils.vmap('>', '>gv')
+utils.vmap('<', '<gv')
+
+utils.tmap('<Esc>', [[<C-\><C-n>]])
