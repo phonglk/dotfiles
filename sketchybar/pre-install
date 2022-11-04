@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+_dotfiles_utils_check_brew
+if ! command -v sketchybar &> /dev/null
+then
+  brew install sketchybar
+  brew services start sketchybar
+fi
+
+mkdir -p ~/.config/sketchybar
+
