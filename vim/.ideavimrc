@@ -1,0 +1,125 @@
+set shell=bash
+
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+set nerdtree
+
+" vim: foldmethod=marker:foldlevel=1
+" Config
+let NERDTreeShowHidden=1
+set number
+set smartcase
+set ignorecase
+set relativenumber
+set history=200
+
+" Mapping
+vnoremap > >gv
+vnoremap < <gv
+
+let mapleader = "\<Space>"
+let maplocalleader = ','
+map <C-j> <C-W>j
+map <C-h> <C-W>h
+map <C-k> <C-W>k
+map <C-l> <C-W>l
+"
+" display line vs real line
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
+
+noremap ,y "+y
+noremap ,p "+p
+
+nnoremap ,d :b#<bar>bd#<CR>
+"
+" Search under cursor
+vnoremap /R y:%s/<C-R>=escape(@",'/\')<CR>//g<left><left>
+vnoremap /r y:s/<C-R>=escape(@",'/\')<CR>//g<left><left>
+" Search under cursor
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+" {{{ vim-easymotion
+"   let g:EasyMotion_do_mapping = 0
+"   " nmap s <Plug>(easymotion-overwin-f)
+"   " or
+"   " `s{char}{char}{label}`
+"   " Need one more keystroke, but on average, it may be more comfortable.
+"   " nmap s <Plug>(easymotion-overwin-f2)
+"
+"   " Turn on case-insensitive feature
+"   let g:EasyMotion_smartcase = 1
+"   " Move to line
+"   map <Leader>L <Plug>(easymotion-bd-jk)
+"   nmap <Leader>L <Plug>(easymotion-overwin-line)
+"
+"   " Move to word
+"   map  <Leader>w <Plug>(easymotion-bd-w)
+"   nmap <Leader>w <Plug>(easymotion-overwin-w)
+"   " hjkl
+"   map <Leader>l <Plug>(easymotion-lineforward)
+"   map <Leader>j <Plug>(easymotion-j)
+"   map <Leader>k <Plug>(easymotion-k)
+"   map <Leader>h <Plug>(easymotion-linebackward)
+"   let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+" " }}}
+" " Remap for format selected region
+" xmap <leader>ff  <Plug>(coc-format-selected)
+" vmap <leader>ff  <Plug>(coc-format-selected)
+" " autofix eslint
+" xmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
+" vmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
+" nmap <leader>fe  :CocCommand eslint.executeAutofix<CR>
+"
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+" configuration for text-object-quote
+xmap q iq
+omap q iq
+
+" toggle wrap
+nmap <M-w> :set wrap!<CR>
+
+" edit relative files
+nnoremap <leader>o :e %:h
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" specific to vscode-neovim
+" set clipboard=unnamedplus
+" LSP
+" nmap gr <Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>
+" nmap gd <Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>
+" nmap gD <Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>
+" nmap gs <Cmd>call VSCodeNotify('editor.action.revealDefinitionAside')<CR>
+" nmap grn <Cmd>call VSCodeNotify('editor.action.rename')<CR>
+" nmap ]g <Cmd>call VSCodeNotify('editor.action.marker.next')<CR>
+" nmap [g <Cmd>call VSCodeNotify('editor.action.marker.prev')<CR>
+
+" fold
+" nmap zM <Cmd>call VSCodeNotify('editor.foldAll')<CR>
+" nmap zR <Cmd>call VSCodeNotify('editor.unfoldAll')<CR>
+" nmap zo <Cmd>call VSCodeNotify('editor.unfold')<CR>
+" nmap zO <Cmd>call VSCodeNotify('editor.unfoldRecursively')<CR>
+" nmap zc <Cmd>call VSCodeNotify('editor.fold')<CR>
+" nmap zC <Cmd>call VSCodeNotify('editor.foldRecursively')<CR>
+" nmap za <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
+"
+" nmap za <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
+
+nmap <leader>t :NERDTreeToggle<CR>
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'
+
+
+nmap <leader>T <Action>(SelectInProjectView)
+nnoremap gr :action FindUsages<CR>
+nnoremap gh :action CallHierarchy<CR>
+nnoremap <c-p> :action JumpToLastWindow<CR>
+nnoremap <c-x> :action HideAllWindows<CR>
+
