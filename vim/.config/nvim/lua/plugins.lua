@@ -1,10 +1,17 @@
 local status, packer = pcall(require, "packer")
 if (not status) then
   print("Packer is not installed")
-  return
+  local fn = vim.fn
+  local execute = vim.api.nvim_command
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  end
 end
 
 vim.cmd [[packadd packer.nvim]]
+vim.cmd [[autocmd BufWritePost plugins.lua PackerCompile]] -- Auto compile when there are changes in plugins.lua
+packer = require("packer")
 
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
@@ -39,6 +46,7 @@ packer.startup(function(use)
   }
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
   use 'norcalli/nvim-colorizer.lua'
@@ -59,6 +67,10 @@ packer.startup(function(use)
     end
   }
   use {'machakann/vim-sandwich'}
-  -- use {'kana/vim-textobject-user'}
-  -- use {'beloglazov/vim-textobj-quotes'}
+  use {'kana/vim-textobj-user'}
+  use {'beloglazov/vim-textobj-quotes', requires = {'kana/vim-textobj-user'}}
+  use { 'ibhagwan/fzf-lua',
+    -- optional for icon support
+    requires = { 'kyazdani42/nvim-web-devicons' }
+  }
 end)

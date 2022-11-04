@@ -46,8 +46,9 @@ set -g @nova-pane " #I#{?pane_in_mode,  #{pane_mode},} #W"
 set -g @nova-segment-spotify " #(spotifycli --status)"
 set -g @nova-segment-spotify-colors "#282a36 #f8f8f2"
 
-set -g @nova-segment-gitstatus " #(~/.tmux/plugins/tmux-simple-git-status/scripts/git_status.sh)"
-set -g @nova-segment-gitstatus-colors "#282a36 #f8f8f2"
+# Avoid high cpu
+# set -g @nova-segment-gitstatus " #(~/.tmux/plugins/tmux-simple-git-status/scripts/git_status.sh)"
+# set -g @nova-segment-gitstatus-colors "#282a36 #f8f8f2"
 
 set -g @cpu_percentage_format "%5.1f%%"
 set -g @nova-segment-cpu " #(~/.tmux/plugins/tmux-cpu/scripts/cpu_percentage.sh)"
