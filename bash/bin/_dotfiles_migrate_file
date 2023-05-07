@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+TARGET=$1
+SCRIPT_DIR="$(dirname "$(realpath "$BASH_SOURCE")")"
+HOME_DIR=$(realpath ~/)
+DOTFILES_PATH=/Users/phongle/repos/github.com/phonglk/dotfiles
+
+PROJECTS=$(ls -d $DOTFILES_PATH/*/ | xargs basename)
+SELECT_PROJECT=$(for dir in $PROJECTS; do echo $dir; done | fzf --prompt="Sync to> ")
+
+if [ -z "$SELECT_PROJECT" ]; then
+  echo "Target is not set";
+  exit;
+fi
+
+RELATIVE_PATH=$(realpath --relative-to="$HOME_DIR" "$(dirname $TARGET)")
+
+# Copy
+DEST_PATH=$(echo "$DOTFILES_PATH/$SELECT_PROJECT/$RELATIVE_PATH")
+echo $DEST_PATH
+mkdir -p $DEST_PATH
+cp $TARGET $DEST_PATH/
+echo "> cp $TARGET $DEST_PATH/"
+
+if [ $? -ne 0 ]; then
+    echo "The cp operation failed. "
+    exit;
+fi
+
+# Remove
+rm $TARGET
+
+# Soft Link
+ln -s $DEST_PATH/$(basename $TARGET) $TARGET
+
+if [ $? -ne 0 ]; then
+    echo "The ln -s operation failed."
+    exit;
+fi
+
+echo "Migrated"
+

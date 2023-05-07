@@ -1,4 +1,5 @@
 fish_add_path /opt/homebrew/bin
+fish_add_path ~/.nix-profile/bin
 set fish_greeting ""
 
 if status --is-interactive
@@ -20,6 +21,9 @@ if status --is-interactive
   alias gitwtgo 'cd (git worktree list | fzf | cut -d" " -f 1)'
   alias cdb 'cd (cat ~/.bookmarks | fzf)'
   alias ssh "kitty +kitten ssh"
+  alias noti_done "terminal-notifier -title \"Done\" -message \"Exit status: $status \" -sound Glass -appIcon https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/done-icon.png"
+  alias noti_error "terminal-notifier -message \"Error\" -sound Bottle"
+  alias go_green 'cd $(ghq root)/$(ghq list | grep Canva/canva)'
 
   set -gx EDITOR nvim
   set -gx PAGER most
@@ -63,5 +67,11 @@ if status --is-interactive
     alias ll "exa -l -g --icons"
     alias lla "ll -a"
   end
+
+
+  fnm env | source
+  starship init fish | source
 end
-export OPEN_WEATHER_API_KEY=***REMOVED***
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/phongle/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/phongle/Downloads/google-cloud-sdk/path.fish.inc'; end

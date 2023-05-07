@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+JIRA_ISSUE=$(select_jira_issue)
+USERNAME=$(echo $JIRA_USER | cut -d@ -f1)
+PROMPT="generate git brand name from this jira issue '$JIRA_ISSUE'. It should have format '$USERNAME-price-xxxx-[description-in-kebab-case]'  the description should have 5 words or less and summary the issue. Output only the brand name, nothing else."
+
+BRAND_NAME=$(curl https://api.openai.com/v1/chat/completions \
+    --silent \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -d "{ \"model\": \"gpt-3.5-turbo\", \"messages\": [{\"role\": \"user\", \"content\": \"$PROMPT\"}], \"temperature\": 0.7 }" | jq -r ".choices[].message.content")
+echo $BRAND_NAME

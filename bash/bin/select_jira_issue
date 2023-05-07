@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-RC=$(node -e 'process.stdout.write(JSON.stringify(require("rc")("wf")))')
-AUTH=$(echo $RC | jq --raw-output '.jira.token')
-HOST=$(echo $RC | jq --raw-output '.jira.host')
+# TODO: Ensure env vars are not null
+
+JQL="project=\"$JIRA_PROJECT\" AND assignee=currentUser() AND status=\"To Do\" ORDER BY created DESC"
+ENCODED_JQL=$(jq -rn --arg x "$JQL" '$x|@uri') # https://stackoverflow.com/questions/296536/how-to-urlencode-data-for-curl-command
 
 # searching for assigned issues
 RESP=$(curl --request GET \
   --silent \
-  --url "$HOST/rest/api/2/search?jql=resolution%20%3D%20Unresolved%20AND%20assignee%20in%20(currentUser())%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC&fields=summary%2Cstatus%2Cissuetype%2Clabels" \
-  --header "Authorization: Basic $AUTH" \
+  --url "$JIRA_HOST/rest/api/3/search?jql=$ENCODED_JQL" \
+  --user $JIRA_USER:$JIRA_API_KEY \
   --header 'Content-Type: application/json')
 
 # format from json
-LIST=$(echo $RESP | jq -r '.issues[] | "\(.key) \(.fields.issuetype.name) \(.fields.summary)" ')
+LIST=$(echo $RESP | jq -r '.issues[] | "\(.key) \(.fields.summary)" ')
 
 # prompt for issue
 ISSUE=$(echo "$LIST" | fzf --height 40% --layout=reverse --prompt="Select issue>")
-KEY=$(echo $ISSUE | cut -d" " -f1)
-echo $KEY
+echo $ISSUE
 
