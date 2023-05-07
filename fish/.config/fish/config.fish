@@ -71,6 +71,8 @@ if status --is-interactive
 
   fnm env | source
   starship init fish | source
+
+  source (ghq root)/(ghq list | grep phonglk/dotfiles_secret)/env.fish
 end
 
 # The next line updates PATH for the Google Cloud SDK.
