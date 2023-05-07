@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 TARGET=$1
-SCRIPT_DIR="$(dirname "$(realpath "$BASH_SOURCE")")"
 HOME_DIR=$(realpath ~/)
-DOTFILES_PATH=/Users/phongle/repos/github.com/phonglk/dotfiles
+DOTFILES_PATH=$(ghq root)/github.com/phonglk/dotfiles
 
 PROJECTS=$(ls -d $DOTFILES_PATH/*/ | xargs basename)
 SELECT_PROJECT=$(for dir in $PROJECTS; do echo $dir; done | fzf --prompt="Sync to> ")
@@ -37,6 +36,11 @@ if [ $? -ne 0 ]; then
     echo "The ln -s operation failed."
     exit;
 fi
+
+# Restow
+cd $DOTFILES_PATH
+stow --dotfiles -t ~/ --ignore="(pre|post)-install|DS_Store" $SELECT_PROJECT
+cd -
 
 echo "Migrated"
 
