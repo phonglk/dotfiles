@@ -48,4 +48,3 @@ vim.keymap.set("v", '<', '<gv')
 
 vim.keymap.set("t", '<Esc>', [[<C-\><C-n>]])
 
-vim.cmd([[command DprintFormatBuffer execute "!/Users/phongle/repos/github.com/Canva/canva/tools/dprint/dprint fmt -- ".expand("%:p")]])

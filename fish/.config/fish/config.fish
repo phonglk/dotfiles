@@ -23,7 +23,6 @@ if status --is-interactive
   alias ssh "kitty +kitten ssh"
   alias noti_done "terminal-notifier -title \"Done\" -message \"Exit status: $status \" -sound Glass -appIcon https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/done-icon.png"
   alias noti_error "terminal-notifier -message \"Error\" -sound Bottle"
-  alias go_green 'cd $(ghq root)/$(ghq list | grep Canva/canva)'
 
   set -gx EDITOR nvim
   set -gx PAGER most
