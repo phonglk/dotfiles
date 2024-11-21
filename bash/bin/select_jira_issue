@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -eu
 
-# TODO: Ensure env vars are not null
+JIRA_API_KEY=$(_check_secret JIRA_API_KEY);
 
-JQL="project=\"$JIRA_PROJECT\" AND assignee=currentUser() AND status=\"To Do\" ORDER BY created DESC"
+JQL="project=\"$JIRA_PROJECT\" AND assignee=currentUser() AND status IN (\"To Do\", \"In Progress\") ORDER BY created DESC"
 ENCODED_JQL=$(jq -rn --arg x "$JQL" '$x|@uri') # https://stackoverflow.com/questions/296536/how-to-urlencode-data-for-curl-command
 
 # searching for assigned issues
@@ -15,7 +15,11 @@ RESP=$(curl --request GET \
 # format from json
 LIST=$(echo $RESP | jq -r '.issues[] | "\(.key) \(.fields.summary)" ')
 
-# prompt for issue
-ISSUE=$(echo "$LIST" | fzf --height 40% --layout=reverse --prompt="Select issue>")
-echo $ISSUE
+if [[ -z "$LIST" ]]; then
+    echo "There is no issue to select"
+else
+  #prompt for issue
+  ISSUE=$(echo "$LIST" | fzf --height 40% --layout=reverse --prompt="Select issue>")
+  echo $ISSUE
+fi
 

@@ -23,6 +23,7 @@ if status --is-interactive
   alias ssh "kitty +kitten ssh"
   alias noti_done "terminal-notifier -title \"Done\" -message \"Exit status: $status \" -sound Glass -appIcon https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/done-icon.png"
   alias noti_error "terminal-notifier -message \"Error\" -sound Bottle"
+  alias port_listening "lsof -i -P | grep LISTEN"
 
   set -gx EDITOR nvim
   set -gx PAGER most
@@ -71,8 +72,28 @@ if status --is-interactive
   fnm env | source
   starship init fish | source
 
-  source ~/.config/fish/env.local.fish
+  # Secrets
+  if test -f ~/.config/fish/_secrets.fish
+    source ~/.config/fish/_secrets.fish
+  else
+    set -gx JIRA_API_KEY "op://Private/JIRA Token/credential"
+    set -gx JIRA_USER "op://Private/JIRA Token/username"
+    set -gx JIRA_HOST "op://Private/JIRA Token/host"
+    set -gx HOMEBREW_GITHUB_API_TOKEN "op://Private/Github API Token/credential"
+    set -gx OPENAI_API_KEY "op://Private/Open API Key/credential"
+    set -gx SRC_ACCESS_TOKEN "op://Employee/Sourcegraph/API Token"
+  end
+
+  set -gx SRC_ENDPOINT "https://canva.sourcegraphcloud.com"
+  set -gx JIRA_PROJECT "PRICE"
 end
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/phongle/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/phongle/Downloads/google-cloud-sdk/path.fish.inc'; end
+# CoderEnv
+# DO NOT EDIT: Added by Coder CLI installer (https://coder.canva-internal.com/install.sh)
+[ -e "/Users/phongle/.coder.sh" ] && . "/Users/phongle/.coder.sh"
+# EndCoderEnv
+
+# Created by `pipx` on 2024-09-13 00:49:48
+set PATH $PATH /Users/phongle/.local/bin

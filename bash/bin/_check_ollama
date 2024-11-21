@@ -1,0 +1,7 @@
+#!/usr/bin/env bash -eu
+
+if ollama -v | grep -q "^ollama version is"; then
+  exit 0;
+fi
+echo "Output starts with 'ollama version is'"
+exit 1;
