@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-if ! command -v fisher &> /dev/null
-then
-  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
-fi
+fish -c '
+if not command -v fisher >/dev/null 2>&1
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+end
 fisher update
+'
 

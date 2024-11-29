@@ -14,3 +14,6 @@ if ! command -v fzf &> /dev/null
     fi
 fi
 
+mkdir -p ~/.config/fish
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ln -s $CURRENT_DIR/fish_plugins ~/.config/fish/fish_plugins
