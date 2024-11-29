@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if ! command -v fisher &> /dev/null
+then
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+fi
+fisher update
+

@@ -4,13 +4,13 @@ mkdir -p ~/.config/fish/functions
 mkdir -p ~/.config/fish/conf.d
 mkdir -p ~/.config/fish/completions
 
-_dotfiles_utils_check_brew
 if ! command -v fzf &> /dev/null
-then
-    brew install fzf
+  then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install fzf
+    else
+        echo "Not running on macOS - please install fzf through your system's package manager"
+        exit 1
+    fi
 fi
 
-if ! command -v fisher &> /dev/null
-then
-  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
-fi
