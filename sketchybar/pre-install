@@ -4,6 +4,7 @@ _dotfiles_utils_check_brew
 if ! command -v sketchybar &> /dev/null
 then
   brew install sketchybar
+  brew install --cask font-hack-nerd-font
   brew services start sketchybar
 fi
 
