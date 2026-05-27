@@ -21,3 +21,5 @@ fish/.config/fish/functions/npx.fish
 fish/.config/fish/functions/nvm.fish
 
 fish/.config/fish/functions/yarn.fish
+
+.env

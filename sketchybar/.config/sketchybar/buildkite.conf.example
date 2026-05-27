@@ -1,0 +1,8 @@
+# Buildkite Plugin Configuration
+#
+# Copy to buildkite.conf to customize:
+#   cp buildkite.conf.example buildkite.conf
+
+# Default GitHub repository (owner/repo format)
+# Used when you run: bk-track add 12345 (without specifying repo)
+DEFAULT_REPO="canva/canva"

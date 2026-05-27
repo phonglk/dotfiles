@@ -1,0 +1,18 @@
+# Buildkite PR Tracking List
+# 
+# Add PRs to track, one per line.
+# Format: repo:pr_number  OR  just pr_number (uses default repo)
+#
+# Examples:
+# canva/canva:12345
+# canva/other-repo:67890
+# 11111
+#
+# Manage this file with:
+#   bk-track add 12345           # Add PR
+#   bk-track rm 12345            # Remove PR
+#   bk-track list                # List all
+#   bk-track status              # Show status
+#
+# This file is auto-created when you first run: bk-track add <pr>
+

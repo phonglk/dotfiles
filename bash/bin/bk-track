@@ -1,0 +1,482 @@
+#!/usr/bin/env bash
+
+# bk-track - Manage GitHub PRs to track in SketchyBar
+#
+# Uses gh CLI for GitHub - no tokens needed, just run: gh auth login
+#
+# Usage:
+#   bk-track add <pr-number> [repo]     # Add PR to track
+#   bk-track rm <pr-number>             # Remove PR from tracking
+#   bk-track list                       # List tracked PRs
+#   bk-track status                     # Show status of all PRs
+#   bk-track debug                      # Debug/troubleshoot
+#   bk-track log                        # View debug log
+
+CONFIG_DIR="$HOME/.config/sketchybar"
+CONFIG_FILE="$CONFIG_DIR/buildkite.conf"
+PRS_FILE="$CONFIG_DIR/buildkite-prs.conf"
+CACHE_DIR="$HOME/tmp/sketchybar-cache"
+LOG_FILE="$CACHE_DIR/buildkite.log"
+
+DEFAULT_REPO="canva/canva"
+
+# Ensure directories exist
+mkdir -p "$CONFIG_DIR" "$CACHE_DIR"
+
+# Load config if exists
+[[ -f "$CONFIG_FILE" ]] && source "$CONFIG_FILE"
+
+# Touch PRS file if not exists
+[[ ! -f "$PRS_FILE" ]] && touch "$PRS_FILE"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+add_pr() {
+    local pr_num="$1"
+    local repo="${2:-$DEFAULT_REPO}"
+    local entry="${repo}:${pr_num}"
+    
+    # Check gh is available
+    if ! command -v gh &>/dev/null; then
+        echo -e "${RED}✗ gh CLI not installed${NC}"
+        echo "  Install: brew install gh"
+        exit 1
+    fi
+    
+    # Validate PR exists (use --json to avoid deprecated projectCards)
+    echo -n "Checking PR #${pr_num}... "
+    if ! gh pr view "$pr_num" --repo "$repo" --json number &>/dev/null; then
+        echo -e "${RED}not found${NC}"
+        echo "  Error: $(gh pr view "$pr_num" --repo "$repo" --json number 2>&1 | head -1)"
+        exit 1
+    fi
+    echo -e "${GREEN}found${NC}"
+    
+    # Check if already tracking
+    if grep -q ":${pr_num}$" "$PRS_FILE" 2>/dev/null; then
+        echo -e "${YELLOW}! Already tracking PR #${pr_num}${NC}"
+        exit 0
+    fi
+    
+    # Get PR info
+    PR_TITLE=$(gh pr view "$pr_num" --repo "$repo" --json title -q '.title' 2>/dev/null | cut -c1-60)
+    PR_AUTHOR=$(gh pr view "$pr_num" --repo "$repo" --json author -q '.author.login' 2>/dev/null)
+    
+    # Add to file
+    echo "$entry" >> "$PRS_FILE"
+    echo -e "${GREEN}✓ Now tracking PR #${pr_num}${NC}"
+    echo -e "  ${CYAN}${PR_TITLE}${NC}"
+    echo -e "  by ${PR_AUTHOR}"
+    echo -e "  ${BLUE}https://github.com/${repo}/pull/${pr_num}${NC}"
+    
+    # Trigger sketchybar update
+    sketchybar --trigger buildkite 2>/dev/null || true
+}
+
+remove_pr() {
+    local pr_num="$1"
+    
+    if ! grep -q ":${pr_num}$\|^${pr_num}$" "$PRS_FILE" 2>/dev/null; then
+        echo -e "${YELLOW}! PR #${pr_num} is not being tracked${NC}"
+        exit 0
+    fi
+    
+    grep -v ":${pr_num}$\|^${pr_num}$" "$PRS_FILE" > "$PRS_FILE.tmp" && mv "$PRS_FILE.tmp" "$PRS_FILE"
+    echo -e "${GREEN}✓ Stopped tracking PR #${pr_num}${NC}"
+    
+    sketchybar --trigger buildkite 2>/dev/null || true
+}
+
+list_prs() {
+    if [[ ! -s "$PRS_FILE" ]]; then
+        echo "No PRs being tracked."
+        echo ""
+        echo "Add a PR: bk-track add <pr-number>"
+        exit 0
+    fi
+    
+    echo "Tracked PRs:"
+    echo "────────────"
+    
+    while IFS= read -r line; do
+        [[ -z "$line" || "$line" == \#* ]] && continue
+        
+        if [[ "$line" == *":"* ]]; then
+            repo="${line%%:*}"
+            pr_num="${line##*:}"
+        else
+            repo="$DEFAULT_REPO"
+            pr_num="$line"
+        fi
+        
+        echo -e "${BLUE}#${pr_num}${NC} (${repo})"
+    done < "$PRS_FILE"
+}
+
+show_status() {
+    if [[ ! -s "$PRS_FILE" ]]; then
+        echo "No PRs being tracked."
+        exit 0
+    fi
+    
+    # Check gh
+    if ! command -v gh &>/dev/null; then
+        echo -e "${RED}✗ gh CLI not installed${NC}"
+        exit 1
+    fi
+    
+    echo "PR Status:"
+    echo "══════════"
+    
+    while IFS= read -r line; do
+        [[ -z "$line" || "$line" == \#* ]] && continue
+        
+        if [[ "$line" == *":"* ]]; then
+            repo="${line%%:*}"
+            pr_num="${line##*:}"
+        else
+            repo="$DEFAULT_REPO"
+            pr_num="$line"
+        fi
+        
+        # Get PR basic info
+        PR_STATE=$(gh pr view "$pr_num" --repo "$repo" --json state -q '.state' 2>/dev/null)
+        
+        if [[ -z "$PR_STATE" ]]; then
+            echo -e "${RED}#${pr_num}${NC} - Error fetching"
+            continue
+        fi
+        
+        PR_TITLE=$(gh pr view "$pr_num" --repo "$repo" --json title -q '.title' 2>/dev/null | cut -c1-50)
+        
+        # Get all checks
+        CHECKS_JSON=$(gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup -q '.statusCheckRollup' 2>/dev/null)
+        
+        # Helper to safely count matches
+        safe_count() {
+            local cnt
+            cnt=$(echo "$1" | grep -c "$2" 2>/dev/null) || cnt=0
+            [[ -z "$cnt" ]] && cnt=0
+            echo "$cnt"
+        }
+        
+        # Count by status
+        local pending=0 failed=0 success=0
+        
+        if [[ -n "$CHECKS_JSON" && "$CHECKS_JSON" != "null" && "$CHECKS_JSON" != "[]" ]]; then
+            # CheckRun counts
+            pending=$((pending + $(safe_count "$CHECKS_JSON" '"status":"IN_PROGRESS"')))
+            pending=$((pending + $(safe_count "$CHECKS_JSON" '"status":"QUEUED"')))
+            pending=$((pending + $(safe_count "$CHECKS_JSON" '"status":"PENDING"')))
+            failed=$((failed + $(safe_count "$CHECKS_JSON" '"conclusion":"FAILURE"')))
+            failed=$((failed + $(safe_count "$CHECKS_JSON" '"conclusion":"ERROR"')))
+            failed=$((failed + $(safe_count "$CHECKS_JSON" '"conclusion":"CANCELLED"')))
+            success=$((success + $(safe_count "$CHECKS_JSON" '"conclusion":"SUCCESS"')))
+            
+            # StatusContext counts (Buildkite)
+            pending=$((pending + $(safe_count "$CHECKS_JSON" '"state":"PENDING"')))
+            failed=$((failed + $(safe_count "$CHECKS_JSON" '"state":"FAILURE"')))
+            failed=$((failed + $(safe_count "$CHECKS_JSON" '"state":"ERROR"')))
+            success=$((success + $(safe_count "$CHECKS_JSON" '"state":"SUCCESS"')))
+        fi
+        
+        # Overall status
+        if [[ "$PR_STATE" == "MERGED" ]]; then
+            STATUS="${GREEN}✓ Merged${NC}"
+        elif [[ "$PR_STATE" == "CLOSED" ]]; then
+            STATUS="${RED}✗ Closed${NC}"
+        elif [[ $failed -gt 0 ]]; then
+            STATUS="${RED}✗ Failed${NC}"
+        elif [[ $pending -gt 0 ]]; then
+            STATUS="${YELLOW}⟳ Running${NC}"
+        else
+            STATUS="${GREEN}✓ Passed${NC}"
+        fi
+        
+        echo -e "${BLUE}#${pr_num}${NC} ${STATUS}  [✓${success} ⟳${pending} ✗${failed}]"
+        echo -e "   ${PR_TITLE}"
+        
+        # Show failed checks
+        if [[ $failed -gt 0 ]]; then
+            echo -e "   ${RED}Failed checks:${NC}"
+            # Get failed StatusContext (Buildkite)
+            gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup \
+                -q '.statusCheckRollup[] | select(.state == "FAILURE" or .state == "ERROR") | "     - \(.context // .name)"' 2>/dev/null
+            # Get failed CheckRun
+            gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup \
+                -q '.statusCheckRollup[] | select(.conclusion == "FAILURE" or .conclusion == "ERROR") | "     - \(.name)"' 2>/dev/null
+        fi
+        
+        # Show pending checks
+        if [[ $pending -gt 0 ]]; then
+            echo -e "   ${YELLOW}Pending checks:${NC}"
+            # Get pending StatusContext (Buildkite)
+            gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup \
+                -q '.statusCheckRollup[] | select(.state == "PENDING") | "     - \(.context // .name)"' 2>/dev/null
+            # Get in-progress CheckRun
+            gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup \
+                -q '.statusCheckRollup[] | select(.status == "IN_PROGRESS" or .status == "QUEUED" or .status == "PENDING") | "     - \(.name)"' 2>/dev/null
+        fi
+        
+        echo ""
+    done < "$PRS_FILE"
+}
+
+clear_all() {
+    > "$PRS_FILE"
+    rm -rf "${CACHE_DIR:?}"/*
+    echo -e "${GREEN}✓ Cleared all tracked PRs${NC}"
+    sketchybar --trigger buildkite 2>/dev/null || true
+}
+
+run_debug() {
+    echo "bk-track debug"
+    echo "══════════════════════════════════════════"
+    echo ""
+    
+    # Check config files
+    echo "Config Files:"
+    echo -n "  PRS_FILE: "
+    if [[ -f "$PRS_FILE" ]]; then
+        COUNT=$(grep -v '^#\|^$' "$PRS_FILE" 2>/dev/null | wc -l | tr -d ' ')
+        echo -e "${GREEN}exists${NC} ($COUNT PRs)"
+    else
+        echo -e "${RED}missing${NC}"
+    fi
+    
+    echo -n "  CONFIG_FILE: "
+    if [[ -f "$CONFIG_FILE" ]]; then
+        echo -e "${GREEN}exists${NC}"
+    else
+        echo -e "${YELLOW}not set (using defaults)${NC}"
+    fi
+    
+    echo ""
+    echo "CLI Tools:"
+    
+    # Check gh CLI
+    echo -n "  gh CLI: "
+    if command -v gh &>/dev/null; then
+        echo -e "${GREEN}installed${NC} ($(gh --version | head -1))"
+    else
+        echo -e "${RED}not installed${NC}"
+        echo "    Install: brew install gh"
+    fi
+    
+    echo -n "  gh auth: "
+    if gh auth status &>/dev/null 2>&1; then
+        USER=$(gh api user -q '.login' 2>/dev/null)
+        echo -e "${GREEN}authenticated${NC} as $USER"
+    else
+        echo -e "${RED}not authenticated${NC}"
+        echo "    Run: gh auth login"
+    fi
+    
+    # Check bk CLI (optional)
+    echo -n "  bk CLI: "
+    if command -v bk &>/dev/null; then
+        echo -e "${GREEN}installed${NC} (optional)"
+    else
+        echo -e "${YELLOW}not installed${NC} (optional - for Buildkite-specific features)"
+        echo "    Install: brew install buildkite/buildkite/bk"
+    fi
+    
+    echo ""
+    echo "Default Settings:"
+    echo "  DEFAULT_REPO: $DEFAULT_REPO"
+    echo "  CACHE_DIR: $CACHE_DIR"
+    echo "  LOG_FILE: $LOG_FILE"
+    
+    echo ""
+    
+    # Test each PR
+    if [[ -s "$PRS_FILE" ]]; then
+        echo "Testing PRs:"
+        echo "────────────"
+        while IFS= read -r line; do
+            [[ -z "$line" || "$line" == \#* ]] && continue
+            
+            if [[ "$line" == *":"* ]]; then
+                repo="${line%%:*}"
+                pr_num="${line##*:}"
+            else
+                repo="$DEFAULT_REPO"
+                pr_num="$line"
+            fi
+            
+            echo -n "  #$pr_num ($repo): "
+            
+            RESULT=$(gh pr view "$pr_num" --repo "$repo" --json title,state 2>&1)
+            if [[ $? -eq 0 ]]; then
+                TITLE=$(echo "$RESULT" | grep -o '"title":"[^"]*"' | cut -d'"' -f4 | cut -c1-40)
+                STATE=$(echo "$RESULT" | grep -o '"state":"[^"]*"' | cut -d'"' -f4)
+                echo -e "${GREEN}OK${NC} [$STATE] $TITLE"
+            else
+                echo -e "${RED}FAILED${NC}"
+                echo "      $RESULT" | head -1
+            fi
+        done < "$PRS_FILE"
+    else
+        echo -e "${YELLOW}No PRs configured${NC}"
+        echo "  Add one: bk-track add <pr-number>"
+    fi
+    
+    echo ""
+    echo "Running plugin with DEBUG=1..."
+    echo "──────────────────────────────"
+    DEBUG=1 NAME="buildkite" "$CONFIG_DIR/plugins/buildkite.sh" 2>&1
+    
+    echo ""
+    echo "Recent log entries:"
+    echo "───────────────────"
+    if [[ -f "$LOG_FILE" ]]; then
+        tail -20 "$LOG_FILE"
+    else
+        echo "No log file yet"
+    fi
+}
+
+show_log() {
+    if [[ -f "$LOG_FILE" ]]; then
+        echo "Log: $LOG_FILE"
+        echo "════════════════════════════════════════"
+        cat "$LOG_FILE"
+    else
+        echo "No log file. Run 'bk-track debug' first."
+    fi
+}
+
+show_checks() {
+    local pr_num="$1"
+    local repo="${2:-$DEFAULT_REPO}"
+    
+    if [[ -z "$pr_num" ]]; then
+        echo "Usage: bk-track checks <pr-number> [repo]"
+        exit 1
+    fi
+    
+    echo "Checks for PR #$pr_num ($repo):"
+    echo "════════════════════════════════════════"
+    
+    # Get raw checks data
+    CHECKS=$(gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup -q '.statusCheckRollup[]' 2>/dev/null)
+    
+    if [[ -z "$CHECKS" ]]; then
+        echo "No checks found or PR not accessible"
+        exit 1
+    fi
+    
+    echo ""
+    echo "CheckRun items (GitHub Actions, etc):"
+    echo "──────────────────────────────────────"
+    gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup \
+        -q '.statusCheckRollup[] | select(.__typename == "CheckRun") | "\(.status) / \(.conclusion // "N/A") - \(.name)"' 2>/dev/null
+    
+    echo ""
+    echo "StatusContext items (Buildkite, etc):"
+    echo "─────────────────────────────────────"
+    gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup \
+        -q '.statusCheckRollup[] | select(.__typename == "StatusContext") | "\(.state) - \(.context)"' 2>/dev/null
+    
+    echo ""
+    echo "Summary:"
+    echo "────────"
+    
+    # Count each type
+    local json
+    json=$(gh pr view "$pr_num" --repo "$repo" --json statusCheckRollup -q '.statusCheckRollup' 2>/dev/null)
+    
+    count_matches() { echo "$1" | grep -o "$2" 2>/dev/null | wc -l | tr -d ' '; }
+    
+    echo "CheckRun status:"
+    echo "  COMPLETED: $(count_matches "$json" '"status":"COMPLETED"')"
+    echo "  IN_PROGRESS: $(count_matches "$json" '"status":"IN_PROGRESS"')"
+    echo "  QUEUED: $(count_matches "$json" '"status":"QUEUED"')"
+    echo "  PENDING: $(count_matches "$json" '"status":"PENDING"')"
+    
+    echo ""
+    echo "CheckRun conclusion:"
+    echo "  SUCCESS: $(count_matches "$json" '"conclusion":"SUCCESS"')"
+    echo "  NEUTRAL: $(count_matches "$json" '"conclusion":"NEUTRAL"')"
+    echo "  FAILURE: $(count_matches "$json" '"conclusion":"FAILURE"')"
+    echo "  ERROR: $(count_matches "$json" '"conclusion":"ERROR"')"
+    
+    echo ""
+    echo "StatusContext state:"
+    echo "  SUCCESS: $(count_matches "$json" '"state":"SUCCESS"')"
+    echo "  PENDING: $(count_matches "$json" '"state":"PENDING"')"
+    echo "  EXPECTED: $(count_matches "$json" '"state":"EXPECTED"')"
+    echo "  FAILURE: $(count_matches "$json" '"state":"FAILURE"')"
+}
+
+show_help() {
+    echo "bk-track - Track GitHub PR CI status in SketchyBar"
+    echo ""
+    echo "Usage:"
+    echo "  bk-track add <pr> [repo]    Add PR (default repo: $DEFAULT_REPO)"
+    echo "  bk-track rm <pr>            Remove PR"
+    echo "  bk-track list               List tracked PRs"
+    echo "  bk-track status             Show detailed status"
+    echo "  bk-track checks <pr>        Show raw check data for a PR"
+    echo "  bk-track clear              Clear all PRs"
+    echo "  bk-track debug              Debug/troubleshoot"
+    echo "  bk-track log                View log file"
+    echo ""
+    echo "Examples:"
+    echo "  bk-track add 12345"
+    echo "  bk-track add 12345 canva/canva-web"
+    echo "  bk-track status"
+    echo "  bk-track checks 12345"
+    echo ""
+    echo "Requirements:"
+    echo "  gh CLI: brew install gh && gh auth login"
+    echo ""
+    echo "Config: $CONFIG_DIR/"
+}
+
+# Main
+case "$1" in
+    add|a)
+        [[ -z "$2" ]] && { echo "Usage: bk-track add <pr-number> [repo]"; exit 1; }
+        add_pr "$2" "$3"
+        ;;
+    rm|remove|r)
+        [[ -z "$2" ]] && { echo "Usage: bk-track rm <pr-number>"; exit 1; }
+        remove_pr "$2"
+        ;;
+    list|ls|l)
+        list_prs
+        ;;
+    status|s)
+        show_status
+        ;;
+    clear|c)
+        clear_all
+        ;;
+    debug|d|test)
+        run_debug
+        ;;
+    checks|ch)
+        show_checks "$2" "$3"
+        ;;
+    log)
+        show_log
+        ;;
+    help|--help|-h|"")
+        show_help
+        ;;
+    *)
+        if [[ "$1" =~ ^[0-9]+$ ]]; then
+            add_pr "$1" "$2"
+        else
+            echo "Unknown: $1 (try: bk-track help)"
+            exit 1
+        fi
+        ;;
+esac

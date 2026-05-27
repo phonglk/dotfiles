@@ -35,7 +35,7 @@ sketchybar -m --bar height=32 \
 	color=0x00000000 \
 	border_width=0 \
 	y_offset=4 \
-	display=main
+	display=all
 # }}}
 # {{{ Defaults -----------------------------------------------------------
 
@@ -59,7 +59,8 @@ sketchybar -m --default label.padding_left=0 \
 sketchybar -m --add item logo left \
 	--set logo icon= \
 	background.corner_radius=4 \
-	background.color="0xff${COL_GREEN}"
+	background.color="0xff${COL_GREEN}" \
+	associated_display=1
 
 sketchybar -m --add space home left \
 	--set home associated_display=1 \
@@ -109,13 +110,15 @@ sketchybar --add bracket primary_spaces \
 # }}}
 # {{{ Yabai layout modes
 sketchybar -m --add item sep left \
-	--set sep icon=""
+	--set sep icon="" \
+	associated_display=1
 
 sketchybar -m --add item yabai_icon left \
 	--set yabai_icon \
 	icon= \
 	background.color="0xff${COL_LIGHT_GREY}" \
-	background.corner_radius=4
+	background.corner_radius=4 \
+	associated_display=1
 
 sketchybar -m --add item yabai_bsp left \
 	--set yabai_bsp \
@@ -123,6 +126,7 @@ sketchybar -m --add item yabai_bsp left \
 	icon= \
 	script="$PLUGINS/yabai_mode.sh" \
   click_script="$PLUGINS/yabai_click.sh" \
+	associated_display=1 \
 	--subscribe yabai_bsp space_change
 
 sketchybar -m --add item yabai_float left \
@@ -131,6 +135,7 @@ sketchybar -m --add item yabai_float left \
 	icon=  \
 	script="$PLUGINS/yabai_mode.sh" \
   click_script="$PLUGINS/yabai_click.sh" \
+	associated_display=1 \
 	--subscribe yabai_float space_change
 
 
@@ -140,6 +145,7 @@ sketchybar -m --add item yabai_stack left \
 	icon=﯅ \
 	script="$PLUGINS/yabai_mode.sh" \
   click_script="$PLUGINS/yabai_click.sh" \
+	associated_display=1 \
 	--subscribe yabai_stack space_change
 
 sketchybar --add bracket _yabai \
@@ -158,6 +164,7 @@ sketchybar --add bracket _yabai \
 
 sketchybar --add item system.label center \
 	--set system.label script="$PLUGINS/title.sh" \
+	associated_display=1 \
 	--subscribe system.label front_app_switched
 
 # }}}
@@ -169,12 +176,14 @@ sketchybar -m --add item time_label right \
 	label.padding_right=8 \
 	icon.padding_left=0 \
 	icon.padding_right=4 \
-	script="$PLUGINS/time.sh"
+	script="$PLUGINS/time.sh" \
+	associated_display=1
 
 sketchybar -m --add item time_icon right \
 	--set time_icon icon= \
 	background.color="0xff${COL_BLUE}" \
-	background.corner_radius=4
+	background.corner_radius=4 \
+	associated_display=1
 
 sketchybar -m --add item sep1 right \
 	--set sep1 icon="" \
@@ -186,12 +195,14 @@ sketchybar -m --add item date_label right \
 	label.padding_right=8 \
 	icon.padding_left=0 \
 	icon.padding_right=4 \
-	script="$PLUGINS/date.sh"
+	script="$PLUGINS/date.sh" \
+	associated_display=1
 
 sketchybar -m --add item date_icon right \
 	--set date_icon icon= \
 	background.color="0xff${COL_YELLOW}" \
-	background.corner_radius=4
+	background.corner_radius=4 \
+	associated_display=1
 
 sketchybar -m --add item sep2 right \
 	--set sep2 icon="" \
@@ -203,14 +214,16 @@ sketchybar -m --add item battery_label right \
 	label.padding_right=8 \
 	icon.padding_left=0 \
 	icon.padding_right=4 \
-	script="$PLUGINS/battery.sh"
+	script="$PLUGINS/battery.sh" \
+	associated_display=1
 
 sketchybar -m --add item battery_icon right \
 	--set battery_icon \
 	background.color="0xff${COL_PURPLE}" \
 	background.corner_radius=4 \
 	update_freq=10 \
-	script="$PLUGINS/battery_icon.sh"
+	script="$PLUGINS/battery_icon.sh" \
+	associated_display=1
 
 sketchybar -m --add item sep3 right \
 	--set sep3 icon="" \
@@ -222,14 +235,16 @@ sketchybar -m --add item volume_label right \
 	label.padding_right=8 \
 	icon.padding_left=0 \
 	icon.padding_right=4 \
-	script="$PLUGINS/volume.sh"
+	script="$PLUGINS/volume.sh" \
+	associated_display=1
 
 sketchybar -m --add item volume_icon right \
 	--set volume_icon \
 	update_freq=3 \
 	background.color="0xff${COL_TEAL_GREEN}" \
 	background.corner_radius=4 \
-	script="$PLUGINS/volume_icon.sh"
+	script="$PLUGINS/volume_icon.sh" \
+	associated_display=1
 
 sketchybar -m --add item sep4 right \
 	--set sep4 icon="" \
@@ -241,12 +256,14 @@ sketchybar -m --add item network_label right \
 	label.padding_right=8 \
 	icon.padding_left=0 \
 	icon.padding_right=4 \
-	script="$PLUGINS/network.sh"
+	script="$PLUGINS/network.sh" \
+	associated_display=1
 
 sketchybar -m --add item network_icon right \
 	--set network_icon \
 	icon= background.color="0xff${COL_RED}" \
-	background.corner_radius=4
+	background.corner_radius=4 \
+	associated_display=1
 
 sketchybar --add bracket _time \
 	time_label \
@@ -292,6 +309,94 @@ sketchybar --add bracket _network \
 	background.border_color="0xff${COL_RED}" \
 	background.border_width=2 \
 	background.corner_radius=4
+
+# }}}
+
+# {{{ SECONDARY DISPLAY - CI Status Monitor ----------------------------------
+# Main item with popup for detailed PR list (click to expand)
+
+sketchybar --add item bk_status left \
+	--set bk_status \
+	icon=󰊤 \
+	icon.font="Hack Nerd Font:Bold:16.0" \
+	icon.color="0xff${COL_GREEN}" \
+	icon.padding_left=10 \
+	icon.padding_right=6 \
+	label="Loading..." \
+	label.font="Hack Nerd Font:Bold:12.0" \
+	label.color="0xff${COL_SNOW_WHITE}" \
+	label.padding_right=10 \
+	background.color="0xff${COL_BLACK}" \
+	background.height=28 \
+	background.corner_radius=6 \
+	background.border_color="0xff${COL_GREEN}" \
+	background.border_width=2 \
+	popup.background.color="0xff${COL_BLACK}" \
+	popup.background.corner_radius=8 \
+	popup.background.border_color="0xff${COL_GREEN}" \
+	popup.background.border_width=2 \
+	associated_display=2 \
+	update_freq=30 \
+	script="$PLUGINS/buildkite.sh" \
+	click_script="sketchybar --set bk_status popup.drawing=toggle"
+
+# Popup items (shown vertically when clicking main item)
+sketchybar --add item bk_pr1 popup.bk_status \
+	--set bk_pr1 \
+	icon=● \
+	icon.font="Hack Nerd Font:Bold:10.0" \
+	icon.color="0xff${COL_GREEN}" \
+	icon.padding_left=10 \
+	icon.padding_right=8 \
+	label="PR #1" \
+	label.font="Hack Nerd Font:Regular:12.0" \
+	label.color="0xff${COL_SNOW_WHITE}" \
+	label.padding_right=10 \
+	background.color="0xff${COL_LIGHT_BLACK}" \
+	background.height=28 \
+	background.corner_radius=4 \
+	background.padding_left=5 \
+	background.padding_right=5 \
+	drawing=off \
+	click_script="$PLUGINS/buildkite_click.sh 1"
+
+sketchybar --add item bk_pr2 popup.bk_status \
+	--set bk_pr2 \
+	icon=● \
+	icon.font="Hack Nerd Font:Bold:10.0" \
+	icon.color="0xff${COL_GREEN}" \
+	icon.padding_left=10 \
+	icon.padding_right=8 \
+	label="PR #2" \
+	label.font="Hack Nerd Font:Regular:12.0" \
+	label.color="0xff${COL_SNOW_WHITE}" \
+	label.padding_right=10 \
+	background.color="0xff${COL_LIGHT_BLACK}" \
+	background.height=28 \
+	background.corner_radius=4 \
+	background.padding_left=5 \
+	background.padding_right=5 \
+	drawing=off \
+	click_script="$PLUGINS/buildkite_click.sh 2"
+
+sketchybar --add item bk_pr3 popup.bk_status \
+	--set bk_pr3 \
+	icon=● \
+	icon.font="Hack Nerd Font:Bold:10.0" \
+	icon.color="0xff${COL_GREEN}" \
+	icon.padding_left=10 \
+	icon.padding_right=8 \
+	label="PR #3" \
+	label.font="Hack Nerd Font:Regular:12.0" \
+	label.color="0xff${COL_SNOW_WHITE}" \
+	label.padding_right=10 \
+	background.color="0xff${COL_LIGHT_BLACK}" \
+	background.height=28 \
+	background.corner_radius=4 \
+	background.padding_left=5 \
+	background.padding_right=5 \
+	drawing=off \
+	click_script="$PLUGINS/buildkite_click.sh 3"
 
 # }}}
 

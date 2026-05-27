@@ -9,3 +9,5 @@ export PATH="$PATH:/opt/homebrew/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 . "$HOME/.cargo/env"
+
+. "$HOME/.local/bin/env"
