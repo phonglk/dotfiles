@@ -312,6 +312,12 @@ sketchybar --add bracket _network \
 
 # }}}
 
+# {{{ MAIN DISPLAY - Cursor Usage -------------------------------------------
+
+. "$HOME/.config/sketchybar/items/cursor_usage.sh"
+
+# }}}
+
 # {{{ SECONDARY DISPLAY - CI Status Monitor ----------------------------------
 # Main item with popup for detailed PR list (click to expand)
 

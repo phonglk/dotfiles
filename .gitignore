@@ -23,3 +23,4 @@ fish/.config/fish/functions/nvm.fish
 fish/.config/fish/functions/yarn.fish
 
 .env
+sketchybar/.config/sketchybar/cursor_usage.conf

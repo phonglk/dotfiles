@@ -1,0 +1,22 @@
+# Cursor Usage SketchyBar Item
+#
+# Copy to:
+#   ~/.config/sketchybar/cursor_usage.conf
+#
+# The item reads Cursor's signed-in desktop session from local app state.
+# Do not put Cursor access tokens, browser cookies, or admin API keys here.
+
+# Leave empty to use Cursor's signed-in account from local app state.
+CURSOR_USAGE_EMAIL=""
+
+CURSOR_USAGE_POSITION="left"
+CURSOR_USAGE_DISPLAY=1
+
+CURSOR_USAGE_UPDATE_FREQ=60
+CURSOR_USAGE_CACHE_TTL_SECONDS=60
+
+CURSOR_USAGE_WARN_PCT=80
+CURSOR_USAGE_CRIT_PCT=95
+
+CURSOR_USAGE_CLICK_URL="https://cursor.com/dashboard"
+CURSOR_USAGE_SPACER_WIDTH=8
