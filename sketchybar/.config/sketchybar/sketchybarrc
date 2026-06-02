@@ -62,50 +62,7 @@ sketchybar -m --add item logo left \
 	background.color="0xff${COL_GREEN}" \
 	associated_display=1
 
-sketchybar -m --add space home left \
-	--set home associated_display=1 \
-	icon.padding_left=16 \
-	associated_space=1 \
-	icon= \
-	\
-	--add space video left \
-	--set video associated_display=1 \
-	associated_space=2 \
-	icon= \
-	\
-	--add space code left \
-	--set code associated_display=1 \
-	associated_space=3 \
-	icon= \
-	\
-	--add space web left \
-	--set web associated_display=1 \
-	associated_space=4 \
-	icon=\
-	\
-	--add space reserve left \
-	--set reserve associated_display=1 \
-	associated_space=5 \
-	icon= \
-	\
-	--add space chat left \
-	--set chat associated_display=1 \
-	associated_space=6 \
-	icon=
-
-sketchybar --add bracket primary_spaces \
-	logo \
-	home \
-	video \
-	code \
-	web \
-	reserve \
-	chat \
-	--set primary_spaces \
-	background.color="0xff${COL_BLACK}" \
-	background.border_color="0xff${COL_GREEN}" \
-	background.border_width=2 \
-	background.corner_radius=4
+. "$HOME/.config/sketchybar/items/yabai_spaces.sh"
 
 # }}}
 # {{{ Yabai layout modes
@@ -186,8 +143,11 @@ sketchybar -m --add item time_icon right \
 	associated_display=1
 
 sketchybar -m --add item sep1 right \
-	--set sep1 icon="" \
-	icon.padding_right=0
+	--set sep1 \
+	icon.drawing=off \
+	label.drawing=off \
+	width=10 \
+	associated_display=1
 
 sketchybar -m --add item date_label right \
 	--set date_label \
@@ -199,14 +159,17 @@ sketchybar -m --add item date_label right \
 	associated_display=1
 
 sketchybar -m --add item date_icon right \
-	--set date_icon icon= \
+	--set date_icon icon= \
 	background.color="0xff${COL_YELLOW}" \
 	background.corner_radius=4 \
 	associated_display=1
 
 sketchybar -m --add item sep2 right \
-	--set sep2 icon="" \
-	icon.padding_right=0
+	--set sep2 \
+	icon.drawing=off \
+	label.drawing=off \
+	width=10 \
+	associated_display=1
 
 sketchybar -m --add item battery_label right \
 	--set battery_label \
@@ -226,8 +189,11 @@ sketchybar -m --add item battery_icon right \
 	associated_display=1
 
 sketchybar -m --add item sep3 right \
-	--set sep3 icon="" \
-	icon.padding_right=0
+	--set sep3 \
+	icon.drawing=off \
+	label.drawing=off \
+	width=10 \
+	associated_display=1
 
 sketchybar -m --add item volume_label right \
 	--set volume_label \
@@ -247,22 +213,28 @@ sketchybar -m --add item volume_icon right \
 	associated_display=1
 
 sketchybar -m --add item sep4 right \
-	--set sep4 icon="" \
-	icon.padding_right=0
+	--set sep4 \
+	icon.drawing=off \
+	label.drawing=off \
+	width=10 \
+	associated_display=1
 
 sketchybar -m --add item network_label right \
 	--set network_label \
 	update_freq=10 \
-	label.padding_right=8 \
-	icon.padding_left=0 \
+	icon= \
+	icon.color="0xff${COL_BLACK}" \
+	icon.font="Hack Nerd Font:Bold:15.0" \
+	icon.padding_left=7 \
 	icon.padding_right=4 \
+	label.color="0xff${COL_BLACK}" \
+	label.font="Hack Nerd Font:Bold:12.0" \
+	label.padding_left=0 \
+	label.padding_right=8 \
+	background.color="0xff${COL_BLUE}" \
+	background.height=24 \
+	background.corner_radius=6 \
 	script="$PLUGINS/network.sh" \
-	associated_display=1
-
-sketchybar -m --add item network_icon right \
-	--set network_icon \
-	icon= background.color="0xff${COL_RED}" \
-	background.corner_radius=4 \
 	associated_display=1
 
 sketchybar --add bracket _time \
@@ -303,12 +275,22 @@ sketchybar --add bracket _volume \
 
 sketchybar --add bracket _network \
 	network_label \
-	network_icon \
 	--set _network \
 	background.color="0xff${COL_BLACK}" \
 	background.border_color="0xff${COL_RED}" \
 	background.border_width=2 \
 	background.corner_radius=4
+
+sketchybar -m --add item sep5 right \
+	--set sep5 \
+	icon.drawing=off \
+	label.drawing=off \
+	width=10 \
+	associated_display=1
+
+. "$HOME/.config/sketchybar/items/weather.sh"
+
+. "$HOME/.config/sketchybar/items/stats.sh"
 
 # }}}
 
