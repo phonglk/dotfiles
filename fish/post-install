@@ -30,6 +30,48 @@ current_login_shell() {
   fi
 }
 
+sync_macos_gui_shell() {
+  if [[ "$OSTYPE" != "darwin"* ]]; then
+    return 0
+  fi
+
+  if ! command -v launchctl >/dev/null 2>&1; then
+    echo "launchctl is required to update the macOS GUI shell environment" >&2
+    return 1
+  fi
+
+  local launchctl_path user_id gui_shell
+  launchctl_path="$(command -v launchctl)"
+  if [[ "$launchctl_path" != /* || ! -x "$launchctl_path" ]]; then
+    echo "launchctl must resolve to an absolute executable path: $launchctl_path" >&2
+    return 1
+  fi
+  user_id="$(id -u)"
+
+  if ! "$launchctl_path" print "gui/$user_id" >/dev/null 2>&1; then
+    echo "No active macOS GUI session; skipping GUI shell environment update"
+    return 0
+  fi
+
+  gui_shell="$("$launchctl_path" asuser "$user_id" "$launchctl_path" getenv SHELL 2>/dev/null || true)"
+  if [[ "$gui_shell" == "$FISH_PATH" ]]; then
+    echo "New macOS apps already inherit Fish as SHELL"
+    return 0
+  fi
+
+  echo "Setting Fish as SHELL for newly launched macOS apps"
+  if ! "$launchctl_path" asuser "$user_id" "$launchctl_path" setenv SHELL "$FISH_PATH"; then
+    echo "Failed to update SHELL in the macOS GUI launch environment" >&2
+    return 1
+  fi
+
+  gui_shell="$("$launchctl_path" asuser "$user_id" "$launchctl_path" getenv SHELL 2>/dev/null || true)"
+  if [[ "$gui_shell" != "$FISH_PATH" ]]; then
+    echo "Failed to verify SHELL in the macOS GUI launch environment" >&2
+    return 1
+  fi
+}
+
 CURRENT_USER="$(id -un)"
 if ! LOGIN_SHELL="$(current_login_shell "$CURRENT_USER")" || [[ "$LOGIN_SHELL" != /* ]]; then
   echo "Unable to determine the login shell for $CURRENT_USER" >&2
@@ -95,6 +137,7 @@ if [[ -f "$BINDINGS_HELPER" ]] && grep -Eq "$INVALID_BIND_PATTERN" "$BINDINGS_HE
 fi
 
 if [[ "$SHELL_CHANGE_NEEDED" -eq 0 ]]; then
+  sync_macos_gui_shell
   echo "Fish is already the default shell for $CURRENT_USER"
   exit 0
 fi
@@ -141,4 +184,5 @@ if ! LOGIN_SHELL="$(current_login_shell "$CURRENT_USER")" || [[ "$LOGIN_SHELL" !
   exit 1
 fi
 
+sync_macos_gui_shell
 echo "Fish will be used for new login sessions."
