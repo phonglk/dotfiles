@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
+if ! command -v fish >/dev/null 2>&1; then
+  echo "fish is required to install Fisher plugins" >&2
+  exit 1
+fi
+
+if ! command -v curl >/dev/null 2>&1; then
+  echo "curl is required to install Fisher" >&2
+  exit 1
+fi
+
 fish -c '
 if not command -v fisher >/dev/null 2>&1
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+    curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
 end
 fisher update
 '
-

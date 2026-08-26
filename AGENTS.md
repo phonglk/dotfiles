@@ -6,9 +6,11 @@ directory is a Stow package that can be linked into `$HOME`.
 ## Install Model
 
 - Install one package with `./install.sh <package>`.
-- `install.sh` runs `<package>/pre-install` if present, then runs
-  `stow -R --dotfiles -t ~/ --ignore="(pre|post)-install|DS_Store" <package>`,
-  then runs `<package>/post-install` if present.
+- `install.sh` validates the package and Stow dependency, runs
+  a Stow simulation before making changes, runs `<package>/pre-install` if
+  present, then runs Stow with install hooks, `.DS_Store`, and package-local
+  `AGENTS.md` files ignored, then runs `<package>/post-install` if present. It
+  stops on the first failure.
 - Do not run install hooks casually. Several hooks write to `$HOME`, install
   Homebrew packages, clone repositories, run `curl`, update plugin managers, or
   start services.

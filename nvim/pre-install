@@ -1,3 +1,36 @@
 #!/usr/bin/env bash
 
-git clone https://github.com/phonglk/nvim.git ~/.config/nvim
+set -euo pipefail
+
+NVIM_CONFIG="$HOME/.config/nvim"
+EXPECTED_ORIGIN="https://github.com/phonglk/nvim"
+EXPECTED_SSH_ORIGIN="git@github.com:phonglk/nvim.git"
+
+if [[ -e "$NVIM_CONFIG/.git" ]]; then
+  if ! command -v git >/dev/null 2>&1; then
+    echo "git is required to inspect the existing Neovim config" >&2
+    exit 1
+  fi
+  ACTUAL_ORIGIN="$(git -C "$NVIM_CONFIG" remote get-url origin 2>/dev/null || true)"
+  if [[ "$ACTUAL_ORIGIN" != "$EXPECTED_ORIGIN" &&
+        "$ACTUAL_ORIGIN" != "$EXPECTED_ORIGIN.git" &&
+        "$ACTUAL_ORIGIN" != "$EXPECTED_SSH_ORIGIN" ]]; then
+    echo "Unexpected Neovim config origin: ${ACTUAL_ORIGIN:-missing}" >&2
+    exit 1
+  fi
+  echo "Neovim config already exists at $NVIM_CONFIG"
+  exit 0
+fi
+
+if [[ -e "$NVIM_CONFIG" || -L "$NVIM_CONFIG" ]]; then
+  echo "Refusing to replace existing path: $NVIM_CONFIG" >&2
+  exit 1
+fi
+
+if ! command -v git >/dev/null 2>&1; then
+  echo "git is required to clone the Neovim config" >&2
+  exit 1
+fi
+
+mkdir -p "$HOME/.config"
+git clone "$EXPECTED_ORIGIN.git" "$NVIM_CONFIG"

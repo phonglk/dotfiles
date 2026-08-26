@@ -1,12 +1,27 @@
 #!/usr/bin/env bash
 
-_dotfiles_utils_check_brew
-if ! command -v sketchybar &> /dev/null
-then
-  brew install sketchybar
-  brew install --cask font-hack-nerd-font
-  brew services start sketchybar
+set -euo pipefail
+
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  echo "SketchyBar is only supported on macOS" >&2
+  exit 1
 fi
 
-mkdir -p ~/.config/sketchybar
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew is required to install SketchyBar" >&2
+  exit 1
+fi
 
+if ! brew list --formula --versions felixkratz/formulae/sketchybar >/dev/null 2>&1; then
+  brew tap FelixKratz/formulae
+  if brew trust --help >/dev/null 2>&1; then
+    brew trust --formula felixkratz/formulae/sketchybar
+  fi
+  brew install felixkratz/formulae/sketchybar
+fi
+
+if ! brew list --cask --versions font-hack-nerd-font >/dev/null 2>&1; then
+  brew install --cask font-hack-nerd-font
+fi
+
+mkdir -p "$HOME/.config/sketchybar"

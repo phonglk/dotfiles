@@ -7,8 +7,10 @@ This package owns the macOS SketchyBar configuration.
 - `.config/sketchybar/sketchybarrc`, the main bar layout and item definitions.
 - `.config/sketchybar/plugins/*`, scripts for bar items.
 - Buildkite/PR tracking config examples and the current local PR list.
-- `pre-install`, which checks Homebrew, installs SketchyBar if missing, starts
-  the service, and creates `~/.config/sketchybar`.
+- `pre-install`, which checks Homebrew, installs SketchyBar and its font when
+  missing, and creates `~/.config/sketchybar`.
+- `post-install`, which restarts the SketchyBar service after Stow links the
+  configuration.
 
 ## PR/CI Widget
 

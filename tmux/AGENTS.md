@@ -8,8 +8,9 @@ This package owns tmux configuration and plugin setup.
 - `.tmux/plugins.tmux`, the TPM plugin list.
 - `.tmux/config_extra.tmux`, extra plugin/status configuration.
 - `.tmux/tmux.terminfo`.
-- `pre-install`, which creates `~/.tmux/plugins`, clones TPM, and installs the
-  terminfo file.
+- `pre-install`, which creates `~/.tmux/plugins`, preserves an existing TPM
+  checkout with the expected HTTPS or SSH origin (or clones it when missing),
+  and compiles the package-local terminfo file.
 
 ## Install Notes
 

@@ -1,6 +1,41 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/.tmux/plugins
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-# Install to term database
-tic -x ~/.tmux/tmux.terminfo
+set -euo pipefail
+
+CURRENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+EXPECTED_ORIGIN="https://github.com/tmux-plugins/tpm"
+EXPECTED_SSH_ORIGIN="git@github.com:tmux-plugins/tpm.git"
+
+mkdir -p "$HOME/.tmux/plugins"
+
+if [[ -e "$TPM_DIR/.git" ]]; then
+  if ! command -v git >/dev/null 2>&1; then
+    echo "git is required to inspect the existing TPM checkout" >&2
+    exit 1
+  fi
+  ACTUAL_ORIGIN="$(git -C "$TPM_DIR" remote get-url origin 2>/dev/null || true)"
+  if [[ "$ACTUAL_ORIGIN" != "$EXPECTED_ORIGIN" &&
+        "$ACTUAL_ORIGIN" != "$EXPECTED_ORIGIN.git" &&
+        "$ACTUAL_ORIGIN" != "$EXPECTED_SSH_ORIGIN" ]]; then
+    echo "Unexpected TPM origin: ${ACTUAL_ORIGIN:-missing}" >&2
+    exit 1
+  fi
+  echo "TPM already exists at $TPM_DIR"
+elif [[ -e "$TPM_DIR" || -L "$TPM_DIR" ]]; then
+  echo "Refusing to replace existing path: $TPM_DIR" >&2
+  exit 1
+else
+  if ! command -v git >/dev/null 2>&1; then
+    echo "git is required to clone TPM" >&2
+    exit 1
+  fi
+  git clone "$EXPECTED_ORIGIN" "$TPM_DIR"
+fi
+
+# Compile from the package source because Stow links the target afterward.
+if ! command -v tic >/dev/null 2>&1; then
+  echo "tic is required to compile tmux terminfo" >&2
+  exit 1
+fi
+tic -x -o "$HOME/.terminfo" "$CURRENT_DIR/.tmux/tmux.terminfo"

@@ -5,8 +5,9 @@ repository.
 
 ## What It Owns
 
-- `pre-install`, which runs `git clone https://github.com/phonglk/nvim.git
-  ~/.config/nvim`.
+- `pre-install`, which preserves an existing checkout with the expected HTTPS
+  or SSH origin, otherwise clones `https://github.com/phonglk/nvim.git` into
+  `~/.config/nvim`.
 
 ## Install Notes
 

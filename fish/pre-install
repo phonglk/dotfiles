@@ -1,19 +1,36 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/.config/fish/functions
-mkdir -p ~/.config/fish/conf.d
-mkdir -p ~/.config/fish/completions
+set -euo pipefail
 
-if ! command -v fzf &> /dev/null
-  then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        brew install fzf
-    else
-        echo "Not running on macOS - please install fzf through your system's package manager"
-        exit 1
+mkdir -p "$HOME/.config/fish/functions"
+mkdir -p "$HOME/.config/fish/conf.d"
+mkdir -p "$HOME/.config/fish/completions"
+
+if ! command -v fzf >/dev/null 2>&1; then
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    if ! command -v brew >/dev/null 2>&1; then
+      echo "Homebrew is required to install fzf on macOS" >&2
+      exit 1
     fi
+    brew install fzf
+  else
+    echo "Not running on macOS - please install fzf through your system's package manager" >&2
+    exit 1
+  fi
 fi
 
-mkdir -p ~/.config/fish
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-ln -s $CURRENT_DIR/fish_plugins ~/.config/fish/fish_plugins
+CURRENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_SOURCE="$CURRENT_DIR/fish_plugins"
+PLUGIN_TARGET="$HOME/.config/fish/fish_plugins"
+
+if [[ -L "$PLUGIN_TARGET" ]]; then
+  if [[ ! "$PLUGIN_TARGET" -ef "$PLUGIN_SOURCE" ]]; then
+    echo "Refusing to replace existing symlink: $PLUGIN_TARGET" >&2
+    exit 1
+  fi
+elif [[ -e "$PLUGIN_TARGET" ]]; then
+  echo "Refusing to replace existing file: $PLUGIN_TARGET" >&2
+  exit 1
+else
+  ln -s "$PLUGIN_SOURCE" "$PLUGIN_TARGET"
+fi

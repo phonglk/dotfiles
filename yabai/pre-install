@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 
-_dotfiles_utils_check_brew
-if ! command -v yabai &> /dev/null
-then
-  brew install koekeishiya/formulae/yabai
+set -euo pipefail
+
+if [[ "$OSTYPE" != "darwin"* ]]; then
+  echo "yabai is only supported on macOS" >&2
+  exit 1
 fi
 
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew is required to install yabai" >&2
+  exit 1
+fi
+
+if ! brew list --formula --versions koekeishiya/formulae/yabai >/dev/null 2>&1; then
+  brew tap koekeishiya/formulae
+  if brew trust --help >/dev/null 2>&1; then
+    brew trust --formula koekeishiya/formulae/yabai
+  fi
+  brew install koekeishiya/formulae/yabai
+fi
