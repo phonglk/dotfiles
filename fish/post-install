@@ -73,6 +73,27 @@ end
 fisher update
 '
 
+BINDINGS_HELPER="$HOME/.config/fish/functions/_phonglk_auto_complete_help.fish"
+INVALID_BIND_PATTERN='^[[:space:]]*bind --erase --preset( -M (insert|visual))? \\cx fish_clipboard_copy$'
+if [[ -f "$BINDINGS_HELPER" ]] && grep -Eq "$INVALID_BIND_PATTERN" "$BINDINGS_HELPER"; then
+  echo "Repairing invalid Ctrl-X erase bindings for Fish 4"
+  if ! LC_ALL=C sed -E -i.bak \
+    '/^[[:space:]]*bind --erase --preset( -M (insert|visual))? \\cx fish_clipboard_copy$/s/ fish_clipboard_copy$//' \
+    "$BINDINGS_HELPER"; then
+    [[ ! -f "$BINDINGS_HELPER.bak" ]] || mv -f -- "$BINDINGS_HELPER.bak" "$BINDINGS_HELPER"
+    echo "Failed to repair invalid Ctrl-X erase bindings in $BINDINGS_HELPER" >&2
+    exit 1
+  fi
+
+  if grep -Eq "$INVALID_BIND_PATTERN" "$BINDINGS_HELPER"; then
+    mv -f -- "$BINDINGS_HELPER.bak" "$BINDINGS_HELPER"
+    echo "Failed to verify repaired Ctrl-X erase bindings in $BINDINGS_HELPER" >&2
+    exit 1
+  fi
+
+  rm -f -- "$BINDINGS_HELPER.bak"
+fi
+
 if [[ "$SHELL_CHANGE_NEEDED" -eq 0 ]]; then
   echo "Fish is already the default shell for $CURRENT_USER"
   exit 0

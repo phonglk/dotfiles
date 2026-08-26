@@ -10,8 +10,12 @@ This package bootstraps Fish shell directories and Fisher plugins.
   Homebrew formulas required by the Fish config (`fish`, `fzf`, `coreutils`,
   and `fnm`), and links `fish_plugins` into `~/.config/fish`.
 - `post-install`, which installs Fisher if missing, runs `fisher update`,
+  repairs the external config's Fish 4-incompatible Ctrl-X erase bindings,
   registers the Fish binary in `/etc/shells` when needed, and makes Fish the
   current user's default login shell.
+- `.config/fish/conf.d/00-fish4-bind-compat.fish`, which applies the same narrow
+  binding repair before interactive key bindings load, including after a
+  standalone `fisher update`.
 
 ## Install Notes
 
