@@ -8,8 +8,9 @@ This package bootstraps Fish shell directories and Fisher plugins.
 - `.dircolors/*` color scheme files.
 - `pre-install`, which creates Fish config directories, ensures the macOS
   Homebrew formulas required by the Fish config (`fish`, `fd`, `ghq`, `fzf`,
-  `coreutils`, `fnm`, and Python 3 with `curses`), and links `fish_plugins`
-  into `~/.config/fish`.
+  `coreutils`, `fnm`, and Python 3 with `curses`), installs the official Git
+  Credential Manager cask, configures it through native Git, and links
+  `fish_plugins` into `~/.config/fish`.
 - `post-install`, which installs Fisher if missing, runs `fisher update`,
   repairs the external config's Fish 4-incompatible Ctrl-X erase bindings,
   registers the Fish binary in `/etc/shells` when needed, and makes Fish the
@@ -18,6 +19,9 @@ This package bootstraps Fish shell directories and Fisher plugins.
 - `.config/fish/conf.d/00-fish4-bind-compat.fish`, which applies the same narrow
   binding repair before interactive key bindings load, including after a
   standalone `fisher update`.
+- `.config/fish/conf.d/zz-native-git.fish`, which removes Canva's optional Git
+  shim from Fish's inherited and subsequently managed `PATH`, and clears its
+  Git user-agent overrides so upstream Homebrew or Apple Git is used.
 - `.config/fish/hotkeys.psv`, `.config/fish/hotkey_guide.py`,
   `functions/fish_hotkeys.fish`, and `conf.d/99-hotkey-guide.fish`, which
   provide the shared searchable shortcut catalog, Ctrl-G guide binding,
@@ -52,4 +56,6 @@ This package bootstraps Fish shell directories and Fisher plugins.
   binding and dependency status may affect styling, but must not add columns.
 - The clickable guide requires Python 3's standard-library `curses` module and
   falls back to the plain two-column renderer if it is unavailable at runtime.
+- Keep the native-Git cleanup narrowly scoped to the Canva shim path and Git
+  user-agent overrides; do not remove the Canva tooling itself.
 - Run `bash -n` on edited install hooks.

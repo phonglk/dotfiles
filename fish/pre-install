@@ -19,6 +19,36 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
   done
 
+  if ! brew list --cask git-credential-manager >/dev/null 2>&1; then
+    brew install --cask git-credential-manager
+  fi
+
+  GCM_PATH="/usr/local/share/gcm-core/git-credential-manager"
+  if [[ ! -x "$GCM_PATH" ]]; then
+    echo "Git Credential Manager is not executable at $GCM_PATH" >&2
+    exit 1
+  fi
+
+  if [[ -x /opt/homebrew/bin/git ]]; then
+    NATIVE_GIT_PATH=/opt/homebrew/bin/git
+  elif [[ -x /usr/bin/git ]]; then
+    NATIVE_GIT_PATH=/usr/bin/git
+  else
+    echo "Native Git is required to configure Git Credential Manager" >&2
+    exit 1
+  fi
+
+  if ! "$NATIVE_GIT_PATH" config --global --get-all credential.helper | grep -Fqx -- "$GCM_PATH"; then
+    env -u GIT_USER_AGENT -u GIT_HTTP_USER_AGENT \
+      PATH="${NATIVE_GIT_PATH%/*}:$PATH" \
+      "$GCM_PATH" configure
+  fi
+
+  if ! "$NATIVE_GIT_PATH" config --global --get-all credential.helper | grep -Fqx -- "$GCM_PATH"; then
+    echo "Git Credential Manager is not configured as a global credential helper" >&2
+    exit 1
+  fi
+
   if ! command -v python3 >/dev/null 2>&1 || ! python3 -c 'import curses, sys; raise SystemExit(sys.version_info < (3, 8))' >/dev/null 2>&1; then
     brew install python
     hash -r
