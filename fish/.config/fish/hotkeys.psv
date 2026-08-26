@@ -1,0 +1,56 @@
+# scope|category|modes|display_key|binding_keys|dependencies|description|tab
+fish|Guide|default,insert,visual|Ctrl-G|ctrl-g|-|Open this searchable shortcut guide|fish
+fish|FZF|insert|Ctrl-X|ctrl-x|fzf|Open the custom workflow menu for Git, tmux paths, and Jira branches|fish
+fish|FZF|default,insert|Ctrl-R|ctrl-r|fzf|Search command history|fish
+fish|FZF|default,insert|Ctrl-Alt-F|ctrl-alt-f|fzf,fd,bat|Search files and directories with previews|fish
+fish|FZF|default,insert|Ctrl-Alt-L|ctrl-alt-l|fzf,git|Search the current repository's Git log|fish
+fish|FZF|default,insert|Ctrl-Alt-S|ctrl-alt-s|fzf,git|Search changed files in Git status|fish
+fish|FZF|default,insert|Ctrl-Alt-P|ctrl-alt-p|fzf|Search running processes|fish
+fish|FZF|default,insert|Ctrl-V|ctrl-v|fzf|Search Fish variables|fish
+fish|FZF|default|Ctrl-]|ctrl-]|fzf,ghq|Choose a ghq repository and change directory|fish
+fish|Editing|default,insert|Enter / Ctrl-J|enter,ctrl-j|-|Run the command with Tide's transient prompt|fish
+fish|Editing|insert|Tab|tab|-|Complete the current token|builtin
+fish|Editing|insert|Shift-Tab|shift-tab|-|Complete and search backward|builtin
+fish|Editing|insert|Ctrl-N|ctrl-n|-|Accept the entire autosuggestion|builtin
+fish|Editing|insert|Right|right|-|Move right or accept one autosuggestion character|builtin
+fish|Editing|insert|Alt-Right|alt-right|-|Move or accept the next word|builtin
+fish|Editing|insert|Up / Down|up,down|-|Search backward or forward through history|builtin
+fish|Editing|insert|Ctrl-W|ctrl-w|-|Delete the previous path component|builtin
+fish|Editing|insert|Ctrl-U|ctrl-u|-|Delete from the cursor to the start of the line|builtin
+fish|Editing|insert|Ctrl-K|ctrl-k|-|Delete from the cursor to the end of the line|builtin
+fish|Editing|insert|Ctrl-Y|ctrl-y|-|Paste the last killed text|builtin
+fish|Editing|insert|Ctrl-L|ctrl-l|-|Clear the terminal screen|builtin
+fish|Editing|insert|Ctrl-C|ctrl-c|-|Clear the current command line|builtin
+fish|Editing|insert|Ctrl-D|ctrl-d|-|Delete forward or exit an empty shell|builtin
+fish|Vi normal|default|i / a / A / I|i,a,A,I|-|Enter insert mode at the cursor, after it, or at a line edge|builtin
+fish|Vi normal|default|h / j / k / l|h,j,k,l|-|Move left, history down, history up, or right|builtin
+fish|Vi normal|default|w / b / e|w,b,e|-|Move by words|builtin
+fish|Vi normal|default|0 / $|0,$|-|Move to the start or end of the line|builtin
+fish|Vi normal|default|x|x|-|Delete the character under the cursor|builtin
+fish|Vi normal|default|d / c|d,c|-|Start a delete or change operator|builtin
+fish|Vi normal|default|u|u|-|Undo the last edit|builtin
+fish|Vi normal|default|p / P|p,P|-|Paste after or before the cursor|builtin
+fish|Vi normal|default|v|v|-|Start visual selection|builtin
+fish|Vi visual|visual|v|v|-|End visual selection and return to normal mode|builtin
+kitty|Guide|global|Cmd+/|-|-|Open this guide in a Kitty overlay|kitty
+kitty|Guide|global|Ctrl-Shift-F3|-|-|Open Kitty's command palette|kitty
+kitty|Clipboard|global|Cmd-C / Cmd-V|-|-|Copy to or paste from the clipboard|kitty
+kitty|Windows|global|Cmd-N / Cmd-W|-|-|Open a new OS window or close the current window|kitty
+kitty|Scrollback|global|Ctrl-Shift-K / Ctrl-Shift-J|-|-|Scroll one line up or down|kitty
+kitty|Layout|global|Ctrl-Shift-L|-|-|Switch to the next layout|kitty
+kitty|Hints|global|Ctrl-Shift-E|-|-|Open Kitty's hints kitten|kitty
+kitty|Hints|global|Ctrl-Shift-P then F|-|-|Select a path and insert it at the prompt|kitty
+kitty|Font|global|Ctrl-Shift-= / Ctrl-Shift--|-|-|Increase or decrease the font size|kitty
+kitty|Opacity|global|Ctrl-Shift-A then M / L|-|-|Increase or decrease background opacity|kitty
+kitty|Terminal|global|Ctrl-Shift-Delete|-|-|Reset the terminal and clear scrollback|kitty
+tmux|Help|prefix|Ctrl-S then ?|-|tmux|Show tmux's complete key-binding list|tmux
+tmux|Panes|prefix|Ctrl-S then Backslash / -|-|tmux|Split a pane right or down|tmux
+tmux|Panes|prefix|Ctrl-S then Shift-Backslash / _|-|tmux|Split in the current directory right or down|tmux
+tmux|Windows|global|Shift-Left / Shift-Right|-|tmux|Move to the previous or next window|tmux
+tmux|Panes|global|Alt-H / J / K / L|-|tmux|Move between panes|tmux
+tmux|Panes|prefix|Ctrl-S then H / J / K / L|-|tmux|Resize the current pane by five cells|tmux
+tmux|Config|prefix|Ctrl-S then R|-|tmux|Reload tmux configuration|tmux
+tmux|Copy mode|prefix|Ctrl-S then [|-|tmux|Enter vi copy mode|tmux
+tmux|Copy mode|copy|Y / Enter|-|tmux|Copy the selection to the clipboard or tmux buffer|tmux
+tmux|Pomodoro|prefix|Ctrl-S then P / Shift-P|-|tmux|Start or cancel a Pomodoro|tmux
+tmux|Terminal|prefix|Ctrl-S then Ctrl-K|-|tmux|Clear the pane and its scrollback history|tmux

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+exec "$HOME/.config/kitty/bin/fish" --login --interactive -c 'fish_hotkeys --standalone'

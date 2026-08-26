@@ -12,14 +12,34 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     exit 1
   fi
 
-  for formula in fish fzf coreutils fnm; do
+  # Keep Fish first: the remaining formulas are dependencies of its config.
+  for formula in fish fd fzf coreutils fnm; do
     if ! brew list --formula "$formula" >/dev/null 2>&1; then
       brew install "$formula"
     fi
   done
-elif ! command -v fzf >/dev/null 2>&1; then
-    echo "Not running on macOS - please install fzf through your system's package manager" >&2
+
+  if ! command -v python3 >/dev/null 2>&1 || ! python3 -c 'import curses, sys; raise SystemExit(sys.version_info < (3, 8))' >/dev/null 2>&1; then
+    brew install python
+    hash -r
+  fi
+
+  if ! command -v python3 >/dev/null 2>&1 || ! python3 -c 'import curses, sys; raise SystemExit(sys.version_info < (3, 8))' >/dev/null 2>&1; then
+    echo "Python 3.8 or newer with curses is required for the clickable shortcut guide" >&2
     exit 1
+  fi
+else
+  missing_dependencies=()
+  command -v fd >/dev/null 2>&1 || missing_dependencies+=(fd)
+  command -v fzf >/dev/null 2>&1 || missing_dependencies+=(fzf)
+  if ! command -v python3 >/dev/null 2>&1 || ! python3 -c 'import curses, sys; raise SystemExit(sys.version_info < (3, 8))' >/dev/null 2>&1; then
+    missing_dependencies+=(python)
+  fi
+
+  if ((${#missing_dependencies[@]} > 0)); then
+    printf 'Please install these packages through your system package manager: %s\n' "${missing_dependencies[*]}" >&2
+    exit 1
+  fi
 fi
 
 CURRENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"

@@ -33,7 +33,7 @@ space_app_icons() {
 	local apps icon_line="" app icon
 
 	apps=$(printf '%s' "$windows_json" |
-		jq -r --argjson space "$space" '.[] | select(.space == $space) | select(.app != "") | .app' 2>/dev/null |
+		jq -r --argjson space "$space" '.[] | select(.space == $space) | select(."is-minimized" == false) | select(.app != "") | .app' 2>/dev/null |
 		awk 'NF && !seen[$0]++' || true)
 
 	while IFS= read -r app; do
