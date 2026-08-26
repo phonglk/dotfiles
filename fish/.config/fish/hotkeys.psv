@@ -7,7 +7,7 @@ fish|FZF|default,insert|Ctrl-Alt-L|ctrl-alt-l|fzf,git|Search the current reposit
 fish|FZF|default,insert|Ctrl-Alt-S|ctrl-alt-s|fzf,git|Search changed files in Git status|fish
 fish|FZF|default,insert|Ctrl-Alt-P|ctrl-alt-p|fzf|Search running processes|fish
 fish|FZF|default,insert|Ctrl-V|ctrl-v|fzf|Search Fish variables|fish
-fish|FZF|default|Ctrl-]|ctrl-]|fzf,ghq|Choose a ghq repository and change directory|fish
+fish|FZF|default,insert|Ctrl-]|ctrl-]|fzf,ghq|Choose a ghq repository and change directory|fish
 fish|Editing|default,insert|Enter / Ctrl-J|enter,ctrl-j|-|Run the command with Tide's transient prompt|fish
 fish|Editing|insert|Tab|tab|-|Complete the current token|builtin
 fish|Editing|insert|Shift-Tab|shift-tab|-|Complete and search backward|builtin

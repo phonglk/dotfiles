@@ -7,9 +7,9 @@ This package bootstraps Fish shell directories and Fisher plugins.
 - `fish_plugins`, the Fisher plugin list.
 - `.dircolors/*` color scheme files.
 - `pre-install`, which creates Fish config directories, ensures the macOS
-  Homebrew formulas required by the Fish config (`fish`, `fd`, `fzf`,
-  `coreutils`, `fnm`, and Python 3 with `curses`), and links `fish_plugins` into
-  `~/.config/fish`.
+  Homebrew formulas required by the Fish config (`fish`, `fd`, `ghq`, `fzf`,
+  `coreutils`, `fnm`, and Python 3 with `curses`), and links `fish_plugins`
+  into `~/.config/fish`.
 - `post-install`, which installs Fisher if missing, runs `fisher update`,
   repairs the external config's Fish 4-incompatible Ctrl-X erase bindings,
   registers the Fish binary in `/etc/shells` when needed, and makes Fish the
@@ -46,6 +46,8 @@ This package bootstraps Fish shell directories and Fisher plugins.
 - The shortcut guide is read-only: selecting a row must never execute it.
 - Keep the guide's All, Fish, Built-in, Kitty, and tmux tabs backed by the same
   runtime-evaluated catalog rather than duplicating shortcut data.
+- Keep the repo-owned `Ctrl-]` binding in both Fish vi normal and insert modes;
+  the external `_fzf_ghq_bind.fish` currently installs it in normal mode only.
 - Keep the visible shortcut table limited to Shortcut and Description. Runtime
   binding and dependency status may affect styling, but must not add columns.
 - The clickable guide requires Python 3's standard-library `curses` module and

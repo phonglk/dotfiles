@@ -13,7 +13,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 
   # Keep Fish first: the remaining formulas are dependencies of its config.
-  for formula in fish fd fzf coreutils fnm; do
+  for formula in fish fd ghq fzf coreutils fnm; do
     if ! brew list --formula "$formula" >/dev/null 2>&1; then
       brew install "$formula"
     fi
@@ -31,6 +31,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
   missing_dependencies=()
   command -v fd >/dev/null 2>&1 || missing_dependencies+=(fd)
+  command -v ghq >/dev/null 2>&1 || missing_dependencies+=(ghq)
   command -v fzf >/dev/null 2>&1 || missing_dependencies+=(fzf)
   if ! command -v python3 >/dev/null 2>&1 || ! python3 -c 'import curses, sys; raise SystemExit(sys.version_info < (3, 8))' >/dev/null 2>&1; then
     missing_dependencies+=(python)

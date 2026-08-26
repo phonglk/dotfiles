@@ -178,6 +178,12 @@ function __fish_hotkeys_install_bindings
         bind -M "$mode" >/dev/null 2>&1; or continue
         bind -M "$mode" ctrl-g 'fish_hotkeys; commandline -f repaint'
     end
+
+    if type -q fzf_ghq
+        for mode in default insert
+            bind -M "$mode" ctrl-] fzf_ghq
+        end
+    end
 end
 
 function fish_hotkeys --description 'Show a searchable guide to shell and terminal shortcuts'
