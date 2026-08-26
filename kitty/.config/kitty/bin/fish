@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -eu
+
+for fish_path in \
+    /opt/homebrew/bin/fish \
+    /usr/local/bin/fish \
+    /opt/local/bin/fish \
+    /usr/bin/fish \
+    /bin/fish
+do
+    if [ -x "$fish_path" ]; then
+        export SHELL="$fish_path"
+        exec "$fish_path" "$@"
+    fi
+done
+
+printf '%s\n' 'kitty: Fish is not installed in a supported location' >&2
+exit 127
