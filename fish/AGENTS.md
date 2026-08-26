@@ -8,13 +8,17 @@ This package bootstraps Fish shell directories and Fisher plugins.
 - `.dircolors/*` color scheme files.
 - `pre-install`, which creates Fish config directories, installs `fzf` on macOS
   if missing, and links `fish_plugins` into `~/.config/fish`.
-- `post-install`, which installs Fisher if missing and runs `fisher update`.
+- `post-install`, which installs Fisher if missing, runs `fisher update`,
+  registers the Fish binary in `/etc/shells` when needed, and makes Fish the
+  current user's default login shell.
 
 ## Install Notes
 
 - Installed with `./install.sh fish`.
 - The post-install hook performs network access via `curl` and updates Fish
   plugins. Do not run it unless the user wants shell bootstrap work.
+- Setting the default shell may request administrator access on macOS. The
+  change applies to new login sessions; it does not replace the current shell.
 
 ## Change Notes
 

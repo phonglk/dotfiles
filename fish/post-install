@@ -6,15 +6,118 @@ if ! command -v fish >/dev/null 2>&1; then
   echo "fish is required to install Fisher plugins" >&2
   exit 1
 fi
+FISH_PATH="$(command -v fish)"
 
-if ! command -v curl >/dev/null 2>&1; then
-  echo "curl is required to install Fisher" >&2
+if [[ "$EUID" -eq 0 ]]; then
+  echo "Run ./install.sh fish as your normal user, not with sudo" >&2
   exit 1
 fi
 
-fish -c '
-if not command -v fisher >/dev/null 2>&1
+if [[ "$FISH_PATH" != /* || ! -x "$FISH_PATH" ]]; then
+  echo "Fish must resolve to an absolute executable path: $FISH_PATH" >&2
+  exit 1
+fi
+
+current_login_shell() {
+  local user="$1"
+
+  if [[ "$OSTYPE" == "darwin"* ]] && command -v dscl >/dev/null 2>&1; then
+    dscl . -read "/Users/$user" UserShell 2>/dev/null | awk 'NR == 1 {print $2}'
+  elif [[ "$OSTYPE" == "linux"* ]] && command -v getent >/dev/null 2>&1; then
+    getent passwd "$user" | awk -F: 'NR == 1 {print $7}'
+  else
+    return 1
+  fi
+}
+
+CURRENT_USER="$(id -un)"
+if ! LOGIN_SHELL="$(current_login_shell "$CURRENT_USER")" || [[ "$LOGIN_SHELL" != /* ]]; then
+  echo "Unable to determine the login shell for $CURRENT_USER" >&2
+  exit 1
+fi
+
+SHELL_CHANGE_NEEDED=0
+if [[ "$LOGIN_SHELL" != "$FISH_PATH" ]]; then
+  SHELL_CHANGE_NEEDED=1
+
+  if ! command -v chsh >/dev/null 2>&1; then
+    echo "chsh is required to make Fish the default shell" >&2
+    exit 1
+  fi
+  CHSH_PATH="$(command -v chsh)"
+  if [[ "$CHSH_PATH" != /* || ! -x "$CHSH_PATH" ]]; then
+    echo "chsh must resolve to an absolute executable path: $CHSH_PATH" >&2
+    exit 1
+  fi
+
+  if [[ ! -t 0 ]]; then
+    if ! command -v sudo >/dev/null 2>&1 || ! sudo -n true >/dev/null 2>&1; then
+      echo "Changing the default shell requires an interactive terminal." >&2
+      echo "Re-run ./install.sh fish interactively or run: chsh -s $FISH_PATH" >&2
+      exit 1
+    fi
+  elif ! grep -Fqx -- "$FISH_PATH" /etc/shells && [[ ! -w /etc/shells ]] && ! command -v sudo >/dev/null 2>&1; then
+    echo "sudo is required to register Fish as a login shell" >&2
+    exit 1
+  fi
+fi
+
+"$FISH_PATH" -c '
+if not type -q fisher
+    if not type -q curl
+        echo "curl is required to install Fisher" >&2
+        exit 1
+    end
     curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
 end
 fisher update
 '
+
+if [[ "$SHELL_CHANGE_NEEDED" -eq 0 ]]; then
+  echo "Fish is already the default shell for $CURRENT_USER"
+  exit 0
+fi
+
+if ! grep -Fqx -- "$FISH_PATH" /etc/shells; then
+  echo "Registering $FISH_PATH in /etc/shells"
+  if [[ -w /etc/shells ]]; then
+    printf '%s\n' "$FISH_PATH" >> /etc/shells
+  else
+    if [[ -t 0 ]]; then
+      if ! printf '%s\n' "$FISH_PATH" | sudo tee -a /etc/shells >/dev/null; then
+        echo "Failed to register $FISH_PATH in /etc/shells" >&2
+        exit 1
+      fi
+    else
+      if ! printf '%s\n' "$FISH_PATH" | sudo -n tee -a /etc/shells >/dev/null; then
+        echo "Failed to register $FISH_PATH in /etc/shells with sudo" >&2
+        exit 1
+      fi
+    fi
+  fi
+
+  if ! grep -Fqx -- "$FISH_PATH" /etc/shells; then
+    echo "Failed to register $FISH_PATH in /etc/shells" >&2
+    exit 1
+  fi
+fi
+
+echo "Setting $FISH_PATH as the default shell for $CURRENT_USER"
+if [[ -t 0 ]]; then
+  if ! "$CHSH_PATH" -s "$FISH_PATH"; then
+    echo "Failed to change the default shell for $CURRENT_USER" >&2
+    exit 1
+  fi
+else
+  if ! sudo -n "$CHSH_PATH" -s "$FISH_PATH" "$CURRENT_USER"; then
+    echo "Failed to change the default shell for $CURRENT_USER with sudo" >&2
+    exit 1
+  fi
+fi
+
+if ! LOGIN_SHELL="$(current_login_shell "$CURRENT_USER")" || [[ "$LOGIN_SHELL" != "$FISH_PATH" ]]; then
+  echo "Failed to set Fish as the default shell for $CURRENT_USER" >&2
+  exit 1
+fi
+
+echo "Fish will be used for new login sessions."
