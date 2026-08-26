@@ -6,8 +6,9 @@ This package bootstraps Fish shell directories and Fisher plugins.
 
 - `fish_plugins`, the Fisher plugin list.
 - `.dircolors/*` color scheme files.
-- `pre-install`, which creates Fish config directories, installs `fzf` on macOS
-  if missing, and links `fish_plugins` into `~/.config/fish`.
+- `pre-install`, which creates Fish config directories, ensures the macOS
+  Homebrew formulas required by the Fish config (`fish`, `fzf`, `coreutils`,
+  and `fnm`), and links `fish_plugins` into `~/.config/fish`.
 - `post-install`, which installs Fisher if missing, runs `fisher update`,
   registers the Fish binary in `/etc/shells` when needed, and makes Fish the
   current user's default login shell.

@@ -6,17 +6,20 @@ mkdir -p "$HOME/.config/fish/functions"
 mkdir -p "$HOME/.config/fish/conf.d"
 mkdir -p "$HOME/.config/fish/completions"
 
-if ! command -v fzf >/dev/null 2>&1; then
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    if ! command -v brew >/dev/null 2>&1; then
-      echo "Homebrew is required to install fzf on macOS" >&2
-      exit 1
-    fi
-    brew install fzf
-  else
-    echo "Not running on macOS - please install fzf through your system's package manager" >&2
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew is required to install Fish dependencies on macOS" >&2
     exit 1
   fi
+
+  for formula in fish fzf coreutils fnm; do
+    if ! brew list --formula "$formula" >/dev/null 2>&1; then
+      brew install "$formula"
+    fi
+  done
+elif ! command -v fzf >/dev/null 2>&1; then
+    echo "Not running on macOS - please install fzf through your system's package manager" >&2
+    exit 1
 fi
 
 CURRENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
