@@ -26,6 +26,10 @@ This package bootstraps Fish shell directories and Fisher plugins.
   `functions/fish_hotkeys.fish`, and `conf.d/99-hotkey-guide.fish`, which
   provide the shared searchable shortcut catalog, Ctrl-G guide binding,
   clickable and keyboard-switchable tabs, and a random colored startup tip.
+- `.config/fish/functions/fish_ai.fish`, `conf.d/98-ai-mode.fish`, and
+  `.config/fish/ai_commands.py`, which provide Ctrl-O AI input, a command
+  picker with previews, and refinement of the selected command. They use the
+  existing Codex CLI login and remain separate from Fisher-managed files.
 
 ## Install Notes
 
@@ -58,4 +62,21 @@ This package bootstraps Fish shell directories and Fisher plugins.
   falls back to the plain two-column renderer if it is unavailable at runtime.
 - Keep the native-Git cleanup narrowly scoped to the Canva shim path and Git
   user-agent overrides; do not remove the Canva tooling itself.
+- AI requests are plain-text nested readers. Preserve normal Fish/Tide Enter
+  behavior and restore the original command buffer, cursor, and keymap when
+  cancelled. Insert generated commands as data; never evaluate or execute them.
+- Keep follow-up actions visible in every option preview and in the picker
+  header at narrow widths. Show command-specific suggestions in the refine
+  reader; numbered choices must submit their text with the selected-command
+  context, while older cached choices without suggestions still work.
+- Use the Panelled AI layout with labelled command/preview sections and
+  persistent key hints. Keep colors semantic: active input/selection cyan,
+  refinement amber, and ready-to-edit green. Honor nonempty `NO_COLOR`, dumb
+  terminals, and non-TTY output. Never add ANSI styling to the NUL reply
+  records or model commands stored in session state.
+- Keep AI loading feedback on stderr. Animate only on an interactive terminal,
+  keep plain output static, and clear the owned status line on success, errors,
+  timeout, and cancellation before opening the picker or restoring the draft.
+- Keep AI sessions private and temporary. Reuse Codex authentication through
+  the CLI; never read or copy its credentials. Mock Codex and fzf in tests.
 - Run `bash -n` on edited install hooks.

@@ -1,5 +1,6 @@
 # scope|category|modes|display_key|binding_keys|dependencies|description|tab
 fish|Guide|default,insert,visual|Ctrl-G|ctrl-g|-|Open this searchable shortcut guide|fish
+fish|AI|default,insert,visual|Ctrl-O|ctrl-o|python3,fzf,fish_ai|Ask Codex for commands; Ctrl-O in the picker refines the selection|fish
 fish|FZF|insert|Ctrl-X|ctrl-x|fzf|Open the custom workflow menu for Git, tmux paths, and Jira branches|fish
 fish|FZF|default,insert|Ctrl-R|ctrl-r|fzf|Search command history|fish
 fish|FZF|default,insert|Ctrl-Alt-F|ctrl-alt-f|fzf,fd,bat|Search files and directories with previews|fish
